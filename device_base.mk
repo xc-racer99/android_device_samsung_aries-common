@@ -110,6 +110,7 @@ PRODUCT_PACKAGES += \
 	audio.primary.aries \
 	audio.a2dp.default \
 	audio.usb.default \
+	libaudio-ril-interface \
 	libs3cjpeg
 
 PRODUCT_COPY_FILES += \
