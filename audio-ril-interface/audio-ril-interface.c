@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Paul Kocialkowski <contact@paulk.fr>
+ * Copyright (C) 2013-2014 Paul Kocialkowski <contact@paulk.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,9 +31,11 @@ HRilClient OpenClient_RILD(void)
 
 	ALOGD("%s()", __func__);
 
-	signal(SIGPIPE, SIG_IGN);
-
-	srs_client_create(&client);
+	client = srs_client_create();
+	if (client == NULL) {
+		ALOGE("%s: Failed to create SRS client", __func__);
+		return NULL;
+	}
 
 	return (void *) client;
 }
@@ -56,11 +58,9 @@ int Connect_RILD(HRilClient data)
 		return RIL_CLIENT_ERR_CONNECT;
 	}
 
-	rc = srs_client_ping(client);
-	if (rc < 0) {
-		ALOGE("%s: Failed to ping SRS client", __func__);
-		return RIL_CLIENT_ERR_UNKNOWN;
-	}
+	rc = srs_ping(client);
+	if (rc < 0)
+		ALOGE("%s: Failed to ping SRS", __func__);
 
 	return RIL_CLIENT_ERR_SUCCESS;
 }
@@ -98,7 +98,9 @@ int CloseClient_RILD(HRilClient data)
 
 	client = (struct srs_client *) data;
 
-	srs_client_destroy(client);
+	rc = srs_client_destroy(client);
+	if (rc < 0)
+		ALOGE("%s: Failed to destroy SRS client", __func__);
 
 	return RIL_CLIENT_ERR_SUCCESS;
 }
@@ -115,9 +117,9 @@ int isConnected_RILD(HRilClient data)
 
 	client = (struct srs_client *) data;
 
-	rc = srs_client_ping(client);
+	rc = srs_ping(client);
 	if (rc < 0) {
-		ALOGE("%s: Failed to ping SRS client", __func__);
+		ALOGE("%s: Failed to ping SRS", __func__);
 		return 0;
 	}
 
@@ -127,7 +129,7 @@ int isConnected_RILD(HRilClient data)
 int SetCallVolume(HRilClient data, SoundType type, int level)
 {
 	struct srs_client *client;
-	struct srs_snd_call_volume call_volume;
+	struct srs_snd_call_volume_data call_volume;
 	int rc;
 
 	ALOGD("%s(%p, %d, %d)", __func__, data, type, level);
@@ -151,7 +153,7 @@ int SetCallVolume(HRilClient data, SoundType type, int level)
 int SetCallAudioPath(HRilClient data, AudioPath path)
 {
 	struct srs_client *client;
-	struct srs_snd_call_audio_path call_audio_path;
+	struct srs_snd_call_audio_path_data call_audio_path;
 	int rc;
 
 	ALOGD("%s(%p, %d)", __func__, data, path);
@@ -173,7 +175,7 @@ int SetCallAudioPath(HRilClient data, AudioPath path)
 int SetCallClockSync(HRilClient data, SoundClockCondition condition)
 {
 	struct srs_client *client;
-	struct srs_snd_call_clock_sync call_clock_sync;
+	struct srs_snd_call_clock_sync_data call_clock_sync;
 	int rc;
 
 	ALOGD("%s(%p, %d)", __func__, data, condition);
