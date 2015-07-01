@@ -199,6 +199,14 @@
     <!-- SD card is hot-pluggable for all aries devices -->
     <bool name="config_batterySdCardAccessibility">true</bool>
 
+    <!-- Global action menu -->
+    <string-array translatable="false" name="config_globalActionsList">
+        <item>power</item>
+        <item>reboot</item>
+        <item>airplane</item>
+        <item>silent</item>
+    </string-array>
+
     <!-- Device configuration setting the /proc/sys/vm/extra_free_kbytes tunable
          in the kernel. Default is 3 full-screen 32 bpp buffers, i.e. 4500KB
          on Galaxy S. Let's double this value. -->
