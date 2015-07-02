@@ -134,6 +134,7 @@ PRODUCT_PACKAGES += \
 # Device-specific packages
 PRODUCT_PACKAGES += \
     SamsungServiceMode \
+    tvouthack \
     DeviceSettings
 
 # Libnetcmd
