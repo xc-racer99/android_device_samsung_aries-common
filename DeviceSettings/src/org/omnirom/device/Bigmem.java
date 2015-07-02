@@ -25,7 +25,7 @@ import android.preference.PreferenceManager;
 
 public class Bigmem implements OnPreferenceChangeListener {
 
-    private static final String FILE = "/sys/class/bigmem/enable";
+    private static final String FILE = "/sys/kernel/bigmem/enable";
 
     public static boolean isSupported() {
         return Utils.fileExists(FILE);
