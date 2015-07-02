@@ -33,11 +33,6 @@
         <item>HSDPA + HSUPA</item>
     </string-array>
 
-    <string-array name="tvout_system_entries">
-        <item>NTSC</item>
-        <item>PAL</item>
-    </string-array>
-
     <string-array name="mdnie_entries">
         <item>Desativado</item>
         <item>Modo IU</item>
