@@ -34,6 +34,10 @@
     <string name="backlight_timeout_title_head">Backlight Timeout</string>
     <string name="backlight_timeout_summary_head">Adjust the delay before the touch key backlight automatically turns off</string>
 
+    <string name="category_bigmem_title">Bigmem</string>
+    <string name="bigmem_title_head">Bigmem</string>
+    <string name="bigmem_summary_head">Enable or disable Bigmem which breaks 720p video recording</string>
+
     <string name="category_radio_title">Radio</string>
     <string name="hspa_title_head">HSPA</string>
     <string name="hspa_summary_head">Enable HSDPA/HSUPA</string>
