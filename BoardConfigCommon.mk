@@ -207,8 +207,6 @@ BOARD_SEPOLICY_UNION += \
     surfaceflinger.te \
     system_app.te \
     system_server.te \
-    tvouthack.te \
-    tvoutserver.te \
     ueventd.te \
     untrusted_app.te \
     zygote.te
