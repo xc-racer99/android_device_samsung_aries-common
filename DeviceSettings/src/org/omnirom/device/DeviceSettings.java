@@ -33,6 +33,7 @@ public class DeviceSettings extends PreferenceActivity  {
     public static final String KEY_COLOR_TUNING = "color_tuning";
     public static final String KEY_MDNIE = "mdnie";
     public static final String KEY_BACKLIGHT_TIMEOUT = "backlight_timeout";
+    public static final String KEY_BIGMEM = "bigmem";
     public static final String KEY_HSPA = "hspa";
     public static final String KEY_HSPA_CATEGORY = "category_radio";
     public static final String KEY_VOLUME_BOOST = "volume_boost";
@@ -45,6 +46,7 @@ public class DeviceSettings extends PreferenceActivity  {
     private ColorTuningPreference mColorTuning;
     private ListPreference mMdnie;
     private ListPreference mBacklightTimeout;
+    private ListPreference mBigmem;
     private ListPreference mHspa;
     private VolumeBoostPreference mVolumeBoost;
     private CheckBoxPreference mCarDockAudio;
@@ -66,6 +68,10 @@ public class DeviceSettings extends PreferenceActivity  {
         mBacklightTimeout = (ListPreference) findPreference(KEY_BACKLIGHT_TIMEOUT);
         mBacklightTimeout.setEnabled(TouchKeyBacklightTimeout.isSupported());
         mBacklightTimeout.setOnPreferenceChangeListener(new TouchKeyBacklightTimeout());
+
+        mBigmem = (ListPreference) findPreference(KEY_BIGMEM);
+        mBigmem.setEnabled(Bigmem.isSupported());
+        mBigmem.setOnPreferenceChangeListener(new Bigmem());
 
         mHspa = (ListPreference) findPreference(KEY_HSPA);
         if (Hspa.isSupported()) {
