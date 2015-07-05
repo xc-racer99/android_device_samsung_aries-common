@@ -210,7 +210,7 @@ BOARD_SEPOLICY_UNION += \
 -include device/samsung/aries-common/Android.mk
 
 # TWRP Flags
-TW_THEME := portrait_hdpi
+TW_THEME := portrait_mdpi
 TW_NO_REBOOT_BOOTLOADER := true
 TW_EXCLUDE_MTP := true
 TW_INTERNAL_STORAGE_PATH := "/sdcard"
