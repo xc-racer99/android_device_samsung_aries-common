@@ -249,9 +249,6 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 PRODUCT_DEX_PREOPT_DEFAULT_FLAGS := \
     --compiler-filter=interpret-only
 
-# we have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise
-
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 
 $(call add-product-dex-preopt-module-config,services,--compiler-filter=speed)
