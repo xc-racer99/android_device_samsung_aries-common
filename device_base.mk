@@ -229,6 +229,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.disable_scissor_opt=true
 
+# Use high-end graphics to work around notification bug
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.force_highendgfx=true
+
 # Enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector
 PRODUCT_PROPERTY_OVERRIDES += \
