@@ -26,7 +26,7 @@ import android.preference.PreferenceManager;
 
 public class Hspa implements OnPreferenceChangeListener {
 
-    private static final String APK_FILE = "/system/app/SamsungServiceMode.apk";
+    private static final String APK_FILE = "/system/app/SamsungServiceMode/SamsungServiceMode.apk";
     private Context mCtx;
 
     public Hspa(Context context) {
