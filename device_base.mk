@@ -248,7 +248,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # ART
 PRODUCT_DEX_PREOPT_DEFAULT_FLAGS := \
-    --compiler-filter=interpret-only
+    --compiler-filter=balanced
 
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 
