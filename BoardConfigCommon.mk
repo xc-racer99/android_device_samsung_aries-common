@@ -171,41 +171,7 @@ BOARD_CUSTOM_VSYNC_IOCTL := true
 BOARD_SCREENRECORD_LANDSCAPE_ONLY := true
 
 # SELinux
-BOARD_SEPOLICY_DIRS += \
-    device/samsung/aries-common/sepolicy
-
-BOARD_SEPOLICY_UNION += \
-    bdaddr_read.te \
-    bluetooth.te \
-    debuggerd.te \
-    device.te \
-    file.te \
-    file_contexts \
-    geomagneticd.te \
-    gpsd.te \
-    init.te \
-    installd.te \
-    kernel.te \
-    lvm.te \
-    mediaserver.te \
-    netd.te \
-    orientationd.te \
-    platform_app.te \
-    property_contexts \
-    pvrsrvinit.te \
-    radio.te \
-    recovery.te \
-    rild.te \
-    sdcardd.te \
-    servicemanager.te \
-    shared_relro.te \
-    shell.te \
-    surfaceflinger.te \
-    system_app.te \
-    system_server.te \
-    ueventd.te \
-    untrusted_app.te \
-    zygote.te
+BOARD_SEPOLICY_DIRS += device/samsung/aries-common/sepolicy
 
 # Include aries specific stuff
 -include device/samsung/aries-common/Android.mk
