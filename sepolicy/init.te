@@ -1,7 +1,7 @@
 ###########################
 # OmniROM Aries sepolicy
 #
-unconfined_domain(init)
+#unconfined_domain(init)
 
 allow init self:capability { sys_module };
 allow init self:process { execmem setcurrent };
@@ -21,7 +21,7 @@ allow init kernel:system { syslog_read };
 
 allow init app_data_file:file { create_file_perms relabelfrom relabelto };
 allow init app_data_file:dir { create_dir_perms relabelfrom relabelto };
-allow init app_data_file:lnk_file { create_file_perms relabelfrom relabelto };
+# allow init app_data_file:lnk_file { create_file_perms relabelfrom relabelto };
 
 allow init datadata_file:file { create_file_perms relabelfrom relabelto };
 allow init datadata_file:dir { create_dir_perms relabelfrom relabelto };
@@ -37,14 +37,10 @@ allow init vfat:lnk_file { create_file_perms relabelfrom relabelto };
 
 allow init shell_data_file:file { create_file_perms relabelfrom relabelto };
 allow init shell_data_file:dir { create_dir_perms relabelfrom relabelto };
-allow init shell_data_file:lnk_file { create_file_perms relabelfrom relabelto };
+# allow init shell_data_file:lnk_file { create_file_perms relabelfrom relabelto };
 
 allow init init_tmpfs:file { create_file_perms relabelfrom relabelto };
 allow init init_tmpfs:dir { create_dir_perms relabelfrom relabelto };
 allow init init_tmpfs:lnk_file { create_file_perms relabelfrom relabelto };
-
-allow init shell_data_file:file { create_file_perms relabelfrom relabelto };
-allow init shell_data_file:dir { create_dir_perms relabelfrom relabelto };
-allow init shell_data_file:lnk_file { create_file_perms relabelfrom relabelto };
 
 allow init untrusted_app:process { signal };

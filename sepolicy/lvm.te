@@ -2,7 +2,7 @@
 # OmniROM Aries sepolicy
 #
 type lvm, domain;
-unconfined_domain(lvm)
+#unconfined_domain(lvm)
 domain_trans(init,rootfs,lvm)
 typeattribute lvm lvm_placeholder;
 

@@ -20,9 +20,9 @@ allow rild datadata_file:lnk_file create_file_perms;
 
 allow rild app_data_file:file { create_file_perms relabelfrom relabelto };
 allow rild app_data_file:dir { create_dir_perms relabelfrom relabelto };
-allow rild app_data_file:lnk_file create_file_perms;
+# allow rild app_data_file:lnk_file create_file_perms;
 
-allow rild system_data_file:file { create_file_perms relabelfrom relabelto };
+# allow rild system_data_file:file { create_file_perms relabelfrom relabelto };
 allow rild system_data_file:dir { create_dir_perms relabelfrom relabelto };
 allow rild system_data_file:lnk_file create_file_perms;
 

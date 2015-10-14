@@ -11,4 +11,4 @@ allow geomagneticd sysfs:file rw_file_perms;
 
 # Write /data/yas529-backup.cfg and /data/yas529-backup.cfg
 allow geomagneticd system_data_file:dir rw_dir_perms;
-allow geomagneticd system_data_file:file create_file_perms;
+# allow geomagneticd system_data_file:file create_file_perms;
