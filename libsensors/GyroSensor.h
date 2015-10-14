@@ -17,6 +17,8 @@
 #ifndef ANDROID_GYRO_SENSOR_H
 #define ANDROID_GYRO_SENSOR_H
 
+#include <cstring>
+
 #include <stdint.h>
 #include <errno.h>
 #include <sys/cdefs.h>

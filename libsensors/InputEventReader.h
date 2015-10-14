@@ -17,6 +17,8 @@
 #ifndef ANDROID_INPUT_EVENT_READER_H
 #define ANDROID_INPUT_EVENT_READER_H
 
+#include <cstring>
+
 #include <stdint.h>
 #include <errno.h>
 #include <sys/cdefs.h>

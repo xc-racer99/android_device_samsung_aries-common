@@ -17,6 +17,8 @@
 #ifndef ANDROID_SENSOR_BASE_H
 #define ANDROID_SENSOR_BASE_H
 
+#include <cstring>
+
 #include <stdint.h>
 #include <errno.h>
 #include <sys/cdefs.h>
