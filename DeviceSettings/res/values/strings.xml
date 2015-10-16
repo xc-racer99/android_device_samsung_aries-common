@@ -36,7 +36,7 @@
 
     <string name="category_bigmem_title">Bigmem</string>
     <string name="bigmem_title_head">Bigmem</string>
-    <string name="bigmem_summary_head">Increases available RAM but breaks 720p video recording (requires reboot)</string>
+    <string name="bigmem_summary_head">Increases available RAM but may break things (requires reboot)</string>
 
     <string name="category_radio_title">Radio</string>
     <string name="hspa_title_head">HSPA</string>
