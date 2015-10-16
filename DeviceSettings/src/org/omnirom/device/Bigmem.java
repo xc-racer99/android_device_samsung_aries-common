@@ -17,15 +17,19 @@
 
 package org.omnirom.device;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 public class Bigmem implements OnPreferenceChangeListener {
 
-    private static final String FILE = "/sys/kernel/bigmem/enable";
+    private static final String FILE = "/sys/kernel/uacma/enable";
 
     public static boolean isSupported() {
         return Utils.fileExists(FILE);
@@ -41,13 +45,34 @@ public class Bigmem implements OnPreferenceChangeListener {
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE, sharedPrefs.getString(DeviceSettings.KEY_BIGMEM, "0"));
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putString(DeviceSettings.KEY_BIGMEM, Utils.readValue(FILE));
+        editor.commit();
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         Utils.writeValue(FILE, (String) newValue);
+
+        String actualVal = Utils.readValue(FILE);
+        if(actualVal.compareTo((String) newValue) != 0) {
+            // We failed, create a dialog saying that and restore correct value
+            AlertDialog.Builder builder = new AlertDialog.Builder(preference.getContext());
+            builder.setTitle(R.string.ua_cma_failed_title)
+                .setMessage(R.string.ua_cma_failed)
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) { 
+                        // Retry
+                        onPreferenceChange(preference, newValue);
+                    }
+                })
+                .show();
+            SharedPreferences.Editor editor = preference.getEditor();
+            editor.putString(DeviceSettings.KEY_BIGMEM, Utils.readValue(FILE));
+            editor.commit();
+            return false;
+        }        
         return true;
     }
-
 }

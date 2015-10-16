@@ -49,6 +49,7 @@
 /sys/devices/virtual/misc/touchwake                                     u:object_r:sysfs_writable:s0
 /sys/kernel/bigmem/enable                                               u:object_r:sysfs_writable:s0
 /sys/kernel/fast_charge/force_fast_charge                               u:object_r:sysfs_writable:s0
+/sys/kernel/uacma/enable                                               u:object_r:sysfs_writable:s0
 
 # DSP Manager
 /sys/devices/virtual/misc/voodoo_sound                                  u:object_r:sysfs_dspmanager:s0

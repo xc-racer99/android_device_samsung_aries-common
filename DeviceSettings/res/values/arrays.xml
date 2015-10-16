@@ -57,13 +57,17 @@
     </string-array>
 
     <string-array name="bigmem_entries">
-        <item>Disabled (Default)</item>
-        <item>Enabled</item>
+        <item>None</item>
+        <item>MFC Only</item>
+        <item>FIMC Only</item>
+        <item>MFC and FIMC</item>
     </string-array>
 
     <string-array name="bigmem_entries_values" translatable="false">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
 
     <string-array name="hspa_entries">
