@@ -145,6 +145,9 @@ BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/aries-common/recovery/graphics.
 TARGET_BOOTANIMATION_TEXTURE_CACHE := false
 TARGET_BOOTANIMATION_USE_RGB565 := true
 
+# SkTextBox for libtvout
+BOARD_USES_SKTEXTBOX := true
+
 # Hardware rendering
 USE_OPENGL_RENDERER := true
 BOARD_EGL_SYSTEMUI_PBSIZE_HACK := true
@@ -166,6 +169,9 @@ HWUI_COMPILE_FOR_PERF := true
 
 # hwcomposer: custom vsync ioctl
 BOARD_CUSTOM_VSYNC_IOCTL := true
+
+# Required for TV out
+COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
 # Screenrecord
 BOARD_SCREENRECORD_LANDSCAPE_ONLY := true
@@ -203,6 +209,8 @@ BOARD_SEPOLICY_UNION += \
     surfaceflinger.te \
     system_app.te \
     system_server.te \
+    tvouthack.te \
+    tvoutserver.te \
     ueventd.te \
     untrusted_app.te \
     zygote.te

@@ -53,6 +53,8 @@
             </intent-filter>
         </receiver>
 
+        <service android:name=".TvOutService" />
+
         <activity android:name=".WarnActivity"
             android:label="@string/generic_warning_title"
             android:theme="@android:style/Theme.Translucent">
