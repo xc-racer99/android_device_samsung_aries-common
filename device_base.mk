@@ -141,11 +141,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libnetcmdiface
 
-# Open Source Charging Mode
-PRODUCT_PACKAGES += \
-    device_healthd \
-    device_healthd_images
-
 # f2fs
 PRODUCT_PACKAGES += \
     fsck.f2fs \
