@@ -30,26 +30,19 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_ARCH_VARIANT_CPU := cortex-a8
 TARGET_CPU_VARIANT := cortex-a8
-TARGET_CPU_SMP := false
 KERNEL_TOOLCHAIN := "$(ANDROID_BUILD_TOP)/prebuilts/gcc/$(strip $(HOST_OS))-x86/arm/arm-eabi-4.7/bin/"
 
 # Bionic stuff
 BOARD_USES_LEGACY_MMAP := true
-TARGET_NEEDS_BIONIC_MD5 := true
 TARGET_NEEDS_BIONIC_PRELINK_SUPPORT := true
 TARGET_ENABLE_NON_PIE_SUPPORT := true
-MALLOC_IMPL := dlmalloc
 
 # RIL
 BOARD_RIL_CLASS := ../../../hardware/samsung/exynos3/s5pc110/ril/
 
-# Dalvik startup with low memory footprint
-TARGET_ARCH_LOWMEM := true
-
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
-TARGET_PROVIDES_INIT := true
 TARGET_BOARD_PLATFORM := s5pc110
 TARGET_BOOTLOADER_BOARD_NAME := aries
 
@@ -60,9 +53,6 @@ TARGET_KERNEL_SOURCE := kernel/samsung/aries
 
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/aries-common
-
-# Fonts
-EXTENDED_FONT_FOOTPRINT := true
 
 # Camera
 USE_CAMERA_STUB := false
@@ -124,7 +114,6 @@ WITH_ART_SMALL_MODE := true
 # Recovery
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
-BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_USES_BML_OVER_MTD := true
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/aries-common/shbootimg.mk
 TARGET_RECOVERY_FSTAB := device/samsung/aries-common/fstab.aries
@@ -154,13 +143,9 @@ TARGET_DISABLE_TRIPLE_BUFFERING := false
 BOARD_ALLOW_EGL_HIBERNATION := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
-HWUI_COMPILE_FOR_PERF := true
 
 # hwcomposer: custom vsync ioctl
 BOARD_CUSTOM_VSYNC_IOCTL := true
-
-# Screenrecord
-BOARD_SCREENRECORD_LANDSCAPE_ONLY := true
 
 # SELinux
 BOARD_SEPOLICY_DIRS += device/samsung/aries-common/sepolicy
