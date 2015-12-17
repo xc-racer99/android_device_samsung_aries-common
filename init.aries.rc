@@ -11,6 +11,9 @@ on init
 
     loglevel 9
 
+    # Preload for RIL compatability
+    export LD_PRELOAD "/system/lib/libsamsung_symbols.so"
+
 #   FIXME: Market checks this variable for space-checking, but downloads to /datadata
     export DOWNLOAD_CACHE /data/download
 
