@@ -108,9 +108,6 @@ ifeq ($(HOST_OS),linux)
     DONT_DEXPREOPT_PREBUILTS := true
 endif
 
-# ART
-WITH_ART_SMALL_MODE := true
-
 # Recovery
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
