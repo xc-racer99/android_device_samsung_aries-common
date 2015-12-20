@@ -238,6 +238,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.kernel.android.checkjni=0 \
     dalvik.vm.checkjni=false
 
+# Disable strict mode
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.strictmode.visual=0 \
+    persist.sys.strictmode.disable=1
+
 # ART
 PRODUCT_DEX_PREOPT_DEFAULT_FLAGS := \
     --compiler-filter=balanced
