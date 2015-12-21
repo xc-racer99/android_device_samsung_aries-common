@@ -216,4 +216,8 @@
     -->
     <integer name="config_longPressOnHomeBehavior">1</integer>
 
+    <!-- Older sensors are not setting event.timestamp correctly.  Setting to
+          true will use SystemClock.elapsedRealtimeNanos() to set timestamp-->
+    <bool name="config_useSystemClockforSensors">true</bool>
+
 </resources>
