@@ -1,4 +1,4 @@
 ###########################
 # OmniROM Aries sepolicy
 #
-allow shared_relro unlabeled:file { write unlink };
+allow vold datadata_file:dir { read ioctl open };

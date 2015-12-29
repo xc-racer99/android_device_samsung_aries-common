@@ -1,4 +1,4 @@
 ###########################
 # OmniROM Aries sepolicy
 #
-allow debuggerd gpu_device:chr_file { getattr create read write open ioctl };
+allow debuggerd gpu_device:chr_file { read getattr open };

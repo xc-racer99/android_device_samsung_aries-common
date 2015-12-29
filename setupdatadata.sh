@@ -11,9 +11,6 @@ function migrate_datadata {
     # Migrate data from /datadata to /data/data
     if test -d /datadata/com.android.settings ; then
         busybox mv -f /datadata/* /data/data/
-        # FIXME: restorecon might not restore the same context as original
-        # (remove when busybox has SELinux support)
-        restorecon -r /data/data
         touch /data/data/.nodatadata
         rm -r /data/data/lost+found
         busybox umount /datadata
@@ -26,15 +23,10 @@ function migrate_cache {
     if test -e /data/data/$1 ; then
         if ! test -h /data/data/$1/cache ; then
             OWNER="`ls -ld /data/data/$1/ | awk '{print $3}'`"
-            CONTEXT="`ls -Zd /data/data/$1/ | awk '{print $4}'`"
             rm -r /data/data2/$1 # In case it exists
             mkdir -p /data/data2/$1
             chmod 751 /data/data2/$1
-            chcon $CONTEXT /data/data2/$1
             busybox mv -f /data/data/$1/cache /data/data2/$1/
-            # FIXME: restorecon might not restore the same context as original
-            # (remove when busybox has SELinux support)
-            restorecon -r /data/data2/$1/*
             ln -s /data/data2/$1/cache /data/data/$1/cache
             chown $OWNER.$OWNER /data/data2/$1 /data/data2/$1/cache
             busybox chown -h $OWNER.$OWNER /data/data/$1/cache
@@ -72,6 +64,9 @@ if test "$CRYPTO_STATE" = "unencrypted" ; then
             # GMail stores attachments in here
             migrate_cache com.google.android.gm
         fi
+    else
+        # Encrypting, we need to manually unmount /data/data to continue
+        busybox umount /data/data
     fi
     # else: Encrypting, do nothing
 else

@@ -1,12 +1,5 @@
 ###########################
 # OmniROM Aries sepolicy
 #
-allow platform_app unlabeled:file { read };
-
-allow platform_app app_data_file:file { create_file_perms relabelfrom relabelto };
-allow platform_app app_data_file:dir { create_dir_perms relabelfrom relabelto };
-allow platform_app app_data_file:lnk_file create_file_perms;
-
-allow platform_app datadata_file:file { create_file_perms relabelfrom relabelto };
-allow platform_app datadata_file:dir { create_dir_perms relabelfrom relabelto };
-allow platform_app datadata_file:lnk_file create_file_perms;
+allow platform_app datadata_file:dir { search write getattr read remove_name open add_name };
+allow platform_app datadata_file:file { rename setattr read lock create getattr write ioctl unlink open };

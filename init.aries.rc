@@ -227,13 +227,7 @@ on post-fs-data
 
 # Manually unmount /data/data
 on property:vold.decrypt=trigger_shutdown_framework
-    start umount_datadata
-
-# Unmount /data/data during encryption
-service umount_datadata /sbin/umountdatadata.sh
-    user root
-    disabled
-    oneshot
+    start setup_datadata
 
 # Setup /datadata
 service setup_datadata /sbin/setupdatadata.sh

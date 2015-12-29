@@ -3,11 +3,15 @@
 #
 type bdaddr_read, domain;
 type bdaddr_read_exec, exec_type, file_type;
+type bdaddr_read_data_file, file_type, data_file_type;
 
 init_daemon_domain(bdaddr_read)
-allow bdaddr_read system_data_file:dir { write add_name };
-# allow bdaddr_read system_data_file:file { create open write setattr };
-allow bdaddr_read self:capability { chown fowner };
+
+type_transition bdaddr_read system_data_file:file bdaddr_read_data_file;
+
+allow bdaddr_read bdaddr_read_data_file:file { write create open setattr };
 allow bdaddr_read bluetooth_prop:property_service set;
-dontaudit bdaddr_read self:capability fsetid;
-unix_socket_connect(bdaddr_read, property, init)
+allow bdaddr_read init:unix_stream_socket connectto;
+allow bdaddr_read property_socket:sock_file write;
+allow bdaddr_read self:capability { fowner chown };
+allow bdaddr_read system_data_file:dir { write add_name };
