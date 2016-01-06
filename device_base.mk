@@ -106,6 +106,10 @@ PRODUCT_PACKAGES += \
     audio.usb.default \
     libs3cjpeg
 
+# Charger
+PRODUCT_PACKAGES += \
+    charger_res_images
+
 # Wi-Fi
 PRODUCT_PACKAGES += \
     libwpa_client \
