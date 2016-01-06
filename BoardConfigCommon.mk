@@ -30,7 +30,6 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_ARCH_VARIANT_CPU := cortex-a8
 TARGET_CPU_VARIANT := cortex-a8
-KERNEL_TOOLCHAIN := "$(ANDROID_BUILD_TOP)/prebuilts/gcc/$(strip $(HOST_OS))-x86/arm/arm-eabi-4.7/bin/"
 
 # Bionic stuff
 BOARD_USES_LEGACY_MMAP := true
