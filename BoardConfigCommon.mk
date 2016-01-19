@@ -36,6 +36,9 @@ BOARD_USES_LEGACY_MMAP := true
 TARGET_NEEDS_BIONIC_PRELINK_SUPPORT := true
 TARGET_ENABLE_NON_PIE_SUPPORT := true
 
+# Use longer timeouts for slow CPU
+TARGET_NEEDS_LONG_TIMEOUTS := true
+
 # RIL
 BOARD_RIL_CLASS := ../../../hardware/samsung/exynos3/s5pc110/ril/
 
