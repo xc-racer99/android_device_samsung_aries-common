@@ -19,24 +19,6 @@ function migrate_datadata {
     fi
 }
 
-function migrate_cache {
-    if test -e /data/data/$1 ; then
-        if ! test -h /data/data/$1/cache ; then
-            OWNER="`ls -ld /data/data/$1/ | awk '{print $3}'`"
-            rm -r /data/data2/$1 # In case it exists
-            mkdir -p /data/data2/$1
-            chmod 751 /data/data2/$1
-            busybox mv -f /data/data/$1/cache /data/data2/$1/
-            ln -s /data/data2/$1/cache /data/data/$1/cache
-            chown $OWNER.$OWNER /data/data2/$1 /data/data2/$1/cache
-            busybox chown -h $OWNER.$OWNER /data/data/$1/cache
-        fi
-    else
-        # App was removed?
-        rm -r /data/data2/$1
-    fi
-}
-
 # There are 4 states which this script can be called from.
 # They can be detected using vold.decrypt and ro.crypto.state props
 
@@ -59,10 +41,10 @@ if test "$CRYPTO_STATE" = "unencrypted" ; then
         else
             mount -o bind /datadata /data/data
 
-            # Migrate download provider's cache out of /data/data because that's where market stores its downloads
-            migrate_cache com.android.providers.downloads
-            # GMail stores attachments in here
-            migrate_cache com.google.android.gm
+            # Remove obsolete Download Link
+            if test -h /data/user/0/com.android.providers.downloads/cache; then
+                rm -rf /data/user/0/com.android.providers.downloads/cache
+            fi
         fi
     else
         # Encrypting, we need to manually unmount /data/data to continue

@@ -1,7 +1,6 @@
 ###########################
 # OmniROM Aries sepolicy
 #
-allow untrusted_app backup_data_file:dir getattr;
 allow untrusted_app sysfs_dspmanager:file { read write getattr open };
 
 allow untrusted_app datadata_file:dir { search write getattr read remove_name open add_name };
