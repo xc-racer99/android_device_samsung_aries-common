@@ -6,7 +6,7 @@ type setup_datadata_exec, exec_type, file_type;
 
 init_daemon_domain(setup_datadata)
 
-allow setup_datadata self:capability { dac_override chown sys_admin };
+allow setup_datadata self:capability { dac_override chown sys_admin fowner fsetid };
 allow setup_datadata self:process setfscreate;
 
 allow setup_datadata shell_exec:file read;
@@ -14,9 +14,9 @@ allow setup_datadata shell_exec:file read;
 allow setup_datadata labeledfs:filesystem unmount;
 
 allow setup_datadata app_data_file:lnk_file { create getattr setattr };
-allow setup_datadata app_data_file:dir { write relabelto add_name getattr setattr search open rmdir };
+allow setup_datadata app_data_file:dir { write relabelto add_name getattr setattr search open rmdir read remove_name create };
 
-allow setup_datadata system_data_file:dir { write relabelfrom create add_name setattr mounton remove_name };
+allow setup_datadata system_data_file:dir { write relabelfrom create add_name setattr mounton remove_name read open ioctl };
 allow setup_datadata system_file:file execute_no_trans;
 
 allow setup_datadata datadata_file:dir { read ioctl open getattr write relabelto add_name setattr search };

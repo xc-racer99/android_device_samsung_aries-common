@@ -2,3 +2,5 @@
 # OmniROM Aries sepolicy
 #
 allow mediaserver system_file:file execmod;
+
+allow mediaserver graphics_device:chr_file { read write ioctl open };
