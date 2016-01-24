@@ -169,7 +169,7 @@ int CompassSensor::readEvents(sensors_event_t* data, int count)
                 mPendingEvent.magnetic.z = value * CONVERT_M_Z;
             }
         } else if (type == EV_SYN) {
-            mPendingEvent.timestamp = timevalToNano(event->time);
+            mPendingEvent.timestamp = getTimestamp();
             if (mEnabled) {
                 *data++ = mPendingEvent;
                 count--;

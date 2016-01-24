@@ -275,7 +275,7 @@ int BoschYamaha::readEvents(sensors_event_t* data, int count)
 					}
 			}
 			else if (type == EV_SYN) {
-				mPendingEvents[MagneticField].timestamp = timevalToNano(event->time);
+				mPendingEvents[MagneticField].timestamp = getTimestamp();
 				if (compassEnabled) {
 					//ALOGD("Sensor: Compass was enabled, made a read and received a Sync");
 					compassDataReady = 1;
@@ -322,7 +322,7 @@ int BoschYamaha::readEvents(sensors_event_t* data, int count)
 					mPendingEvents[Accelerometer].acceleration.z = value * CONVERT_A_Z;
 				}
 			} else if (type == EV_SYN) {
-				mPendingEvents[Accelerometer].timestamp = timevalToNano(event->time);
+				mPendingEvents[Accelerometer].timestamp = getTimestamp();
 				if (accelEnabled) {
 					//ALOGD("Sensor: Accel was enabled, made a read and received a Sync");
 					accelDataReady = 1;

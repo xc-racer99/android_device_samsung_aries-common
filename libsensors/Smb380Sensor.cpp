@@ -158,7 +158,7 @@ int Smb380Sensor::readEvents(sensors_event_t* data, int count)
                 mPendingEvent.acceleration.z = value * CONVERT_A_Z;
             }
         } else if (type == EV_SYN) {
-            mPendingEvent.timestamp = timevalToNano(event->time);
+            mPendingEvent.timestamp = getTimestamp();
             if (mEnabled) {
                 *data++ = mPendingEvent;
                 count--;
