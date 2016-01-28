@@ -193,7 +193,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.bq.gpu_to_cpu_unsupported=1 \
     ro.ril.hsxpa=1 \
     ro.ril.gprsclass=10 \
-    ro.adb.qemud=1 \
     ro.ril.enable.managed.roaming=1 \
     ro.ril.emc.mode=2 \
     ro.phone_storage=1 \
