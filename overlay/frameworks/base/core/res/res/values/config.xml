@@ -20,6 +20,12 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources>
+    <!-- Flag indicating whether the surface flinger has limited
+         alpha compositing functionality in hardware.  If set, the window
+         manager will disable alpha trasformation in animations where not
+         strictly needed. -->
+    <bool name="config_sf_limitedAlpha">true</bool>
+
     <!-- Flag indicating whether we should enable the automatic brightness in Settings.
          config_hardware_automatic_brightness_available is not set, so we will use software implementation -->
     <bool name="config_automatic_brightness_available">true</bool>
@@ -168,11 +174,6 @@
         <item>30</item>
     </integer-array>
 
-    <!-- Vibrator pattern for feedback about booting with safe mode disabled -->
-    <integer-array name="config_safeModeDisabledVibePattern">
-        <item>1</item>
-    </integer-array>
-
     <!-- crespo doesn't handle this blur effect very quickly. -->
     <bool name="config_sf_slowBlur">true</bool>
 
@@ -198,11 +199,6 @@
 
     <!-- SD card is hot-pluggable for all aries devices -->
     <bool name="config_batterySdCardAccessibility">true</bool>
-
-    <!-- Device configuration setting the /proc/sys/vm/extra_free_kbytes tunable
-         in the kernel. Default is 3 full-screen 32 bpp buffers, i.e. 4500KB
-         on Galaxy S. Let's double this value. -->
-    <integer name="config_extraFreeKbytesAbsolute">9000</integer>
 
     <!-- Enable multi user interface -->
     <bool name="config_enableMultiUserUI">true</bool>
