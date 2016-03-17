@@ -1,4 +1,0 @@
-###########################
-# OmniROM Aries sepolicy
-#
-allow perfprofd datadata_file:dir search;

@@ -1,5 +1,0 @@
-###########################
-# OmniROM Aries sepolicy
-#
-allow radio datadata_file:dir { getattr search read open };
-allow radio datadata_file:file { write getattr setattr read lock open };

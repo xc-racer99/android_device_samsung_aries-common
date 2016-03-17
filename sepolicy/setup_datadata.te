@@ -18,6 +18,3 @@ allow setup_datadata app_data_file:dir { write relabelto add_name getattr setatt
 
 allow setup_datadata system_data_file:dir { write relabelfrom create add_name setattr mounton remove_name read open ioctl };
 allow setup_datadata system_file:file execute_no_trans;
-
-allow setup_datadata datadata_file:dir { read ioctl open getattr write relabelto add_name setattr search };
-allow setup_datadata datadata_file:lnk_file { create setattr getattr };

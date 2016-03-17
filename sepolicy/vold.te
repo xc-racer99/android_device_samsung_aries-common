@@ -1,4 +1,0 @@
-###########################
-# OmniROM Aries sepolicy
-#
-allow vold datadata_file:dir { read ioctl open };

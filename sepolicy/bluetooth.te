@@ -1,8 +1,6 @@
 ###########################
 # OmniROM Aries sepolicy
 #
-allow bluetooth datadata_file:dir search;
-
 allow bluetooth bdaddr_read_data_file:file { read open };
 
 allow bluetooth sysfs:file { write };

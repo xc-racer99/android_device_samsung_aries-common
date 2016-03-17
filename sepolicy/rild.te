@@ -14,7 +14,4 @@ allow rild sysfs:file write;
 allow rild system_data_file:dir { write add_name };
 allow rild system_file:file execmod;
 
-allow rild datadata_file:dir { write read open add_name remove_name search };
-allow rild datadata_file:file { create unlink read write getattr open lock };
-
 allow rild block_device:dir search;

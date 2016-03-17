@@ -1,5 +1,0 @@
-###########################
-# OmniROM Aries sepolicy
-#
-allow platform_app datadata_file:dir { search write getattr read remove_name open add_name };
-allow platform_app datadata_file:file { rename setattr read lock create getattr write ioctl unlink open };
