@@ -9,7 +9,7 @@ init_daemon_domain(bdaddr_read)
 
 type_transition bdaddr_read system_data_file:file bdaddr_read_data_file;
 
-allow bdaddr_read bdaddr_read_data_file:file { write create open setattr };
+allow bdaddr_read bdaddr_read_data_file:file { write create open setattr getattr };
 allow bdaddr_read bluetooth_prop:property_service set;
 allow bdaddr_read init:unix_stream_socket connectto;
 allow bdaddr_read property_socket:sock_file write;

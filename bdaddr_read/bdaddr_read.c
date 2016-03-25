@@ -2,6 +2,7 @@
 #include <string.h>
 #include <cutils/properties.h>
 #include <cutils/log.h>
+#include <sys/stat.h>
 
 #define LOG_TAG "bdaddr"
 #define SAMSUNG_BDADDR_PATH "ril.bt_macaddr"
@@ -17,6 +18,17 @@ int main() {
     char tmpbdaddr[PROPERTY_VALUE_MAX]; // bt_macaddr:xxxxxxxxxxxx
     char bdaddr[18];
     int fd;
+    struct stat st;
+
+    /*
+     *Have we done this before?
+     */
+
+    if ( stat("/data/bdaddr", &st) == 0 ) {
+        fprintf(stderr, "bdaddr has already been written, exiting\n");
+        ALOGV("bdaddr has already been written, exiting\n");
+        return 0;
+    }
 
     property_get(SAMSUNG_BDADDR_PATH, tmpbdaddr, "");
     if (tmpbdaddr[0] == 0) {
