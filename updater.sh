@@ -25,8 +25,8 @@
 set -x
 export PATH=/:/sbin:/system/xbin:/system/bin:/tmp:${PATH}
 
-# 600MB
-SYSTEM_SIZE='629145600';
+# 900MB
+SYSTEM_SIZE='943718400';
 
 # write logs to /tmp
 set_log() {
