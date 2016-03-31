@@ -43,7 +43,6 @@ DEVICE_PACKAGE_OVERLAYS := device/samsung/aries-common/overlay
 # Init files
 PRODUCT_COPY_FILES += \
     device/samsung/aries-common/init.aries.rc:root/init.aries.rc \
-    device/samsung/aries-common/init.trace.rc:root/init.trace.rc \
     device/samsung/aries-common/init.aries.gps.rc:root/init.aries.gps.rc \
     device/samsung/aries-common/init.aries.usb.rc:root/init.aries.usb.rc \
     device/samsung/aries-common/init.recovery.aries.rc:root/init.recovery.aries.rc \
