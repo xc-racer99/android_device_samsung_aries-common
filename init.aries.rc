@@ -3,25 +3,19 @@ import /init.aries.gps.rc
 
 on early-init
 
-    mount debugfs /sys/kernel/debug /sys/kernel/debug
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
     write /sys/block/mmcblk0/queue/scheduler row
 
 on init
 
-    loglevel 9
-
-    # Preload for RIL compatability
     export LD_PRELOAD "/system/lib/libsamsung_symbols.so"
 
-#   FIXME: Market checks this variable for space-checking, but downloads to /datadata
-    export DOWNLOAD_CACHE /data/download
+#   By default, primary storage is physical
+    setprop ro.vold.primary_physical 1
 
-#   For backwards compatibility
-    symlink /storage/sdcard0 /sdcard
-    symlink /storage/sdcard0 /mnt/sdcard
-    symlink /storage/sdcard1 /external_sd
-    symlink /storage/sdcard1 /mnt/external_sd
+#   for backwards compatibility
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
 
     mkdir /datadata 0771 system system
 
@@ -30,9 +24,6 @@ on init
     stop ril-daemon
 
 on boot
-
-    setprop ro.build.product aries
-    setprop ro.product.device aries
 
 #   Fake some battery state
     setprop status.battery.state Slow
@@ -45,23 +36,28 @@ on boot
     write /sys/kernel/mm/ksm/sleep_millisecs 1500
     write /sys/kernel/mm/ksm/run 1
 
-#   Swap parameters
+#   zRam - read only one page at a time
     write /proc/sys/vm/page-cluster 0
-    write /proc/sys/vm/vfs_cache_pressure 85
-    write /proc/sys/vm/swappiness 100
-    write /proc/sys/vm/dirty_ratio 16
-    write /proc/sys/vm/dirty_background_ratio 12
-    write /proc/sys/vm/dirty_expire_centisecs 500
-    write /proc/sys/vm/dirty_writeback_centisecs 1000
-
-#   readahead
-    write /sys/block/mmcblk0/queue/read_ahead_kb 256
-    write /sys/block/mmcblk1/queue/read_ahead_kb 256
 
 #   Prevents permission denied error for telephony
     chmod 0644 /proc/cmdline
 
+# Flash storage isn't a good entropy source, and only causes locking
+# overhead in the kernel. Turn it off.
+    write /sys/block/mmcblk0/queue/add_random 0
+    write /sys/block/mmcblk1/queue/add_random 0
+    write /sys/block/mtdblock0/queue/add_random 0
+    write /sys/block/mtdblock1/queue/add_random 0
+    write /sys/block/mtdblock2/queue/add_random 0
+    write /sys/block/mtdblock3/queue/add_random 0
+    write /sys/block/mtdblock4/queue/add_random 0
+    write /sys/block/mtdblock5/queue/add_random 0
+    write /sys/block/mtdblock6/queue/add_random 0
+    write /sys/block/mtdblock7/queue/add_random 0
+
 on fs
+#   Use lz4 for zRam algorithm
+    write /sys/block/zram0/comp_algorithm lz4
 
 #   LVM: set up LVM volumes
     wait /sys/dev/block/179:0
@@ -70,8 +66,8 @@ on fs
     restorecon /dev/mapper/lvpool-system
     restorecon /dev/mapper/lvpool-userdata
 
-    mount_all fstab.aries
-    swapon_all fstab.aries
+    mount_all /fstab.aries
+    swapon_all /fstab.aries
 
 #   Radio set up
     mkdir /radio 0775 radio radio
@@ -106,21 +102,25 @@ on fs
     chmod 660 /sys/class/sec/uart_switch/UART_SEL/value
 
 #   Permission for tuning knobs
-    chown system system /sys/class/misc/notification/bl_timeout
-    chmod 660 /sys/class/misc/notification/bl_timeout
-    restorecon /sys/class/misc/notification/bl_timeout
+    chown system system /sys/devices/virtual/misc/notification/bl_timeout
+    chmod 660 /sys/devices/virtual/misc/notification/bl_timeout
+    restorecon /sys/devices/virtual/misc/notification/bl_timeout
 
     chown system system /sys/kernel/bigmem/enable
     chmod 660 /sys/kernel/bigmem/enable
     restorecon /sys/kernel/bigmem/enable
 
-    chown system system /sys/class/misc/pwm_duty/pwm_duty
-    chmod 660 /sys/class/misc/pwm_duty/pwm_duty
-    restorecon /sys/class/misc/pwm_duty/pwm_duty
+    chown system system /sys/devices/virtual/misc/touchwake
+    chmod 660 /sys/devices/virtual/misc/touchwake
+    restorecon /sys/devices/virtual/misc/touchwake
 
-    chown system system /sys/class/mdnieset_ui/switch_mdnieset_ui/mdnieset_ui_file_cmd
-    chmod 660 /sys/class/mdnieset_ui/switch_mdnieset_ui/mdnieset_ui_file_cmd
-    restorecon /sys/class/mdnieset_ui/switch_mdnieset_ui/mdnieset_ui_file_cmd
+    chown system system /sys/devices/virtual/misc/pwm_duty/pwm_duty
+    chmod 660 /sys/devices/virtual/misc/pwm_duty/pwm_duty
+    restorecon /sys/devices/virtual/misc/pwm_duty/pwm_duty
+
+    chown system system /sys/devices/virtual/mdnieset_ui/switch_mdnieset_ui/mdnieset_ui_file_cmd
+    chmod 660 /sys/devices/virtual/mdnieset_ui/switch_mdnieset_ui/mdnieset_ui_file_cmd
+    restorecon /sys/devices/virtual/mdnieset_ui/switch_mdnieset_ui/mdnieset_ui_file_cmd
 
     chown system system /sys/class/misc/dockaudio/cardock_enable
     chown system system /sys/class/misc/dockaudio/deskdock_enable
@@ -191,23 +191,12 @@ on post-fs
 
 on charger
 
-#   LVM: set up LVM volumes
-    wait /sys/dev/block/179:0
-    exec_context u:r:lvm:s0 /lvm/sbin/lvm vgscan --mknodes --ignorelockingfailure
-    exec_context u:r:lvm:s0 /lvm/sbin/lvm vgchange -aly --ignorelockingfailure
-    restorecon /dev/mapper/lvpool-system
-    restorecon /dev/mapper/lvpool-userdata
-
     mount tmpfs tmpfs /tmp
-    mount ext4 /dev/lvpool/system /system
 
 #   set cpu governor to powersave while in charging mode
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
 
 on post-fs-data
-
-#   For migrating download provider's cache out of the small /data/data
-    mkdir /data/data2 0771 system system
 
 #   Setup /datadata
     start setup_datadata
@@ -216,16 +205,13 @@ on post-fs-data
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
 
-#   Download cache
-    mkdir /data/download 0770 system cache
-
 #   Logs
     mkdir /data/log 0775 root root
     chmod 0775 /data/log
 
     setprop vold.post_fs_data_done 1
 
-# Manually unmount /data/data
+# When encrypting, unmount /datadata
 on property:vold.decrypt=trigger_shutdown_framework
     start setup_datadata
 
@@ -233,6 +219,7 @@ on property:vold.decrypt=trigger_shutdown_framework
 service setup_datadata /sbin/setupdatadata.sh
     disabled
     oneshot
+    seclabel u:r:setup_datadata:s0
 
 service aries-ril-daemon /system/bin/rild
     class core
@@ -299,8 +286,9 @@ service bdaddr /system/bin/bdaddr_read
     disabled
     oneshot
 
-service charger /sbin/healthd
+service charger /sbin/healthd -c
     class charger
+    group log
     critical
     seclabel u:r:healthd:s0
 
