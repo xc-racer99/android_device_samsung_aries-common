@@ -109,6 +109,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
+# GPS Shim Lib
+ifneq ($(TARGET_DEVICE),telusgalaxys4gmtd)
+PRODUCT_PACKAGES += libdmitry
+endif
+
 # Wi-Fi
 PRODUCT_PACKAGES += \
     libwpa_client \
