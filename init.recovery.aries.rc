@@ -23,12 +23,10 @@ on boot
 # LVM services
 # Scan for LVM physical volumes and set up volume groups
 service lvm_vgscan /lvm/sbin/lvm vgscan --mknodes --ignorelockingfailure
-    seclabel u:r:lvm:s0
     disabled
     oneshot
 
 # Activate LVM logical volumes in found volume groups
 service lvm_vgchange /lvm/sbin/lvm vgchange -aly --ignorelockingfailure
-    seclabel u:r:lvm:s0
     disabled
     oneshot
