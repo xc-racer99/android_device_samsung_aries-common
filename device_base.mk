@@ -70,6 +70,10 @@ PRODUCT_COPY_FILES += \
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     setup_fs \
+    utility_make_ext4fs \
+    utility_flash_image \
+    utility_erase_image \
+    static_busybox \
     bml_over_mtd
 
 # Usb accessory
@@ -128,8 +132,7 @@ PRODUCT_PACKAGES += \
     pvrsrvinit
 
 PRODUCT_COPY_FILES += \
-    device/samsung/aries-common/libaudio/audio_policy.conf:system/etc/audio_policy.conf \
-    device/samsung/aries-common/libaudio/audio_effects.conf:system/vendor/etc/audio_effects.conf
+    device/samsung/aries-common/libaudio/audio_policy.conf:system/etc/audio_policy.conf
 
 # Libs
 PRODUCT_PACKAGES += \

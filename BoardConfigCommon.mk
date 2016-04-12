@@ -104,12 +104,8 @@ BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/lun%d/file"
 BOARD_USES_MULTIPLE_SDCARD_FS := true
 
-# Enable dex-preoptimization to speed up first boot sequence
-ifeq ($(HOST_OS),linux)
-    WITH_DEXPREOPT := true
-    WITH_DEXPREOPT_BOOT_IMG_ONLY := true
-    DONT_DEXPREOPT_PREBUILTS := true
-endif
+# Don't enable dex-preoptimization
+WITH_DEXPREOPT := false
 
 # Recovery
 TARGET_USERIMAGES_USE_EXT4 := true
