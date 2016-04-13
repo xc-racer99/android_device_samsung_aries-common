@@ -38,11 +38,17 @@ DIRECTORY[6]="system/bt"
 PATCHFILE[7]="android_system_extras.patch"
 DIRECTORY[7]="system/extras"
 
-PATCHFILE[8]="android_packages_apps_OpenDelta.patch"
-DIRECTORY[8]="packages/apps/OpenDelta"
+PATCHFILE[8]="android_external_lz4.patch"
+DIRECTORY[8]="external/lz4"
 
-PATCHFILE[9]="android_frameworks_opt_telephony.patch"
-DIRECTORY[9]="frameworks/opt/telephony"
+PATCHFILE[9]="android_frameworks_native.patch"
+DIRECTORY[9]="frameworks/native"
+
+PATCHFILE[10]="android_system_core.patch"
+DIRECTORY[10]="system/core"
+
+PATCHFILE[11]="android_frameworks_opt_telephony.patch"
+DIRECTORY[11]="frameworks/opt/telephony"
 
 ARRAY_LENGTH=${#PATCHFILE[@]}
 COUNTER=0
@@ -61,19 +67,3 @@ while [  $COUNTER -lt $ARRAY_LENGTH ]; do
 
 	let COUNTER=COUNTER+1
 done
-
-if test -e $SCRIPTPATH$ROOT_LOCATION/vendor/omni/prebuilt/bootanimation/res/480x270.zip; then
-	echo Bootanimation already created
-else
-	cd $SCRIPTPATH$ROOT_LOCATION/vendor/omni/prebuilt/bootanimation/res
-	CMD_OUTPUT=$(git am $SCRIPTPATH/android_vendor_omni.patch)
-
-	echo $CMD_OUTPUT
-
-	if [[ $CMD_OUTPUT =~ error.|fail. ]]; then
-		git am --abort
-		echo Ran git am --abort
-	fi
-
-	$SCRIPTPATH$ROOT_LOCATION/vendor/omni/prebuilt/bootanimation/res/generate-packages.sh
-fi

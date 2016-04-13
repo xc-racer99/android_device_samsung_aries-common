@@ -1,0 +1,59 @@
+From dfc96f928725fa5b3d580a27841c8a783d414017 Mon Sep 17 00:00:00 2001
+From: xc-racer99 <xc-racer2@live.ca>
+Date: Tue, 12 Apr 2016 20:14:16 -0700
+Subject: [PATCH 1/2] Add back removed pixelformat
+
+Used in some older blobs
+
+Maybe this should be moved to device specific repo?
+---
+ include/system/graphics.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/include/system/graphics.h b/include/system/graphics.h
+index afd9f7b..a0ce356 100644
+--- a/include/system/graphics.h
++++ b/include/system/graphics.h
+@@ -57,6 +57,8 @@ enum {
+     HAL_PIXEL_FORMAT_RGB_888            = 3,
+     HAL_PIXEL_FORMAT_RGB_565            = 4,
+     HAL_PIXEL_FORMAT_BGRA_8888          = 5,
++    HAL_PIXEL_FORMAT_RGBA_5551          = 6,
++    HAL_PIXEL_FORMAT_RGBA_4444          = 7,
+ 
+     /*
+      * 0x100 - 0x1FF
+-- 
+2.1.4
+
+
+From a9e70478c8aef649e2a62e2471c5ab1dc88c700c Mon Sep 17 00:00:00 2001
+From: xc-racer99 <xc-racer2@live.ca>
+Date: Thu, 14 Apr 2016 17:22:42 -0700
+Subject: [PATCH 2/2] core: Don't try to flash recovery
+
+Doesn't work on our devices...
+---
+ rootdir/init.rc | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/rootdir/init.rc b/rootdir/init.rc
+index 317207c..852dde7 100644
+--- a/rootdir/init.rc
++++ b/rootdir/init.rc
+@@ -688,9 +688,9 @@ service installd /system/bin/installd
+     class main
+     socket installd stream 600 system system
+ 
+-service flash_recovery /system/bin/install-recovery.sh
+-    class main
+-    oneshot
++#service flash_recovery /system/bin/install-recovery.sh
++#    class main
++#    oneshot
+ 
+ service racoon /system/bin/racoon
+     class main
+-- 
+2.1.4
+

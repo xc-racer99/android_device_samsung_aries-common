@@ -1,7 +1,7 @@
-From f48efb3d35d1b2e87f51b59136a6119f77d1b8fc Mon Sep 17 00:00:00 2001
+From fc37659530977de55904ec1a764db18b47382ff9 Mon Sep 17 00:00:00 2001
 From: Michael Bestas <mikeioannina@gmail.com>
 Date: Wed, 28 Oct 2015 17:09:40 -0700
-Subject: [PATCH] Revert "Remove mkyaffs2image references."
+Subject: [PATCH 1/4] Revert "Remove mkyaffs2image references."
 
 * Can be enabled on devices that need it with TARGET_USERIMAGES_USE_YAFFS
 Cherry-picked from http://review.cyanogenmod.org/#/c/114641/ for Omni
@@ -13,10 +13,10 @@ Change-Id: Iae76a2e580b2e7923b3b2cc90c565221b53f2d91
  2 files changed, 16 insertions(+), 2 deletions(-)
 
 diff --git a/core/Makefile b/core/Makefile
-index 323daa3..5d79ab5 100644
+index 07d1c94..57b4335 100644
 --- a/core/Makefile
 +++ b/core/Makefile
-@@ -732,6 +732,9 @@ INTERNAL_USERIMAGES_EXT_VARIANT := ext4
+@@ -691,6 +691,9 @@ INTERNAL_USERIMAGES_EXT_VARIANT := ext4
  endif
  endif
  endif
@@ -26,7 +26,7 @@ index 323daa3..5d79ab5 100644
  
  # These options tell the recovery updater/installer how to mount the partitions writebale.
  # <fstype>=<fstype_opts>[|<fstype_opts>]...
-@@ -751,6 +754,9 @@ ifeq ($(TARGET_USERIMAGES_USE_F2FS),true)
+@@ -710,6 +713,9 @@ ifeq ($(TARGET_USERIMAGES_USE_F2FS),true)
  INTERNAL_USERIMAGES_DEPS += $(MKF2FSUSERIMG) $(MAKE_F2FS)
  endif
  endif
@@ -36,7 +36,7 @@ index 323daa3..5d79ab5 100644
  
  ifeq ($(BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE),squashfs)
  INTERNAL_USERIMAGES_DEPS += $(MAKE_SQUASHFS) $(MKSQUASHFSUSERIMG) $(IMG2SIMG)
-@@ -789,6 +795,7 @@ $(if $(BOARD_VENDORIMAGE_JOURNAL_SIZE),$(hide) echo "vendor_journal_size=$(BOARD
+@@ -748,6 +754,7 @@ $(if $(BOARD_VENDORIMAGE_JOURNAL_SIZE),$(hide) echo "vendor_journal_size=$(BOARD
  $(if $(BOARD_OEMIMAGE_PARTITION_SIZE),$(hide) echo "oem_size=$(BOARD_OEMIMAGE_PARTITION_SIZE)" >> $(1))
  $(if $(BOARD_OEMIMAGE_JOURNAL_SIZE),$(hide) echo "oem_journal_size=$(BOARD_OEMIMAGE_JOURNAL_SIZE)" >> $(1))
  $(if $(INTERNAL_USERIMAGES_SPARSE_EXT_FLAG),$(hide) echo "extfs_sparse_flag=$(INTERNAL_USERIMAGES_SPARSE_EXT_FLAG)" >> $(1))
@@ -44,7 +44,7 @@ index 323daa3..5d79ab5 100644
  $(hide) echo "selinux_fc=$(SELINUX_FC)" >> $(1)
  $(if $(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_SUPPORTS_BOOT_SIGNER),$(hide) echo "boot_signer=$(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_SUPPORTS_BOOT_SIGNER)" >> $(1))
  $(if $(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_SUPPORTS_VERITY),$(hide) echo "verity=$(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_SUPPORTS_VERITY)" >> $(1))
-@@ -1003,11 +1010,16 @@ endif
+@@ -926,11 +933,16 @@ endif
  .PHONY: recoveryimage
  recoveryimage: $(INSTALLED_RECOVERYIMAGE_TARGET) $(RECOVERY_RESOURCE_ZIP)
  
@@ -63,7 +63,7 @@ index 323daa3..5d79ab5 100644
  BOARD_NAND_SPARE_SIZE := 64
  endif
  
-@@ -1383,6 +1395,7 @@ DISTTOOLS :=  $(HOST_OUT_EXECUTABLES)/minigzip \
+@@ -1298,6 +1310,7 @@ DISTTOOLS :=  $(HOST_OUT_EXECUTABLES)/minigzip \
    $(HOST_OUT_EXECUTABLES)/mkbootfs \
    $(HOST_OUT_EXECUTABLES)/mkbootimg \
    $(HOST_OUT_EXECUTABLES)/fs_config \
@@ -72,10 +72,10 @@ index 323daa3..5d79ab5 100644
    $(HOST_OUT_EXECUTABLES)/bsdiff \
    $(HOST_OUT_EXECUTABLES)/imgdiff \
 diff --git a/core/config.mk b/core/config.mk
-index bfda70d..30510ee 100644
+index 51810aa..18b77e4 100644
 --- a/core/config.mk
 +++ b/core/config.mk
-@@ -411,6 +411,7 @@ MKBOOTIMG := $(HOST_OUT_EXECUTABLES)/mkbootimg$(HOST_EXECUTABLE_SUFFIX)
+@@ -407,6 +407,7 @@ MKBOOTIMG := $(HOST_OUT_EXECUTABLES)/mkbootimg$(HOST_EXECUTABLE_SUFFIX)
  else
  MKBOOTIMG := $(BOARD_CUSTOM_MKBOOTIMG)
  endif
@@ -83,6 +83,231 @@ index bfda70d..30510ee 100644
  APICHECK := $(HOST_OUT_EXECUTABLES)/apicheck$(HOST_EXECUTABLE_SUFFIX)
  FS_GET_STATS := $(HOST_OUT_EXECUTABLES)/fs_get_stats$(HOST_EXECUTABLE_SUFFIX)
  MAKE_EXT4FS := $(HOST_OUT_EXECUTABLES)/make_ext4fs$(HOST_EXECUTABLE_SUFFIX)
+-- 
+2.1.4
+
+
+From d06542bca33b6fff5bbde1a6118c4341bd8aa0da Mon Sep 17 00:00:00 2001
+From: Tom Marshall <tdm@cyngn.com>
+Date: Sat, 22 Nov 2014 08:43:59 -0800
+Subject: [PATCH 2/4] build: Add option to disable block-based ota
+
+While block-based is great when building on a local machine, it kills rsync
+performance when syncing rebuilds from remote machines.  Provide an option
+to disable it for those whose network bandwidth is less than their device's
+emmc bandwidth.
+
+Usage: export BLOCK_BASED_OTA=false
+
+@xc-racer99: Modify for AOSP and don't allow block-based ota's when target uses yaffs images
+
+Change-Id: I1dfaa5478a87dad286014dbe57cd5a03da4d1980
+
+Conflicts:
+	core/Makefile
+---
+ core/Makefile | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/core/Makefile b/core/Makefile
+index 57b4335..0f68d21 100644
+--- a/core/Makefile
++++ b/core/Makefile
+@@ -1564,6 +1564,12 @@ ifeq ($(TARGET_BUILD_TYPE),debug)
+ endif
+ name := $(name)-ota-$(FILE_NAME_TAG)
+ 
++ifneq ($(BLOCK_BASED_OTA),false)
++    ifneq ($(TARGET_USERIMAGES_USE_YAFFS),true)
++        $(INTERNAL_OTA_PACKAGE_TARGET): block_based := --block
++    endif
++endif
++
+ INTERNAL_OTA_PACKAGE_TARGET := $(PRODUCT_OUT)/$(name).zip
+ 
+ $(INTERNAL_OTA_PACKAGE_TARGET): KEY_CERT_PAIR := $(DEFAULT_KEY_CERT_PAIR)
+@@ -1572,7 +1578,7 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
+ 	@echo "Package OTA: $@"
+ 	$(hide) PATH=$(foreach p,$(INTERNAL_USERIMAGES_BINARY_PATHS),$(p):)$$PATH MKBOOTIMG=$(MKBOOTIMG) \
+ 	   ./build/tools/releasetools/ota_from_target_files -v \
+-	   --block \
++	   $(block_based) \
+ 	   -p $(HOST_OUT) \
+ 	   -k $(KEY_CERT_PAIR) \
+ 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
+-- 
+2.1.4
+
+
+From 1ca8d25e177e37a40da81a7287f0f98ad47a8b0e Mon Sep 17 00:00:00 2001
+From: Ricardo Cerqueira <cyanogenmod@cerqueira.org>
+Date: Tue, 12 Apr 2011 10:57:22 +0100
+Subject: [PATCH 3/4] Allow a device to generically define its own headers
+
+We have a few cases of devices including specific versions of projects
+just because of modified headers (msm_mdp.h comes to mind), and I just
+had enough of ifdeffing header files for specific cases (the P990 needs
+a lot of these).
+Now... if a target defines a TARGET_SPECIFIC_HEADER_PATH, any headers in
+there will take precedence over the standard ones; for example, on the
+p990, I have
+
+TARGET_SPECIFIC_HEADER_PATH := device/lge/p990/include
+
+which makes, for example, the
+device/lge/p990/include/hardware_legacy/AudioHardwareInterface.h be
+used instead of
+hardware/libhardware_legacy/include/hardware_legacy/AudioHardwareInterface.h
+whenever a source file uses <hardware_legacy/AudioHardwareInterface.h>
+
+Change-Id: I41b62668b60e3f62a6ebd3738d8d2675103a81e6a
+
+build: fix target header overlay
+
+LOCAL_C_INCLUDES as defined by the makefile should be put AFTER
+the overlay includes so the overlay always takes precedence.
+
+Change-Id: I489b2aab6dbacd9122d834f85e07b63ed1271f07
+---
+ core/binary.mk | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/core/binary.mk b/core/binary.mk
+index b8003d7..dfc53c7 100644
+--- a/core/binary.mk
++++ b/core/binary.mk
+@@ -956,6 +956,11 @@ normal_objects := \
+ 
+ all_objects := $(normal_objects) $(gen_o_objects)
+ 
++## Allow a device's own headers to take precedence over global ones
++ifneq ($(TARGET_SPECIFIC_HEADER_PATH),)
++my_c_includes := $(TOPDIR)$(TARGET_SPECIFIC_HEADER_PATH) $(my_c_includes)
++endif
++
+ my_c_includes += $(TOPDIR)$(LOCAL_PATH) $(intermediates) $(generated_sources_dir)
+ 
+ ifndef LOCAL_SDK_VERSION
+-- 
+2.1.4
+
+
+From 7d622674cf5298d69de2fe9a87e881193540d359 Mon Sep 17 00:00:00 2001
+From: Steve Kondik <shade@chemlab.org>
+Date: Fri, 6 Nov 2015 14:14:25 +0100
+Subject: [PATCH 4/4] Allow override of device asserts, including multi-device
+ support.
+
+Set in board file with TARGET_OTA_ASSERT_DEVICE.
+
+Change-Id: I3d06bdc0e3e26bde0c0e646accd050364f9713b9
+
+Conflicts:
+	tools/releasetools/ota_from_target_files.py
+---
+ core/Makefile                               |  7 +++++++
+ tools/releasetools/edify_generator.py       | 10 ++++++----
+ tools/releasetools/ota_from_target_files.py | 13 ++++++++++++-
+ 3 files changed, 25 insertions(+), 5 deletions(-)
+
+diff --git a/core/Makefile b/core/Makefile
+index 0f68d21..b48e017 100644
+--- a/core/Makefile
++++ b/core/Makefile
+@@ -1574,6 +1574,12 @@ INTERNAL_OTA_PACKAGE_TARGET := $(PRODUCT_OUT)/$(name).zip
+ 
+ $(INTERNAL_OTA_PACKAGE_TARGET): KEY_CERT_PAIR := $(DEFAULT_KEY_CERT_PAIR)
+ 
++ifeq ($(TARGET_OTA_ASSERT_DEVICE),)
++    $(INTERNAL_OTA_PACKAGE_TARGET): override_device := auto
++else
++    $(INTERNAL_OTA_PACKAGE_TARGET): override_device := $(TARGET_OTA_ASSERT_DEVICE)
++endif
++
+ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
+ 	@echo "Package OTA: $@"
+ 	$(hide) PATH=$(foreach p,$(INTERNAL_USERIMAGES_BINARY_PATHS),$(p):)$$PATH MKBOOTIMG=$(MKBOOTIMG) \
+@@ -1581,6 +1587,7 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
+ 	   $(block_based) \
+ 	   -p $(HOST_OUT) \
+ 	   -k $(KEY_CERT_PAIR) \
++	   --override_device=$(override_device) \
+ 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
+ 	   $(BUILT_TARGET_FILES_PACKAGE) $@
+ 
+diff --git a/tools/releasetools/edify_generator.py b/tools/releasetools/edify_generator.py
+index a52e328..c5fc4b6 100644
+--- a/tools/releasetools/edify_generator.py
++++ b/tools/releasetools/edify_generator.py
+@@ -117,10 +117,12 @@ class EdifyGenerator(object):
+ 
+   def AssertDevice(self, device):
+     """Assert that the device identifier is the given string."""
+-    cmd = ('getprop("ro.product.device") == "%s" || '
+-           'abort("This package is for \\"%s\\" devices; '
+-           'this is a \\"" + getprop("ro.product.device") + "\\".");') % (
+-               device, device)
++    cmd = ('assert(' +
++           ' || '.join(['getprop("ro.product.device") == "%s" || getprop("ro.build.product") == "%s"'
++                         % (i, i) for i in device.split(",")]) +
++           ' || abort("This package is for device: %s; ' +
++           'this device is " + getprop("ro.product.device") + ".");' +
++           ');') % device
+     self.script.append(cmd)
+ 
+   def AssertSomeBootloader(self, *bootloaders):
+diff --git a/tools/releasetools/ota_from_target_files.py b/tools/releasetools/ota_from_target_files.py
+index c5c16b4..bc79a47 100755
+--- a/tools/releasetools/ota_from_target_files.py
++++ b/tools/releasetools/ota_from_target_files.py
+@@ -92,6 +92,10 @@ Usage:  ota_from_target_files [flags] input_target_files output_ota_package
+   --stash_threshold <float>
+       Specifies the threshold that will be used to compute the maximum
+       allowed stash size (defaults to 0.8).
++
++  --override_device <device>
++      Override device-specific asserts. Can be a comma-separated list.
++
+ """
+ 
+ import sys
+@@ -134,6 +138,7 @@ OPTIONS.full_bootloader = False
+ # Stash size cannot exceed cache_size * threshold.
+ OPTIONS.cache_size = None
+ OPTIONS.stash_threshold = 0.8
++OPTIONS.override_device = 'auto'
+ 
+ def MostPopularKey(d, default):
+   """Given a dict, return the key corresponding to the largest
+@@ -413,7 +418,10 @@ def SignOutput(temp_zip_name, output_zip_name):
+ def AppendAssertions(script, info_dict, oem_dict=None):
+   oem_props = info_dict.get("oem_fingerprint_properties")
+   if oem_props is None or len(oem_props) == 0:
+-    device = GetBuildProp("ro.product.device", info_dict)
++    if OPTIONS.override_device == "auto":
++      device = GetBuildProp("ro.product.device", info_dict)
++    else:
++      device = OPTIONS.override_device
+     script.AssertDevice(device)
+   else:
+     if oem_dict is None:
+@@ -1550,6 +1558,8 @@ def main(argv):
+       except ValueError:
+         raise ValueError("Cannot parse value %r for option %r - expecting "
+                          "a float" % (a, o))
++    elif o in ("--override_device"):
++      OPTIONS.override_device = a
+     else:
+       return False
+     return True
+@@ -1575,6 +1585,7 @@ def main(argv):
+                                  "verify",
+                                  "no_fallback_to_full",
+                                  "stash_threshold=",
++                                 "override_device=",
+                              ], extra_option_handler=option_handler)
+ 
+   if len(args) != 2:
 -- 
 2.1.4
 
