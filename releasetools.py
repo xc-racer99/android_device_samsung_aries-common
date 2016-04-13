@@ -23,6 +23,7 @@ UTILITIES_DIR = os.path.join(TARGET_DIR, 'utilities')
 
 def FullOTA_Assertions(info):
   info.output_zip.write(os.path.join(TARGET_DIR, "modem.bin"), "modem.bin")
+  info.output_zip.write(os.path.join(TARGET_DIR, "kernel"), "kernel")
   info.output_zip.write(os.path.join(TARGET_DIR, "updater.sh"), "updater.sh")
   info.output_zip.write(os.path.join(UTILITIES_DIR, "make_ext4fs"), "make_ext4fs")
   info.output_zip.write(os.path.join(UTILITIES_DIR, "busybox"), "busybox")
@@ -56,7 +57,7 @@ def FullOTA_Assertions(info):
         ('package_extract_file("bml_over_mtd.sh", "/tmp/bml_over_mtd.sh");\n'
          'set_metadata("/tmp/bml_over_mtd.sh", "uid", 0, "gid", 0, "mode", 0777);'))
 
-  info.script.AppendExtra('package_extract_file("boot.img", "/tmp/boot.img");')
+  info.script.AppendExtra('package_extract_file("kernel", "/tmp/kernel");')
   info.script.AppendExtra('assert(run_program("/tmp/updater.sh") == 0);')
 
 

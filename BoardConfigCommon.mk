@@ -111,7 +111,6 @@ WITH_DEXPREOPT := false
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_USES_BML_OVER_MTD := true
-BOARD_CUSTOM_BOOTIMG_MK := device/samsung/aries-common/shbootimg.mk
 TARGET_RECOVERY_FSTAB := device/samsung/aries-common/fstab.aries
 RECOVERY_FSTAB_VERSION := 2
 

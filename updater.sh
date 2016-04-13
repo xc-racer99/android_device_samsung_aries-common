@@ -289,7 +289,7 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
     echo "${UPDATE_PACKAGE}" > /mnt/sdcard/omni.cfg;
 
     # write new kernel to boot partition
-    /tmp/flash_image boot /tmp/boot.img;
+    /tmp/flash_image boot /tmp/kernel;
     if [ "$?" != "0" ] ; then
         exit 3;
     fi
@@ -326,7 +326,7 @@ elif [ "$(/tmp/busybox cat /sys/class/mtd/mtd2/size)" != "${MTD_SIZE}" ] || \
     backup_efs /dev/block/"${EFS_PART}" yaffs2 /sdcard;
 
     # write new kernel to boot partition
-    /tmp/bml_over_mtd.sh boot 72 reservoir 2004 /tmp/boot.img;
+    /tmp/bml_over_mtd.sh boot 72 reservoir 2004 /tmp/kernel;
 
     # restore logs and reboot
     restore_log bml_over_mtd.log /sdcard;
@@ -368,7 +368,7 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
         # update install - flash boot image then skip back to updater-script
         # (boot image is already flashed for first time install or old mtd upgrade)
         # flash boot image
-        /tmp/bml_over_mtd.sh boot 72 reservoir 2004 /tmp/boot.img;
+        /tmp/bml_over_mtd.sh boot 72 reservoir 2004 /tmp/kernel;
 
         if ! ${IS_GSM} ; then
             /tmp/bml_over_mtd.sh recovery 102 reservoir 2004 /tmp/recovery_kernel;
