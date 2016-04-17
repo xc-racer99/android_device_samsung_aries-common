@@ -76,10 +76,6 @@ PRODUCT_PACKAGES += \
     static_busybox \
     bml_over_mtd
 
-# Usb accessory
-PRODUCT_PACKAGES += \
-    com.android.future.usb.accessory
-
 # These are the OpenMAX IL configuration files
 PRODUCT_COPY_FILES += \
     hardware/samsung/exynos3/s5pc110/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry \
@@ -147,16 +143,6 @@ PRODUCT_PACKAGES += \
     SamsungServiceMode \
     DeviceSettings
 
-# Libnetcmd
-PRODUCT_PACKAGES += \
-    libnetcmdiface
-
-# f2fs
-PRODUCT_PACKAGES += \
-    fsck.f2fs \
-    mkfs.f2fs \
-    fibmap.f2fs
-
 # RIL
 PRODUCT_PACKAGES += \
     libsamsung_symbols
@@ -182,12 +168,6 @@ PRODUCT_PROPERTY_OVERRIDES := \
     debug.hwui.render_dirty_regions=false \
     ro.zygote.disable_gl_preload=true
 
-# Support for Browser's saved page feature. This allows
-# for pages saved on previous versions of the OS to be
-# viewed on the current OS.
-PRODUCT_PACKAGES += \
-    libskia_legacy
-
 # These are the hardware-specific settings that are stored in system properties.
 # Note that the only such settings should be the ones that are too low-level to
 # be reachable from resources or other mechanisms.
@@ -196,14 +176,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     ro.telephony.ril_class=SamsungExynos3RIL \
     ro.telephony.ril.config=icccardstatus,datacall,signalstrength,facilitylock \
-    mobiledata.interfaces=pdp0,eth0,gprs,ppp0,rmnet \
     ro.bq.gpu_to_cpu_unsupported=1 \
     ro.ril.hsxpa=1 \
     ro.ril.gprsclass=10 \
-    ro.ril.enable.managed.roaming=1 \
-    ro.ril.emc.mode=2 \
-    ro.phone_storage=1 \
-    ro.additionalmounts=/storage/sdcard1 \
     ro.config.low_ram=true \
     ro.sys.fw.bg_apps_limit=16 \
     ro.config.max_starting_bg=10 \
@@ -237,10 +212,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.locationfeatures=1 \
     ro.com.google.networklocation=1
-
-# We have sacrificed /cache for a larger /system, so it's not large enough for dalvik cache
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dexopt-data-only=1
 
 # SELinux
 PRODUCT_PROPERTY_OVERRIDES += \
