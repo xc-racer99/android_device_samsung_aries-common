@@ -1,7 +1,7 @@
-From 9ad0b8f73994813cc67902ee1d310e64547a456c Mon Sep 17 00:00:00 2001
+From 34a9e1b009b3fccfc9411d2a5899319d76c3fef3 Mon Sep 17 00:00:00 2001
 From: xc-racer99 <xc-racer2@live.ca>
 Date: Tue, 15 Dec 2015 18:57:03 -0800
-Subject: [PATCH] recovery: Do not pack relocations for flashutils
+Subject: [PATCH 1/2] recovery: Do not pack relocations for flashutils
 
 Needed for Marshmallow
 
@@ -38,6 +38,57 @@ index ab552b1..75c7cb0 100644
  include $(BUILD_EXECUTABLE)
  
  #Added for dynamic building for TWRP:
+-- 
+2.1.4
+
+
+From 56cc421abe95b86dceee072a5f1f5bf4ce5f9c51 Mon Sep 17 00:00:00 2001
+From: xc-racer99 <xc-racer2@live.ca>
+Date: Sun, 24 Apr 2016 15:54:42 -0700
+Subject: [PATCH 2/2] recovery: Fix missing selinux contexts on yaffs2 after
+ restore
+
+After restoring a yaffs2 partition, the root of the partition loses its selinux context.  Read from file_contexts and set the default file_context to the folder
+
+Change-Id: I79a693812cf49fb4ee15e54451c200b3916b8a8a
+---
+ partition.cpp | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/partition.cpp b/partition.cpp
+index 12d4ad0..f620bc6 100644
+--- a/partition.cpp
++++ b/partition.cpp
+@@ -2252,6 +2252,29 @@ bool TWPartition::Restore_Tar(const string& restore_folder, const string& Restor
+ 		}
+ 	}
+ #endif
++#ifdef HAVE_SELINUX
++	if (Restore_File_System == "yaffs2") {
++		// Fix contexts on folder
++		char *oldcontext, *newcontext;
++
++		if (lgetfilecon(Mount_Point.c_str(), &oldcontext) < 0) {
++			LOGINFO("Couldn't get selinux context for %s\n", Mount_Point.c_str());
++			return -1;
++		}
++		if (!selinux_handle || selabel_lookup(selinux_handle, &newcontext, Mount_Point.c_str(), S_IFDIR) < 0) {
++			LOGINFO("Couldn't lookup selinux context for %s\n", Mount_Point.c_str());
++			return -1;
++		}
++		if (strcmp(oldcontext, newcontext) != 0) {
++			LOGINFO("Relabeling %s from %s to %s\n", Mount_Point.c_str(), oldcontext, newcontext);
++			if (lsetfilecon(Mount_Point.c_str(), newcontext) < 0) {
++				LOGINFO("Couldn't label %s with %s: %s\n", Mount_Point.c_str(), newcontext, strerror(errno));
++			}
++		}
++		freecon(oldcontext);
++		freecon(newcontext);
++	}
++#endif
+ 	if (Mount_Read_Only || Mount_Flags & MS_RDONLY)
+ 		// Remount as read only when restoration is complete
+ 		ReMount(true);
 -- 
 2.1.4
 
