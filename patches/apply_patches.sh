@@ -50,6 +50,9 @@ DIRECTORY[10]="system/core"
 PATCHFILE[11]="android_frameworks_opt_telephony.patch"
 DIRECTORY[11]="frameworks/opt/telephony"
 
+PATCHFILE[9]="android_external_sepolicy.patch"
+DIRECTORY[9]="external/sepolicy"
+
 ARRAY_LENGTH=${#PATCHFILE[@]}
 COUNTER=0
 while [  $COUNTER -lt $ARRAY_LENGTH ]; do

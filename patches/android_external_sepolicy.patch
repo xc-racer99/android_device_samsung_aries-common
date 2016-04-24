@@ -1,0 +1,48 @@
+From 1b64d91dade3fd04c57ed945b2e4da0b2f4255cb Mon Sep 17 00:00:00 2001
+From: xc-racer99 <xc-racer2@live.ca>
+Date: Sun, 24 Apr 2016 15:50:34 -0700
+Subject: [PATCH] sepolicy: Changes to neverallows for SuperSU
+
+Allows policies needed for SuperSU to function properly
+
+Change-Id: I6a2bdac8d8650aaa8f4c9b52132a3ce3fe7f753e
+---
+ domain.te | 4 +++-
+ init.te   | 2 +-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/domain.te b/domain.te
+index 022c425..3ff641a 100644
+--- a/domain.te
++++ b/domain.te
+@@ -310,7 +310,7 @@ neverallow { domain -init } property_data_file:dir no_w_dir_perms;
+ neverallow { domain -init } property_data_file:file no_w_file_perms;
+ 
+ # Only recovery should be doing writes to /system
+-neverallow { domain -recovery } { system_file exec_type }:dir_file_class_set
++neverallow { domain -recovery -init } { system_file exec_type }:dir_file_class_set
+     { create write setattr relabelfrom append unlink link rename };
+ neverallow { domain -recovery -kernel } { system_file exec_type }:dir_file_class_set relabelto;
+ 
+@@ -446,6 +446,8 @@ neverallow {
+   domain
+   -system_server
+   -system_app
++  -toolbox
++  -fsck
+   -init
+   -installd # for relabelfrom and unlink, check for this in explicit neverallow
+ } system_data_file:file no_w_file_perms;
+diff --git a/init.te b/init.te
+index 1585b84..011d018 100644
+--- a/init.te
++++ b/init.te
+@@ -283,4 +283,4 @@ neverallow init shell_data_file:lnk_file read;
+ neverallow init app_data_file:lnk_file read;
+ 
+ # init should never execute a program without changing to another domain.
+-neverallow init { file_type fs_type }:file execute_no_trans;
++neverallow init { file_type -system_file fs_type -rootfs }:file execute_no_trans;
+-- 
+2.1.4
+
