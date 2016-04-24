@@ -101,6 +101,11 @@ PRODUCT_PACKAGES += \
     libs3cjpeg
 #    power.s5pc110
 
+# SuperSU files
+PRODUCT_PACKAGES += \
+    init.aries.supersu.rc \
+    launch_daemonsu.sh
+
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images

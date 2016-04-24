@@ -1,0 +1,4 @@
+allow init kernel:security { read_policy load_policy };
+allow init loop_device:blk_file write;
+allow init rootfs:file execute_no_trans;
+allow init system_file:file { relabelfrom execute_no_trans };

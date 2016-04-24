@@ -41,6 +41,9 @@ DIRECTORY[7]="system/extras"
 PATCHFILE[8]="android_packages_apps_OpenDelta.patch"
 DIRECTORY[8]="packages/apps/OpenDelta"
 
+PATCHFILE[9]="android_external_sepolicy.patch"
+DIRECTORY[9]="external/sepolicy"
+
 ARRAY_LENGTH=${#PATCHFILE[@]}
 COUNTER=0
 while [  $COUNTER -lt $ARRAY_LENGTH ]; do

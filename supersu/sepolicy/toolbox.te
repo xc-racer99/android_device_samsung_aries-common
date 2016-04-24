@@ -1,0 +1,9 @@
+allow toolbox apk_data_file:dir { setattr read create write relabelfrom relabelto open add_name };
+allow toolbox apk_data_file:file { write relabelfrom create setattr relabelto };
+allow toolbox init:fifo_file { write getattr };
+allow toolbox init:unix_stream_socket connectto;
+allow toolbox property_socket:sock_file write;
+allow toolbox self:capability { fowner chown fsetid dac_override };
+allow toolbox supersu_prop:property_service set;
+allow toolbox system_data_file:dir { write remove_name };
+allow toolbox system_data_file:file { write setattr relabelfrom relabelto unlink open };
