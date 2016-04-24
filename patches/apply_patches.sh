@@ -50,8 +50,8 @@ DIRECTORY[10]="system/core"
 PATCHFILE[11]="android_frameworks_opt_telephony.patch"
 DIRECTORY[11]="frameworks/opt/telephony"
 
-PATCHFILE[9]="android_external_sepolicy.patch"
-DIRECTORY[9]="external/sepolicy"
+PATCHFILE[12]="android_external_sepolicy.patch"
+DIRECTORY[12]="external/sepolicy"
 
 ARRAY_LENGTH=${#PATCHFILE[@]}
 COUNTER=0

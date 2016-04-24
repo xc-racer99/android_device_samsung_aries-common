@@ -1,7 +1,7 @@
 From 70bfccbcd21cc7e12a853116a6e3117d66583af7 Mon Sep 17 00:00:00 2001
 From: Kyle Repinski <repinski23@gmail.com>
 Date: Wed, 10 Jun 2015 18:49:57 -0500
-Subject: [PATCH 1/3] egl: Add back b/10194508 workaround.
+Subject: [PATCH 1/2] egl: Add back b/10194508 workaround.
 
 This was removed because it did not pass CTS and was applied across the board
 for all OMAP4 devices, but some still-shipping OMAP4 devices don't need it
@@ -75,7 +75,7 @@ index cdec565..1b702bc 100644
 From baf3a0dbb88eef90a420bddccd5a319301378f77 Mon Sep 17 00:00:00 2001
 From: xc-racer99 <xc-racer2@live.ca>
 Date: Tue, 12 Apr 2016 20:11:51 -0700
-Subject: [PATCH 2/3] surfaceflinger: Comment out context priority error
+Subject: [PATCH 2/2] surfaceflinger: Comment out context priority error
 
 Since we're compiling with -Wall, we can't have the warning
 ---
@@ -95,84 +95,6 @@ index 7cd42e4..6039961 100644
              EGL_CONTEXT_PRIORITY_LEVEL_IMG, EGL_CONTEXT_PRIORITY_HIGH_IMG,
  #endif
  #endif
--- 
-2.1.4
-
-
-From 13019541cb597c53d026be02822d5e7dba49ce1c Mon Sep 17 00:00:00 2001
-From: Mathias Agopian <mathias@google.com>
-Date: Tue, 5 Jun 2012 21:44:43 -0700
-Subject: [PATCH 3/3] opengl: reduce PB size from 2MB to 512KB
-
-this allows us to enable h/w acceleration on low-end
-devices while keeping memory usage down.
-
-Bug: 6557760
-Change-Id: Id95eae7228377b82a31be1d1a15cd360e2891ada
-
-Conflicts:
-	opengl/libs/Android.mk
----
- opengl/libs/Android.mk     |  5 +++++
- opengl/libs/EGL/Loader.cpp | 29 +++++++++++++++++++++++++++++
- 2 files changed, 34 insertions(+)
-
-diff --git a/opengl/libs/Android.mk b/opengl/libs/Android.mk
-index 918a073..648e7bd 100644
---- a/opengl/libs/Android.mk
-+++ b/opengl/libs/Android.mk
-@@ -48,6 +48,11 @@ ifeq ($(BOARD_ALLOW_EGL_HIBERNATION),true)
-   LOCAL_CFLAGS += -DBOARD_ALLOW_EGL_HIBERNATION
- endif
- 
-+ifeq ($(BOARD_EGL_SYSTEMUI_PBSIZE_HACK),true)
-+  # see Loader.cpp for details
-+  LOCAL_CFLAGS += -DSYSTEMUI_PBSIZE_HACK=1
-+endif
-+
- ifeq ($(BOARD_EGL_WORKAROUND_BUG_10194508),true)
-   LOCAL_CFLAGS += -DWORKAROUND_BUG_10194508
- endif
-diff --git a/opengl/libs/EGL/Loader.cpp b/opengl/libs/EGL/Loader.cpp
-index 1fcc048..c998f51 100644
---- a/opengl/libs/EGL/Loader.cpp
-+++ b/opengl/libs/EGL/Loader.cpp
-@@ -393,6 +393,35 @@ void *Loader::load_driver(const char* kind,
-         ALOGE_IF(!getProcAddress,
-                 "can't find eglGetProcAddress() in %s", driver_absolute_path);
- 
-+#ifdef SYSTEMUI_PBSIZE_HACK
-+#warning "SYSTEMUI_PBSIZE_HACK enabled"
-+        /*
-+         * TODO: replace SYSTEMUI_PBSIZE_HACK by something less hackish
-+         *
-+         * Here we adjust the PB size from its default value to 512KB which
-+         * is the minimum acceptable for the systemui process.
-+         * We do this on low-end devices only because it allows us to enable
-+         * h/w acceleration in the systemui process while keeping the
-+         * memory usage down.
-+         *
-+         * Obviously, this is the wrong place and wrong way to make this
-+         * adjustment, but at the time of this writing this was the safest
-+         * solution.
-+         */
-+        const char *cmdline = getProcessCmdline();
-+        if (strstr(cmdline, "systemui")) {
-+            void *imgegl = dlopen("/vendor/lib/libIMGegl.so", RTLD_LAZY);
-+            if (imgegl) {
-+                unsigned int *PVRDefaultPBS =
-+                        (unsigned int *)dlsym(imgegl, "PVRDefaultPBS");
-+                if (PVRDefaultPBS) {
-+                    ALOGD("setting default PBS to 512KB, was %d KB", *PVRDefaultPBS / 1024);
-+                    *PVRDefaultPBS = 512*1024;
-+                }
-+            }
-+        }
-+#endif
-+
-         egl_t* egl = &cnx->egl;
-         __eglMustCastToProperFunctionPointerType* curr =
-             (__eglMustCastToProperFunctionPointerType*)egl;
 -- 
 2.1.4
 
