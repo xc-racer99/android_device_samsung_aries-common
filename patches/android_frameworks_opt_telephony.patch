@@ -1,0 +1,31 @@
+From a74b200504c7ac82a32d54321bf5ef48d4c87f6a Mon Sep 17 00:00:00 2001
+From: Adnan Begovic <adnan@cyngn.com>
+Date: Mon, 8 Feb 2016 14:36:37 -0800
+Subject: [PATCH] telephony: Add oldril feature setPrefNwTypeOnUnsolConnected.
+
+  Commit 3feff8730f1de770131c984c5708a7da539943b6 removed
+  the set nw mode on unsolicited connect which is causing
+  data connection failures on certain devices.
+
+Change-Id: I641841ba170a98f595e25516d01c0ff86ba17ff0
+---
+ src/java/com/android/internal/telephony/RIL.java | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/java/com/android/internal/telephony/RIL.java b/src/java/com/android/internal/telephony/RIL.java
+index 9ca2a4c..f26a2fa 100644
+--- a/src/java/com/android/internal/telephony/RIL.java
++++ b/src/java/com/android/internal/telephony/RIL.java
+@@ -3322,6 +3322,9 @@ public class RIL extends BaseCommands implements CommandsInterface {
+ 
+                 // Initial conditions
+                 setRadioPower(false, null);
++                if (needsOldRilFeature("setPrefNwTypeOnUnsolConnected")) {
++                    setPreferredNetworkType(mPreferredNetworkType, null);
++                }
+                 setCdmaSubscriptionSource(mCdmaSubscription, null);
+                 setCellInfoListRate(Integer.MAX_VALUE, null);
+                 notifyRegistrantsRilConnectionChanged(((int[])ret)[0]);
+-- 
+2.1.4
+

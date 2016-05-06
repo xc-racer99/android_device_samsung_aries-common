@@ -1,5 +1,5 @@
 #!/bin/bash
-# Shell script to apply patches necessary to build for Galaxy S 4G devices
+# Shell script to apply patches necessary to build for Galaxy S devices
 
 pushd $(dirname "${0}") > /dev/null
 SCRIPTPATH=$(pwd -L)
@@ -43,6 +43,9 @@ DIRECTORY[8]="packages/apps/OpenDelta"
 
 PATCHFILE[9]="android_external_sepolicy.patch"
 DIRECTORY[9]="external/sepolicy"
+
+PATCHFILE[10]="android_frameworks_opt_telephony.patch"
+DIRECTORY[10]="frameworks/opt/telephony"
 
 ARRAY_LENGTH=${#PATCHFILE[@]}
 COUNTER=0
