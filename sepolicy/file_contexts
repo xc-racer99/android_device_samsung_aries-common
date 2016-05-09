@@ -82,6 +82,3 @@
 # LVM
 /dev/mapper/lvpool-(.*)                                                 u:object_r:block_device:s0
 /lvm/sbin(/.*)?                                                         u:object_r:rootfs:s0
-
-# zRam
-/dev/block/zram0                                                        u:object_r:swap_block_device:s0
