@@ -218,6 +218,7 @@ private:
     int             (*setCallVolume)   (HRilClient, SoundType, int);
     int             (*setCallAudioPath)(HRilClient, AudioPath);
     int             (*setCallClockSync)(HRilClient, SoundClockCondition);
+    int             (*setRilMicMute)   (HRilClient, bool);
 #endif
     void            loadRILD(void);
     status_t        connectRILDIfRequired(void);

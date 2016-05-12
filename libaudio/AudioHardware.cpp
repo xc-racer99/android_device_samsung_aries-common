@@ -202,7 +202,9 @@ void AudioHardware::loadRILD(void)
                               dlsym(mSecRilLibHandle, "SetCallAudioPath");
         setCallClockSync = (int (*)(HRilClient, SoundClockCondition))
                               dlsym(mSecRilLibHandle, "SetCallClockSync");
-        bool rilFunctionsLoaded = setCallVolume && setCallAudioPath && setCallClockSync;
+        setRilMicMute    = (int (*)(HRilClient, bool))
+                              dlsym(mSecRilLibHandle, "SetMute");
+        bool rilFunctionsLoaded = setCallVolume && setCallAudioPath && setCallClockSync && setRilMicMute;
 #endif
         if (!openClientRILD  || !disconnectRILD   || !closeClientRILD ||
             !isConnectedRILD || !connectRILD      ||
@@ -569,8 +571,13 @@ status_t AudioHardware::setMicMute(bool state)
         AutoMutex lock(mLock);
         if (mMicMute != state) {
             mMicMute = state;
-            // in call mute is handled by RIL
-            if (mMode != AudioSystem::MODE_IN_CALL) {
+            // if in call,forware mute to RIL
+            if (mMode == AudioSystem::MODE_IN_CALL) {
+#ifndef USES_FROYO_RILCLIENT
+                if( (mSecRilLibHandle) && (connectRILDIfRequired() == OK) )
+                    setRilMicMute(mRilClient, state);
+#endif
+            } else {
                 spIn = getActiveInput_l();
             }
         }

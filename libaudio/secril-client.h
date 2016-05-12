@@ -165,6 +165,11 @@ int SetCallAudioPath(HRilClient client, AudioPath path);
  */
 int SetCallClockSync(HRilClient client, SoundClockCondition condition);
 
+/**
+ * Forward microphone mute to RIL.
+ */
+int SetMute(HRilClient client, bool state);
+
 #ifdef __cplusplus
 };
 #endif
