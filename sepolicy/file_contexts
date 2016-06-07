@@ -44,15 +44,14 @@
 /data/bdaddr                                                            u:object_r:bdaddr_read_data_file:s0
 
 # Advanced settings
-# TODO: sysfs_writable may not be a good choice
+/sys/devices/virtual/mdnieset_ui/switch_mdnieset_ui/mdnieset_ui_file_cmd u:object_r:sysfs_writable:s0
+/sys/devices/virtual/misc/color_tuning/(.*)                             u:object_r:sysfs_writable:s0
+/sys/devices/virtual/misc/dockaudio/(.*)                                u:object_r:sysfs_writable:s0
 /sys/devices/virtual/misc/notification/bl_timeout                       u:object_r:sysfs_writable:s0
 /sys/devices/virtual/misc/pwm_duty/pwm_duty                             u:object_r:sysfs_writable:s0
-/sys/devices/virtual/misc/color_tuning/(.*)                             u:object_r:sysfs_writable:s0
+/sys/devices/virtual/misc/touchwake                                     u:object_r:sysfs_writable:s0
 /sys/kernel/bigmem/enable                                               u:object_r:sysfs_writable:s0
 /sys/kernel/fast_charge/force_fast_charge                               u:object_r:sysfs_writable:s0
-/sys/devices/virtual/misc/touchwake                                     u:object_r:sysfs_writable:s0
-
-/sys/devices/virtual/mdnieset_ui/switch_mdnieset_ui/mdnieset_ui_file_cmd u:object_r:sysfs_writable:s0
 
 # DSP Manager
 /sys/devices/virtual/misc/voodoo_sound/adc_osr128                       u:object_r:sysfs_dspmanager:s0
