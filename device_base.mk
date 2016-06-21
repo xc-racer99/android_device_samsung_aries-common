@@ -69,8 +69,13 @@ PRODUCT_COPY_FILES += \
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
+    bml_over_mtd \
     setup_fs \
-    bml_over_mtd
+    static_busybox \
+    utility_erase_image \
+    utility_flash_image \
+    utility_make_ext4fs
+
 
 # These are the OpenMAX IL configuration files
 PRODUCT_COPY_FILES += \
