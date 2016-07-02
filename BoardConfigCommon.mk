@@ -141,6 +141,9 @@ TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 # hwcomposer: custom vsync ioctl
 BOARD_CUSTOM_VSYNC_IOCTL := true
 
+# Screenrecord in landscape
+BOARD_SCREENRECORD_LANDSCAPE_ONLY := true
+
 # SELinux
 BOARD_SEPOLICY_DIRS += device/samsung/aries-common/sepolicy
 
