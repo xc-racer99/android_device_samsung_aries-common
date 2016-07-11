@@ -47,6 +47,9 @@ DIRECTORY[9]="external/sepolicy"
 PATCHFILE[10]="android_frameworks_av.patch"
 DIRECTORY[10]="frameworks/av"
 
+PATCHFILE[11]="android_packages_apps_Camera2.patch"
+DIRECTORY[11]="packages/apps/Camera2"
+
 ARRAY_LENGTH=${#PATCHFILE[@]}
 COUNTER=0
 while [  $COUNTER -lt $ARRAY_LENGTH ]; do
