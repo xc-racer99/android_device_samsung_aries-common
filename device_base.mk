@@ -42,30 +42,30 @@ DEVICE_PACKAGE_OVERLAYS := device/samsung/aries-common/overlay
 
 # Init files
 PRODUCT_COPY_FILES += \
-    device/samsung/aries-common/init.aries.rc:root/init.aries.rc \
-    device/samsung/aries-common/init.aries.gps.rc:root/init.aries.gps.rc \
-    device/samsung/aries-common/init.aries.usb.rc:root/init.aries.usb.rc \
-    device/samsung/aries-common/init.recovery.aries.rc:root/init.recovery.aries.rc \
-    device/samsung/aries-common/init.aries.usb.rc:recovery/root/usb.rc \
-    device/samsung/aries-common/fstab.aries:root/fstab.aries \
-    device/samsung/aries-common/ueventd.aries.rc:root/ueventd.aries.rc \
-    device/samsung/aries-common/setupdatadata.sh:root/sbin/setupdatadata.sh \
+    device/samsung/aries-common/rootdir/init.aries.rc:root/init.aries.rc \
+    device/samsung/aries-common/rootdir/init.aries.gps.rc:root/init.aries.gps.rc \
+    device/samsung/aries-common/rootdir/init.aries.usb.rc:root/init.aries.usb.rc \
+    device/samsung/aries-common/rootdir/init.recovery.aries.rc:root/init.recovery.aries.rc \
+    device/samsung/aries-common/rootdir/init.aries.usb.rc:recovery/root/usb.rc \
+    device/samsung/aries-common/rootdir/fstab.aries:root/fstab.aries \
+    device/samsung/aries-common/rootdir/ueventd.aries.rc:root/ueventd.aries.rc \
+    device/samsung/aries-common/rootdir/sbin/setupdatadata.sh:root/sbin/setupdatadata.sh \
     device/samsung/aries-common/bml_over_mtd.sh:bml_over_mtd.sh \
     device/samsung/aries-common/updater.sh:updater.sh \
-    device/samsung/aries-common/twrp.fstab:recovery/root/etc/twrp.fstab
+    device/samsung/aries-common/recovery/twrp.fstab:recovery/root/etc/twrp.fstab
 
 # Prebuilt kl and kcm keymaps
 PRODUCT_COPY_FILES += \
-    device/samsung/aries-common/cypress-touchkey.kl:system/usr/keylayout/cypress-touchkey.kl \
-    device/samsung/aries-common/cypress-touchkey.kcm:system/usr/keychars/cypress-touchkey.kcm \
-    device/samsung/aries-common/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
-    device/samsung/aries-common/sec_jack.kcm:system/usr/keychars/sec_jack.kcm \
-    device/samsung/aries-common/s3c-keypad.kl:system/usr/keylayout/s3c-keypad.kl \
-    device/samsung/aries-common/s3c-keypad.kcm:system/usr/keychars/s3c-keypad.kcm
+    device/samsung/aries-common/config/cypress-touchkey.kl:system/usr/keylayout/cypress-touchkey.kl \
+    device/samsung/aries-common/config/cypress-touchkey.kcm:system/usr/keychars/cypress-touchkey.kcm \
+    device/samsung/aries-common/config/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
+    device/samsung/aries-common/config/sec_jack.kcm:system/usr/keychars/sec_jack.kcm \
+    device/samsung/aries-common/config/s3c-keypad.kl:system/usr/keylayout/s3c-keypad.kl \
+    device/samsung/aries-common/config/s3c-keypad.kcm:system/usr/keychars/s3c-keypad.kcm
 
 # Input device calibration files
 PRODUCT_COPY_FILES += \
-    device/samsung/aries-common/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc
+    device/samsung/aries-common/config/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -75,8 +75,8 @@ PRODUCT_PACKAGES += \
 # These are the OpenMAX IL configuration files
 PRODUCT_COPY_FILES += \
     hardware/samsung/exynos3/s5pc110/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry \
-    device/samsung/aries-common/media_profiles.xml:system/etc/media_profiles.xml \
-    device/samsung/aries-common/media_codecs.xml:system/etc/media_codecs.xml \
+    device/samsung/aries-common/config/media_profiles.xml:system/etc/media_profiles.xml \
+    device/samsung/aries-common/config/media_codecs.xml:system/etc/media_codecs.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml
@@ -127,8 +127,8 @@ PRODUCT_PACKAGES += \
     pvrsrvinit
 
 PRODUCT_COPY_FILES += \
-    device/samsung/aries-common/libaudio/audio_policy.conf:system/etc/audio_policy.conf \
-    device/samsung/aries-common/libaudio/audio_effects.conf:system/vendor/etc/audio_effects.conf
+    device/samsung/aries-common/config/audio_policy.conf:system/etc/audio_policy.conf \
+    device/samsung/aries-common/config/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
 # Libs
 PRODUCT_PACKAGES += \
