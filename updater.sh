@@ -266,6 +266,19 @@ restore_modem() {
     fi
 }
 
+copy_ramdisks() {
+    # format the ramdisk partition and copy the ramdisks to it
+    /tmp/busybox umount -l /dev/block/mtdblock1
+    /tmp/erase_image ramdisk
+    check_mount /ramdisk /dev/block/mtdblock1 yaffs2
+    /tmp/busybox cp /tmp/ramdisk.img /ramdisk/ramdisk.img
+    /tmp/busybox cp /tmp/ramdisk-recovery.img /ramdisk/ramdisk-recovery.img
+    /tmp/busybox sync
+
+    # unmount the ramdisk partition
+    /tmp/busybox umount -l /dev/block/mtdblock1
+}
+
 if /tmp/busybox test -e /dev/block/bml7 ; then
 ################################################################################
 ################################################################################
@@ -287,6 +300,11 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
 
     # write the package path to sdcard omni.cfg
     echo "${UPDATE_PACKAGE}" > /mnt/sdcard/omni.cfg;
+
+    if $IS_GSM ; then
+        # Copy the recovery ramdisk to the SD
+        /tmp/busybox cp /tmp/ramdisk-recovery.img /sdcard/ramdisk-recovery.img
+    fi
 
     # write new kernel to boot partition
     /tmp/flash_image boot /tmp/boot.img;
@@ -347,6 +365,10 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
     # restore modem.bin
     restore_modem;
 
+    if $IS_GSM ; then
+        copy_ramdisks;
+    fi
+
     # check lvm resize
     if /tmp/busybox test -e /dev/lvpool/system ; then
         if [ "$(/tmp/busybox blockdev --getsize64 /dev/mapper/lvpool-system)" != "${SYSTEM_SIZE}" ] || \
@@ -381,6 +403,9 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
 
     # prevent loops
     /tmp/busybox rm -fr /sdcard/omni.cfg;
+
+    # remove the recovery ramdisk from the SD
+    /tmp/busybox rm -f /sdcard/ramdisk-recovery.img
 
     # efs
     restore_efs;
