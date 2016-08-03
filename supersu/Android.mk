@@ -18,4 +18,7 @@ LOCAL_MODULE_PATH  := $(TARGET_ROOT_OUT_SBIN)
 # Create /su
 LOCAL_POST_INSTALL_CMD := mkdir -p $(addprefix $(TARGET_ROOT_OUT)/, su)
 include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+$(info $(shell ($(LOCAL_PATH)/apply_patches.sh)))
 endif

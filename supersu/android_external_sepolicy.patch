@@ -1,0 +1,73 @@
+From a144d9820b5c2a383cdcf496ea5d72cdc21ea171 Mon Sep 17 00:00:00 2001
+From: xc-racer99 <xc-racer2@live.ca>
+Date: Tue, 2 Aug 2016 19:46:47 -0700
+Subject: [PATCH] sepolicy: Remove some neverallows for SuperSU
+
+Change-Id: Ib7b8cd5d1e00aae7d52454cc41867e14f4707d06
+---
+ domain.te | 8 ++++++--
+ init.te   | 2 +-
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/domain.te b/domain.te
+index a188365..92dbdb5 100644
+--- a/domain.te
++++ b/domain.te
+@@ -285,7 +285,7 @@ neverallow { domain -init -ueventd -lvm_placeholder } device:chr_file { open rea
+ # Limit what domains can mount filesystems or change their mount flags.
+ # sdcard_type / vfat is exempt as a larger set of domains need
+ # this capability, including device-specific domains.
+-neverallow { domain -kernel -init -recovery -vold -zygote -lvm_placeholder } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
++neverallow { domain -kernel -init -recovery -vold -zygote -lvm_placeholder -toolbox } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
+ 
+ #
+ # Assert that, to the extent possible, we're not loading executable content from
+@@ -311,7 +311,7 @@ neverallow { domain -init } property_data_file:dir no_w_dir_perms;
+ neverallow { domain -init } property_data_file:file no_w_file_perms;
+ 
+ # Only recovery should be doing writes to /system
+-neverallow { domain -recovery } { system_file exec_type }:dir_file_class_set
++neverallow { domain -recovery -init } { system_file exec_type }:dir_file_class_set
+     { create write setattr relabelfrom append unlink link rename };
+ neverallow { domain -recovery -kernel } { system_file exec_type }:dir_file_class_set relabelto;
+ 
+@@ -366,6 +366,7 @@ neverallow {
+   -zygote
+   -installd
+   -dex2oat
++  -toolbox
+ } dalvikcache_data_file:file no_w_file_perms;
+ 
+ neverallow {
+@@ -373,6 +374,7 @@ neverallow {
+   -init
+   -installd
+   -dex2oat
++  -toolbox
+   -zygote
+ } dalvikcache_data_file:dir no_w_dir_perms;
+ 
+@@ -445,8 +447,10 @@ neverallow ~domain domain:process { transition dyntransition };
+ #
+ neverallow {
+   domain
++  -toolbox
+   -system_server
+   -system_app
++  -fsck
+   -init
+   -installd # for relabelfrom and unlink, check for this in explicit neverallow
+ } system_data_file:file no_w_file_perms;
+diff --git a/init.te b/init.te
+index 1585b84..72caf03 100644
+--- a/init.te
++++ b/init.te
+@@ -283,4 +283,4 @@ neverallow init shell_data_file:lnk_file read;
+ neverallow init app_data_file:lnk_file read;
+ 
+ # init should never execute a program without changing to another domain.
+-neverallow init { file_type fs_type }:file execute_no_trans;
++neverallow init { file_type -shell_exec -system_file fs_type -rootfs }:file execute_no_trans;
+-- 
+2.7.4
+

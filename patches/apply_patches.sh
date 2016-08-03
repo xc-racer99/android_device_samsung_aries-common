@@ -41,14 +41,11 @@ DIRECTORY[7]="system/extras"
 PATCHFILE[8]="android_packages_apps_OpenDelta.patch"
 DIRECTORY[8]="packages/apps/OpenDelta"
 
-PATCHFILE[9]="android_external_sepolicy.patch"
-DIRECTORY[9]="external/sepolicy"
+PATCHFILE[9]="android_frameworks_av.patch"
+DIRECTORY[9]="frameworks/av"
 
-PATCHFILE[10]="android_frameworks_av.patch"
-DIRECTORY[10]="frameworks/av"
-
-PATCHFILE[11]="android_packages_apps_Camera2.patch"
-DIRECTORY[11]="packages/apps/Camera2"
+PATCHFILE[10]="android_packages_apps_Camera2.patch"
+DIRECTORY[10]="packages/apps/Camera2"
 
 ARRAY_LENGTH=${#PATCHFILE[@]}
 COUNTER=0
