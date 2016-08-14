@@ -1,2 +1,0 @@
-sukernel.mount                    u:object_r:supersu_prop:s0
-sukernel.daemonsu.launch          u:object_r:supersu_prop:s0

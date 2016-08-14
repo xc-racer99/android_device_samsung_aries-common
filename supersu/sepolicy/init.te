@@ -1,5 +1,0 @@
-allow init kernel:security { read_policy load_policy };
-allow init logd:dir getattr;
-allow init rootfs:file execute_no_trans;
-allow init shell_exec:file execute_no_trans;
-allow init system_file:file { relabelfrom execute_no_trans };

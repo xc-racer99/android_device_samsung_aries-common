@@ -151,10 +151,6 @@ BOARD_SCREENRECORD_LANDSCAPE_ONLY := true
 # SELinux
 BOARD_SEPOLICY_DIRS += device/samsung/aries-common/sepolicy
 
-ifeq ($(USE_SUPERSU),true)
-    BOARD_SEPOLICY_DIRS += device/samsung/aries-common/supersu/sepolicy
-endif
-
 # Include aries specific stuff
 -include device/samsung/aries-common/Android.mk
 

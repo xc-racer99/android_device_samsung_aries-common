@@ -44,15 +44,5 @@ done
 if test -e $SCRIPTPATH$ROOT_LOCATION/vendor/omni/prebuilt/bootanimation/res/480x270.zip; then
 	echo Bootanimation already created
 else
-	cd $SCRIPTPATH$ROOT_LOCATION/vendor/omni/prebuilt/bootanimation/res
-	CMD_OUTPUT=$(git am $SCRIPTPATH/android_vendor_omni.patch)
-
-	echo $CMD_OUTPUT
-
-	if [[ $CMD_OUTPUT =~ error.|fail. ]]; then
-		git am --abort
-		echo Ran git am --abort
-	fi
-
 	$SCRIPTPATH$ROOT_LOCATION/vendor/omni/prebuilt/bootanimation/res/generate-packages.sh
 fi
