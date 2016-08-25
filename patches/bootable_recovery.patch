@@ -1,7 +1,7 @@
-From 34a9e1b009b3fccfc9411d2a5899319d76c3fef3 Mon Sep 17 00:00:00 2001
+From 102ccacc6bcb7f91c7a728064c6b10d3ce3316e7 Mon Sep 17 00:00:00 2001
 From: xc-racer99 <xc-racer2@live.ca>
 Date: Tue, 15 Dec 2015 18:57:03 -0800
-Subject: [PATCH 1/2] recovery: Do not pack relocations for flashutils
+Subject: [PATCH 1/3] recovery: Do not pack relocations for flashutils
 
 Needed for Marshmallow
 
@@ -39,13 +39,13 @@ index ab552b1..75c7cb0 100644
  
  #Added for dynamic building for TWRP:
 -- 
-2.1.4
+2.7.4
 
 
-From 56cc421abe95b86dceee072a5f1f5bf4ce5f9c51 Mon Sep 17 00:00:00 2001
+From 8d8698fb77ecdeff797fb734b33fff200d540598 Mon Sep 17 00:00:00 2001
 From: xc-racer99 <xc-racer2@live.ca>
 Date: Sun, 24 Apr 2016 15:54:42 -0700
-Subject: [PATCH 2/2] recovery: Fix missing selinux contexts on yaffs2 after
+Subject: [PATCH 2/3] recovery: Fix missing selinux contexts on yaffs2 after
  restore
 
 After restoring a yaffs2 partition, the root of the partition loses its selinux context.  Read from file_contexts and set the default file_context to the folder
@@ -56,10 +56,10 @@ Change-Id: I79a693812cf49fb4ee15e54451c200b3916b8a8a
  1 file changed, 23 insertions(+)
 
 diff --git a/partition.cpp b/partition.cpp
-index 12d4ad0..f620bc6 100644
+index bf87de3..d018f65 100644
 --- a/partition.cpp
 +++ b/partition.cpp
-@@ -2252,6 +2252,29 @@ bool TWPartition::Restore_Tar(const string& restore_folder, const string& Restor
+@@ -2430,6 +2430,29 @@ bool TWPartition::Restore_Tar(PartitionSettings *part_settings) {
  		}
  	}
  #endif
@@ -90,5 +90,34 @@ index 12d4ad0..f620bc6 100644
  		// Remount as read only when restoration is complete
  		ReMount(true);
 -- 
-2.1.4
+2.7.4
+
+
+From 2ee79f6ab78c9025aa8eefa58351231cb40db9a5 Mon Sep 17 00:00:00 2001
+From: xc-racer99 <xc-racer2@live.ca>
+Date: Wed, 24 Aug 2016 18:32:37 -0700
+Subject: [PATCH 3/3] recovery: Fix restoring image
+
+Fix path that we try to restore from.
+
+Change-Id: I7727a23e7d30e5cb62e0d4c4aa4f44838a04ea88
+---
+ partition.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/partition.cpp b/partition.cpp
+index d018f65..6761746 100644
+--- a/partition.cpp
++++ b/partition.cpp
+@@ -2470,7 +2470,7 @@ bool TWPartition::Restore_Image(PartitionSettings *part_settings) {
+ 	if (part_settings->adbbackup)
+ 		Full_FileName = TW_ADB_RESTORE;
+ 	else
+-		Full_FileName = part_settings->Full_Backup_Path + part_settings->Backup_FileName;
++		Full_FileName = part_settings->Restore_Name + "/" + part_settings->Backup_FileName;
+ 
+ 	if (Restore_File_System == "emmc") {
+ 		if (!part_settings->adbbackup)
+-- 
+2.7.4
 
