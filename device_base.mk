@@ -60,6 +60,14 @@ PRODUCT_COPY_FILES += \
 	device/samsung/aries-common/s3c-keypad.kl:system/usr/keylayout/s3c-keypad.kl \
 	device/samsung/aries-common/s3c-keypad.kcm:system/usr/keychars/s3c-keypad.kcm
 
+# Prebuilt static utilities (for updater.sh)
+PRODUCT_COPY_FILES += \
+    device/samsung/aries-common/utilities/bml_over_mtd:utilities/bml_over_mtd \
+    device/samsung/aries-common/utilities/busybox:utilities/busybox \
+    device/samsung/aries-common/utilities/erase_image:utilities/erase_image \
+    device/samsung/aries-common/utilities/flash_image:utilities/flash_image \
+    device/samsung/aries-common/utilities/make_ext4fs:utilities/make_ext4fs
+
 # Input device calibration files
 PRODUCT_COPY_FILES += \
 	device/samsung/aries-common/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc
