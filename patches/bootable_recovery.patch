@@ -1,7 +1,7 @@
-From 102ccacc6bcb7f91c7a728064c6b10d3ce3316e7 Mon Sep 17 00:00:00 2001
+From 2c3e582ee3cd536bd0a6f41f1781a5cde9bbc071 Mon Sep 17 00:00:00 2001
 From: xc-racer99 <xc-racer2@live.ca>
 Date: Tue, 15 Dec 2015 18:57:03 -0800
-Subject: [PATCH 1/3] recovery: Do not pack relocations for flashutils
+Subject: [PATCH 1/4] recovery: Do not pack relocations for flashutils
 
 Needed for Marshmallow
 
@@ -42,10 +42,10 @@ index ab552b1..75c7cb0 100644
 2.7.4
 
 
-From 8d8698fb77ecdeff797fb734b33fff200d540598 Mon Sep 17 00:00:00 2001
+From b322f8cb7b8a4766ad9102deedff54e9eb5e0bae Mon Sep 17 00:00:00 2001
 From: xc-racer99 <xc-racer2@live.ca>
 Date: Sun, 24 Apr 2016 15:54:42 -0700
-Subject: [PATCH 2/3] recovery: Fix missing selinux contexts on yaffs2 after
+Subject: [PATCH 2/4] recovery: Fix missing selinux contexts on yaffs2 after
  restore
 
 After restoring a yaffs2 partition, the root of the partition loses its selinux context.  Read from file_contexts and set the default file_context to the folder
@@ -56,10 +56,10 @@ Change-Id: I79a693812cf49fb4ee15e54451c200b3916b8a8a
  1 file changed, 23 insertions(+)
 
 diff --git a/partition.cpp b/partition.cpp
-index bf87de3..d018f65 100644
+index 89650db..32c410c 100644
 --- a/partition.cpp
 +++ b/partition.cpp
-@@ -2430,6 +2430,29 @@ bool TWPartition::Restore_Tar(PartitionSettings *part_settings) {
+@@ -2431,6 +2431,29 @@ bool TWPartition::Restore_Tar(PartitionSettings *part_settings) {
  		}
  	}
  #endif
@@ -93,10 +93,10 @@ index bf87de3..d018f65 100644
 2.7.4
 
 
-From 2ee79f6ab78c9025aa8eefa58351231cb40db9a5 Mon Sep 17 00:00:00 2001
+From edb6defb55e340c3cf9a81b27355e163b8528393 Mon Sep 17 00:00:00 2001
 From: xc-racer99 <xc-racer2@live.ca>
 Date: Wed, 24 Aug 2016 18:32:37 -0700
-Subject: [PATCH 3/3] recovery: Fix restoring image
+Subject: [PATCH 3/4] recovery: Fix restoring image
 
 Fix path that we try to restore from.
 
@@ -106,10 +106,10 @@ Change-Id: I7727a23e7d30e5cb62e0d4c4aa4f44838a04ea88
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/partition.cpp b/partition.cpp
-index d018f65..6761746 100644
+index 32c410c..38c8a48 100644
 --- a/partition.cpp
 +++ b/partition.cpp
-@@ -2470,7 +2470,7 @@ bool TWPartition::Restore_Image(PartitionSettings *part_settings) {
+@@ -2471,7 +2471,7 @@ bool TWPartition::Restore_Image(PartitionSettings *part_settings) {
  	if (part_settings->adbbackup)
  		Full_FileName = TW_ADB_RESTORE;
  	else
@@ -118,6 +118,36 @@ index d018f65..6761746 100644
  
  	if (Restore_File_System == "emmc") {
  		if (!part_settings->adbbackup)
+-- 
+2.7.4
+
+
+From 426cb0228393815d5840f4f89a75ac682d523213 Mon Sep 17 00:00:00 2001
+From: xc-racer99 <xc-racer2@live.ca>
+Date: Sat, 27 Aug 2016 18:22:14 -0700
+Subject: [PATCH 4/4] recovery: Fix restoring subpartitions
+
+Previously, it would try to restore the parent partition backup to
+the subpartition eg data.ext4.win getting restored to both /data and
+to /datadata
+
+Change-Id: Ia7dfb7d070485bac4075881e68e23a27be04405f
+---
+ partitionmanager.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/partitionmanager.cpp b/partitionmanager.cpp
+index a326d79..cff5313 100644
+--- a/partitionmanager.cpp
++++ b/partitionmanager.cpp
+@@ -893,6 +893,7 @@ bool TWPartitionManager::Restore_Partition(PartitionSettings *part_settings) {
+ 		for (subpart = Partitions.begin(); subpart != Partitions.end(); subpart++) {
+ 
+ 			if ((*subpart)->Is_SubPartition && (*subpart)->SubPartition_Of == part_settings->Part->Mount_Point) {
++				part_settings->Backup_FileName = (*subpart)->Backup_Name + "." + (*subpart)->Current_File_System + ".win";
+ 				if (!(*subpart)->Restore(part_settings)) {
+ 					TWFunc::SetPerformanceMode(false);
+ 					return false;
 -- 
 2.7.4
 
