@@ -12,7 +12,8 @@ type_transition geomagneticd system_data_file:file geomagneticd_data_file;
 allow geomagneticd input_device:chr_file { read ioctl open };
 allow geomagneticd input_device:dir { search read open };
 
-allow geomagneticd sysfs:file write;
+allow geomagneticd sysfs:dir { open read };
+allow geomagneticd sysfs:file { open read write };
 
 allow geomagneticd system_data_file:dir { write remove_name add_name };
 

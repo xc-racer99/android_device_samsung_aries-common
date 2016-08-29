@@ -5,5 +5,8 @@ type orientationd, domain;
 type orientationd_exec, exec_type, file_type;
 init_daemon_domain(orientationd)
 
+allow orientationd sysfs:dir { read open };
+allow orientationd sysfs:file { read open };
+
 allow orientationd input_device:chr_file { read write ioctl open };
 allow orientationd input_device:dir { read open search };
