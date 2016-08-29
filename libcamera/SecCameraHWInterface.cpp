@@ -2242,7 +2242,7 @@ status_t CameraHardwareSec::storeMetaDataInBuffers(bool enable)
     return OK;
 }
 
-static CameraInfo sCameraInfo[] = {
+static AriesCameraInfo sCameraInfo[] = {
     {
         CAMERA_FACING_BACK,
         90,  /* orientation */
