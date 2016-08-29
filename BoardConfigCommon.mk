@@ -33,6 +33,7 @@ TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 
 # Bionic stuff
 BOARD_USES_LEGACY_MMAP := true
+MALLOC_SVELTE := true
 TARGET_NEEDS_BIONIC_PRELINK_SUPPORT := true
 TARGET_ENABLE_NON_PIE_SUPPORT := true
 
