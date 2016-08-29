@@ -49,7 +49,6 @@ PRODUCT_COPY_FILES += \
     device/samsung/aries-common/rootdir/init.aries.usb.rc:recovery/root/usb.rc \
     device/samsung/aries-common/rootdir/fstab.aries:root/fstab.aries \
     device/samsung/aries-common/rootdir/ueventd.aries.rc:root/ueventd.aries.rc \
-    device/samsung/aries-common/rootdir/sbin/setupdatadata.sh:root/sbin/setupdatadata.sh \
     device/samsung/aries-common/bml_over_mtd.sh:bml_over_mtd.sh \
     device/samsung/aries-common/updater.sh:updater.sh \
     device/samsung/aries-common/recovery/twrp.fstab:recovery/root/etc/twrp.fstab

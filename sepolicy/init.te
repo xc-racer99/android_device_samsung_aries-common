@@ -1,7 +1,6 @@
 ###########################
 # OmniROM Aries sepolicy
 #
-domain_trans(init, rootfs, setup_datadata)
 
 allow init sysfs_dspmanager:file getattr;
 allow init sysfs_writable:file getattr;
