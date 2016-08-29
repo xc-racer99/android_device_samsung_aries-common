@@ -56,9 +56,6 @@ TARGET_KERNEL_SOURCE := kernel/samsung/aries
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/aries-common
 
-# Browser
-TARGET_USES_AOSP_BROWSER := true
-
 # Camera
 BOARD_CAMERA_HAVE_ISO := true
 
@@ -102,20 +99,15 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/l
 ifeq ($(HOST_OS),linux)
     WITH_DEXPREOPT := true
     WITH_DEXPREOPT_BOOT_IMG_ONLY := true
-    DONT_DEXPREOPT_PREBUILTS := true
 endif
 
 # Recovery
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_USES_BML_OVER_MTD := true
-BOARD_CUSTOM_BOOTIMG_MK := device/samsung/aries-common/shbootimg.mk
 BOARD_CUSTOM_MKBOOTIMG := mksgsbootimg
 TARGET_RECOVERY_FSTAB := device/samsung/aries-common/rootdir/fstab.aries
 RECOVERY_FSTAB_VERSION := 2
-
-# Increase coldboot timeout
-TARGET_INCREASES_COLDBOOT_TIMEOUT := true
 
 # Open Source Charging Mode
 BOARD_CHARGER_ENABLE_SUSPEND := true
@@ -126,7 +118,6 @@ TARGET_BOOTANIMATION_USE_RGB565 := true
 
 # Hardware rendering
 USE_OPENGL_RENDERER := true
-BOARD_EGL_SYSTEMUI_PBSIZE_HACK := true
 
 # OMX buffer reallocate
 BOARD_CANT_REALLOCATE_OMX_BUFFERS := true
