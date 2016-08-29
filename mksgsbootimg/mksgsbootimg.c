@@ -104,10 +104,12 @@ int main(int argc, char **argv)
             } else if(!strcmp(arg, "--kernel_offset")) {
             } else if(!strcmp(arg, "--ramdisk_offset")) {
             } else if(!strcmp(arg, "--second_offset")) {
+            } else if(!strcmp(arg, "--os_version")) {
+            } else if(!strcmp(arg, "--os_patch_level")) {
             } else if(!strcmp(arg, "--tags_offset")) {
             } else if(!strcmp(arg, "--board")) {
             } else if(!strcmp(arg,"--pagesize")) {
-            } else if(!strcmp(arg, "--dt")) {
+            } else if(!strcmp(arg, "--id")) {
             } else {
                 return usage();
             }
