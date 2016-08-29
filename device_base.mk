@@ -101,6 +101,11 @@ PRODUCT_PACKAGES += \
     audio.usb.default \
     libs3cjpeg
 
+# SuperSU files
+PRODUCT_PACKAGES += \
+    init.aries.supersu.rc \
+    launch_daemonsu.sh
+
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
