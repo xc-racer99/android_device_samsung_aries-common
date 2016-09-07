@@ -65,10 +65,7 @@ PRODUCT_COPY_FILES += \
 
 # Prebuilt static utilities (for updater.sh)
 PRODUCT_COPY_FILES += \
-    device/samsung/aries-common/utilities/bml_over_mtd:utilities/bml_over_mtd \
     device/samsung/aries-common/utilities/busybox:utilities/busybox \
-    device/samsung/aries-common/utilities/erase_image:utilities/erase_image \
-    device/samsung/aries-common/utilities/flash_image:utilities/flash_image \
     device/samsung/aries-common/utilities/make_ext4fs:utilities/make_ext4fs
 
 # Input device calibration files
@@ -77,8 +74,10 @@ PRODUCT_COPY_FILES += \
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
+    bml_over_mtd \
     setup_fs \
-    bml_over_mtd
+    utility_erase_image \
+    utility_flash_image
 
 # These are the OpenMAX IL configuration files
 PRODUCT_COPY_FILES += \
