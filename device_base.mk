@@ -146,7 +146,8 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
-    libsamsung_symbols
+    libsamsung_symbols \
+    libsecril-shim
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -175,8 +176,6 @@ PRODUCT_PROPERTY_OVERRIDES := \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.media.legacy-drm=1 \
     wifi.interface=wlan0 \
-    ro.telephony.ril_class=SamsungExynos3RIL \
-    ro.telephony.ril.config=icccardstatus,datacall,facilitylock,setPrefNwTypeOnUnsolConnected \
     ro.bq.gpu_to_cpu_unsupported=1 \
     ro.ril.hsxpa=1 \
     ro.ril.gprsclass=10 \

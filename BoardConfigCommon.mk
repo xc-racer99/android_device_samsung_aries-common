@@ -20,8 +20,6 @@
 # Set this up here so that BoardVendorConfig.mk can override it
 BOARD_USES_GENERIC_AUDIO := false
 
-BOARD_USES_LIBSECRIL_STUB := true
-
 TARGET_ARCH := arm
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
@@ -34,23 +32,17 @@ TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 # Bionic stuff
 BOARD_USES_LEGACY_MMAP := true
 MALLOC_SVELTE := true
-TARGET_NEEDS_BIONIC_PRELINK_SUPPORT := true
 TARGET_ENABLE_NON_PIE_SUPPORT := true
 TARGET_NEEDS_PLATFORM_TEXTRELS := true
 
 # Use longer timeouts for slow CPU
 TARGET_NEEDS_LONG_TIMEOUTS := true
 
-# RIL
-BOARD_RIL_CLASS := ../../../hardware/samsung/exynos3/s5pc110/ril/
-
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
 TARGET_BOARD_PLATFORM := s5pc110
 TARGET_BOOTLOADER_BOARD_NAME := aries
-
-BOARD_MOBILEDATA_INTERFACE_NAME = "pdp0"
 
 # Kernel Source
 TARGET_KERNEL_SOURCE := kernel/samsung/aries
@@ -93,6 +85,11 @@ WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 
 # Bluetooth
 BOARD_CUSTOM_BT_CONFIG := device/samsung/aries-common/config/libbt_vndcfg.txt
+
+# RIL
+BOARD_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
+TARGET_NEEDS_ROOT_RIL_INIT := true
+TARGET_SPECIFIC_HEADER_PATH := device/samsung/aries-common/include
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/lun%d/file"
