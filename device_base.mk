@@ -148,7 +148,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	ipc-modem \
 	libsamsung-ril \
-	libsecril-client
+	libsecril-client \
+	libsecril-shim
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
