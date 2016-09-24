@@ -172,8 +172,6 @@ format_partitions() {
     # format partitions
     /tmp/make_ext4fs -b 4096 -g 32768 -i 7680 -I 256 -a /system /dev/lvpool/system;
     /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data /dev/lvpool/userdata;
-    /tmp/busybox umount -l /datadata
-    /tmp/erase_image datadata
 }
 
 # setup lvm partitions
@@ -267,16 +265,21 @@ restore_modem() {
 }
 
 copy_ramdisks() {
-    # format the ramdisk partition and copy the ramdisks to it
+    # format the ramdisk partitions and copy the ramdisks to them
     /tmp/busybox umount -l /dev/block/mtdblock1
     /tmp/erase_image ramdisk
     check_mount /ramdisk /dev/block/mtdblock1 yaffs2
     /tmp/busybox cp /tmp/ramdisk.img /ramdisk/ramdisk.img
-    /tmp/busybox cp /tmp/ramdisk-recovery.img /ramdisk/ramdisk-recovery.img
+
+    /tmp/busybox umount -l /dev/block/mtdblock2
+    /tmp/erase_image ramdisk-recovery
+    check_mount /ramdisk-recovery /dev/block/mtdblock2 yaffs2
+    /tmp/busybox cp /tmp/ramdisk-recovery.img /ramdisk-recovery/ramdisk-recovery.img
     /tmp/busybox sync
 
-    # unmount the ramdisk partition
+    # unmount the ramdisk partitions
     /tmp/busybox umount -l /dev/block/mtdblock1
+    /tmp/busybox umount -l /dev/block/mtdblock2
 }
 
 if /tmp/busybox test -e /dev/block/bml7 ; then
@@ -318,7 +321,7 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
     exit 0;
 
 elif [ "$(/tmp/busybox cat /sys/class/mtd/mtd2/size)" != "${MTD_SIZE}" ] || \
-     [ "$(/tmp/busybox cat /sys/class/mtd/mtd2/name)" != "datadata" ] ; then
+     [ "$(/tmp/busybox cat /sys/class/mtd/mtd2/name)" != "ramdisk-recovery" ] ; then
 ################################################################################
 ################################################################################
 # Install process
@@ -336,9 +339,9 @@ elif [ "$(/tmp/busybox cat /sys/class/mtd/mtd2/size)" != "${MTD_SIZE}" ] || \
     # write the package path to sdcard aries.cfg
     echo "${UPDATE_PACKAGE}" > /sdcard/aries.cfg;
 
-    # clear datadata
-    /tmp/busybox umount -l /datadata
-    /tmp/erase_image datadata
+    if $IS_GSM ; then
+        copy_ramdisks;
+    fi
 
     # backup efs
     backup_efs /dev/block/"${EFS_PART}" yaffs2 /sdcard;
