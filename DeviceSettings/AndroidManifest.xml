@@ -25,6 +25,8 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
 
+    <protected-broadcast android:name="org.omnirom.SamsungServiceMode.EXECUTE" />
+
     <uses-sdk
         android:minSdkVersion="18"
         android:targetSdkVersion="23" />
