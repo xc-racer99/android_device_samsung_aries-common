@@ -18,10 +18,15 @@ include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
     samsung_ril.cpp \
+    ste_gps.c \
     md5.c    
 
 LOCAL_SHARED_LIBRARIES := libbinder \
+			  libcrypto \
 			  libhardware_legacy
+
+LOCAL_C_INCLUDES := \
+    external/boringssl/src/include
 
 LOCAL_MODULE := libsamsung_symbols
 LOCAL_MODULE_TAGS := optional
