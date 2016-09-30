@@ -9,7 +9,7 @@ type_transition rild system_data_file:file rild_file;
 allow rild logcat_exec:file { read getattr open execute execute_no_trans };
 allow rild rild_file:dir search;
 allow rild rild_file:file { read write create open getattr };
-allow rild self:capability { sys_admin dac_override };
+allow rild self:capability { sys_admin sys_module dac_override };
 allow rild sysfs:file write;
 allow rild system_data_file:dir { write add_name };
 allow rild system_file:file execmod;
