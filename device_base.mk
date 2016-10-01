@@ -64,6 +64,7 @@ PRODUCT_COPY_FILES += \
 
 # Prebuilt static utilities (for updater.sh)
 PRODUCT_COPY_FILES += \
+    device/samsung/aries-common/utilities/busybox:recovery/root/sbin/busybox-M \
     device/samsung/aries-common/utilities/busybox:utilities/busybox \
     device/samsung/aries-common/utilities/make_ext4fs:utilities/make_ext4fs
 
