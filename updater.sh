@@ -30,17 +30,18 @@ SYSTEM_SIZE='629145600';
 
 # write logs to /tmp
 set_log() {
-    /tmp/busybox mkdir -p /tmp/aries;
-    /tmp/busybox rm -rf /tmp/aries/"${1}";
-    exec >> /tmp/aries/"${1}" 2>&1;
+    /tmp/busybox mkdir -p /sdcard/aries;
+    /tmp/busybox rm -rf /sdcard/aries/"${1}";
+    exec >> /sdcard/aries/"${1}" 2>&1;
 }
 
-# restore logs from /tmp
+# restore logs from /sdcard/aries
 restore_log() {
     local aries_log_path="${2}"/aries/log;
-    if /tmp/busybox test -e /tmp/aries/"${1}" ; then
+    if /tmp/busybox test -e /sdcard/aries/"${1}" ; then
         mkdir -p "${aries_log_path}";
-        /tmp/busybox cp /tmp/aries/"${1}" "${aries_log_path}"/"${1}";
+        /tmp/busybox cp /sdcard/aries/"${1}" "${aries_log_path}"/"${1}";
+        /tmp/busybox rm -rf /sdcard/aries
     fi
 }
 
@@ -289,7 +290,7 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
 # check if we're running on a bml
 
     # we're running on a bml device
-    # everything is logged into /tmp/aries/bml.log
+    # everything is logged into /sdcard/aries/bml.log
     set_log bml.log;
 
     # send a warning to user
@@ -327,7 +328,7 @@ elif [ "$(/tmp/busybox cat /sys/class/mtd/mtd2/size)" != "${MTD_SIZE}" ] || \
 # Install process
 # we're running on a mtd (old) device
 
-    # everything is logged /tmp/aries_mtd_old.log
+    # everything is logged /sdcard/aries_mtd_old.log
     set_log mtd_old.log;
 
     # send a warning to user
@@ -362,7 +363,7 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
 # Install process
 # we're running on a mtd (current) device
 
-    # everything is logged into /tmp/aries/mtd.log
+    # everything is logged into /sdcard/aries/mtd.log
     set_log mtd.log;
 
     # restore modem.bin
