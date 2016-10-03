@@ -128,8 +128,7 @@ PRODUCT_PACKAGES += \
     pvrsrvinit
 
 PRODUCT_COPY_FILES += \
-    device/samsung/aries-common/config/audio_policy.conf:system/etc/audio_policy.conf \
-    device/samsung/aries-common/config/audio_effects.conf:system/vendor/etc/audio_effects.conf
+    device/samsung/aries-common/config/audio_policy.conf:system/etc/audio_policy.conf
 
 # Libs
 PRODUCT_PACKAGES += \
