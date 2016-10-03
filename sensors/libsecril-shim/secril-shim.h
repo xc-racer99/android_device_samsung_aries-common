@@ -4,9 +4,6 @@
 #define LOG_TAG "secril-shim"
 #define RIL_SHLIB
 
-#define RIL_UNSOL_AM 11010
-#define RIL_UNSOL_HSDPA_STATE_CHANGED 11016
-
 #include <dlfcn.h>
 #include <inttypes.h>
 #include <stdbool.h>
