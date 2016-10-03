@@ -223,25 +223,12 @@ static void onUnsolicitedResponseShim(int unsolResponse, const void *data, size_
 				fixupSignalStrength((void*) data, datalen);
 			break;
 
-		case RIL_UNSOL_AM:
-		{
-			/* This sends an "am" command for broadcasts, etc */
-			char *amArgs = (char*) data;
-
-			/* 3 is the length of "am ", 106 is longest broadcast in libsec-ril.so */
-			char command[109];
-			strcpy(command, "am ");
-			strcat(command, amArgs);
-
-			RLOGD("%s: got unsol response UNSOL_AM: running %s\n", __func__, command);
-
-			int amReturn = system(command);
-			RLOGD("%s: UNSOL_AM: am returned %d\n", __func__, amReturn);
+		default:
+		if (unsolResponse > 11000) {
+			/* Samsung-specific call, log only */
+			RLOGD("%s: got samsung unsol response %d: logging only\n", __func__, unsolResponse);
 			return;
 		}
-		case RIL_UNSOL_HSDPA_STATE_CHANGED:
-			RLOGD("%s: UNSOL_HSDPA_STATE_CHANGED: logging only\n", __func__);
-			return;
 	}
 
 	RLOGD("%s: got unsol response %s: forwarded to libril.\n", __func__, requestToString(unsolResponse));
