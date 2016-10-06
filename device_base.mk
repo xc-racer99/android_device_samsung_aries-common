@@ -184,15 +184,24 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # ART
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-flags=--no-watch-dog \
-    dalvik.vm.dex2oat-swap=false
+    dalvik.vm.dex2oat-swap=false \
+    dalvik.vm.dex2oat-Xmx=256m \
+    dalvik.vm.usejit=false \
+    dalvik.vm.usejitprofiles=false
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
 
-# EGL
+# OpenGL
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.hwui.render_dirty_regions=false \
+    ro.hwui.r_buffer_cache_size=1 \
+    ro.hwui.layer_cache_size=8 \
+    ro.hwui.path_cache_size=2 \
+    ro.hwui.drop_shadow_cache_size=1 \
+    ro.hwui.shape_cache_size=0.5 \
+    ro.hwui.texture_cache_size=12 \
     ro.opengles.version=131072 \
     ro.zygote.disable_gl_preload=true
 
