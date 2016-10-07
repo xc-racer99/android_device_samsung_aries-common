@@ -157,6 +157,7 @@ PRODUCT_PACKAGES += \
 # RIL
 PRODUCT_PACKAGES += \
     libsamsung_symbols \
+    libsecril-client \
     libsecril-shim
 
 # Wi-Fi
