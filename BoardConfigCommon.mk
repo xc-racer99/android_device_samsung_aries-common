@@ -95,7 +95,6 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/aries-common
 
 # RIL
 BOARD_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
-TARGET_NEEDS_ROOT_RIL_INIT := true
 TARGET_SPECIFIC_HEADER_PATH := device/samsung/aries-common/include
 
 # Recovery
