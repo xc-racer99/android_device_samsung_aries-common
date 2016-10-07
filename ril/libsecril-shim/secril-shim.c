@@ -9,6 +9,37 @@ static const struct RIL_Env *rilEnv;
 /* The aries variant we're running on. */
 static int ariesVariant = VARIANT_INIT;
 
+static void patchMem(void *libHandle)
+{
+	/* MAX_TIMEOUT is used for a call to pthread_cond_timedwait_relative_np.
+	 * The issue is bionic has switched to using absolute timeouts instead of
+	 * relative timeouts, and a maximum time value can cause an overflow in
+	 * the function converting relative to absolute timespecs if unpatched.
+	 *
+	 * By patching this to 0x01FFFFFF from 0x7FFFFFFF, the timeout should
+	 * expire in about a year rather than 68 years, and the RIL should be good
+	 * up until the year 2036 or so. */
+	uint8_t *MAX_TIMEOUT;
+
+	MAX_TIMEOUT = dlsym(libHandle, "MAX_TIMEOUT");
+	if (CC_UNLIKELY(!MAX_TIMEOUT)) {
+		RLOGE("%s: MAX_TIMEOUT could not be found!", __func__);
+		return;
+	}
+	RLOGD("%s: MAX_TIMEOUT found at %p!", __func__, MAX_TIMEOUT);
+
+	/* We need to patch the first byte, since we're little endian
+	 * we need to move forward 3 bytes to get that byte. */
+	MAX_TIMEOUT += 3;
+	RLOGD("%s: MAX_TIMEOUT is currently 0x%" PRIX8 "FFFFFF", __func__, *MAX_TIMEOUT);
+	if (CC_LIKELY(*MAX_TIMEOUT == 0x7F)) {
+		*MAX_TIMEOUT = 0x01;
+		RLOGI("%s: MAX_TIMEOUT was changed to 0x%" PRIX8 "FFFFFF", __func__, *MAX_TIMEOUT);
+	} else {
+		RLOGW("%s: MAX_TIMEOUT was not 0x7F; leaving alone", __func__);
+	}
+}
+
 static void onRequestShim(int request, void *data, size_t datalen, RIL_Token t)
 {
 	switch (request) {
@@ -282,6 +313,9 @@ const RIL_RadioFunctions* RIL_Init(const struct RIL_Env *env, int argc, char **a
 		RLOGE("%s: couldn't find original RIL_Init!\n", __func__);
 		goto fail_after_dlopen;
 	}
+
+	/* Fix RIL issues by patching memory: pre-init pass. */
+	patchMem(origRil);
 
 	origRilFunctions = origRilInit(&shimmedEnv, argc, argv);
 	if (CC_UNLIKELY(!origRilFunctions)) {
