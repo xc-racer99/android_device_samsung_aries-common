@@ -641,6 +641,7 @@ callbacks:
             return UNKNOWN_ERROR;
         }
 
+
         addrs = (struct addrs *)mRecordHeap->data;
 
         addrs[index].type   = kMetadataBufferTypeCameraSource;
@@ -2565,7 +2566,7 @@ static int HAL_getCameraInfo(int cameraId, struct camera_info *cameraInfo)
     return 0;
 }
 
-#define SET_METHOD(m) m : HAL_camera_device_##m
+#define SET_METHOD(m) .m = HAL_camera_device_##m
 
 static camera_device_ops_t camera_device_ops = {
         SET_METHOD(set_preview_window),
@@ -2640,22 +2641,22 @@ done:
 }
 
 static hw_module_methods_t camera_module_methods = {
-            open : HAL_camera_device_open
+            .open = HAL_camera_device_open
 };
 
 extern "C" {
     struct camera_module HAL_MODULE_INFO_SYM = {
-      common : {
-          tag           : HARDWARE_MODULE_TAG,
-          version_major : 1,
-          version_minor : 0,
-          id            : CAMERA_HARDWARE_MODULE_ID,
-          name          : "Aries camera HAL",
-          author        : "Samsung Corporation",
-          methods       : &camera_module_methods,
+      .common = {
+          .tag           = HARDWARE_MODULE_TAG,
+          .version_major = 1,
+          .version_minor = 0,
+          .id            = CAMERA_HARDWARE_MODULE_ID,
+          .name          = "Aries camera HAL",
+          .author        = "Samsung Corporation",
+          .methods       = &camera_module_methods,
       },
-      get_number_of_cameras : HAL_getNumberOfCameras,
-      get_camera_info       : HAL_getCameraInfo
+      .get_number_of_cameras = HAL_getNumberOfCameras,
+      .get_camera_info       = HAL_getCameraInfo
     };
 }
 

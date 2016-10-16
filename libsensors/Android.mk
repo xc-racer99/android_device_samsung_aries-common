@@ -30,10 +30,6 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\"
 
-ifeq ($(TARGET_DEVICE),captivate)
-	LOCAL_CFLAGS +=  -DCAPTIVATE
-endif
-
 LOCAL_SRC_FILES := 						\
 				sensors.cpp 			\
 				SensorBase.cpp			\

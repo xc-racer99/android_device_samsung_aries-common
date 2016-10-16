@@ -109,9 +109,6 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/l
 # SELinux
 BOARD_SEPOLICY_DIRS += device/samsung/aries-common/sepolicy
 
-# Timeouts for slow CPU
-TARGET_NEEDS_LONG_TIMEOUTS := true
-
 # Include aries specific stuff
 -include device/samsung/aries-common/Android.mk
 
