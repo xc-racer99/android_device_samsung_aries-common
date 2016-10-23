@@ -321,8 +321,7 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
     /sbin/reboot now;
     exit 0;
 
-elif [ "$(/tmp/busybox cat /sys/class/mtd/mtd2/size)" != "${MTD_SIZE}" ] || \
-     [ "$(/tmp/busybox cat /sys/class/mtd/mtd2/name)" != "ramdisk-recovery" ] ; then
+elif [ "$(/tmp/busybox cat /sys/class/mtd/mtd2/size)" != "${MTD_SIZE}" ] ; then
 ################################################################################
 ################################################################################
 # Install process
