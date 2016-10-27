@@ -95,19 +95,20 @@ static void onRequestCompleteShim(RIL_Token t, RIL_Errno e, void *response, size
 
 				RIL_CardStatus_v5 *v5response = ((RIL_CardStatus_v5 *) response);
 
-				RIL_CardStatus_v6 *v6response = malloc(sizeof(RIL_CardStatus_v6));
+				RIL_CardStatus_v6 v6response;
 
-				v6response->card_state = v5response->card_state;
-				v6response->universal_pin_state = v5response->universal_pin_state;
-				v6response->gsm_umts_subscription_app_index = v5response->gsm_umts_subscription_app_index;
-				v6response->cdma_subscription_app_index = v5response->cdma_subscription_app_index;
-				v6response->ims_subscription_app_index = -1;
-				v6response->num_applications = v5response->num_applications;
-				memcpy(v6response->applications, v5response->applications, sizeof(RIL_AppStatus) * 8);
+				v6response.card_state = v5response->card_state;
+				v6response.universal_pin_state = v5response->universal_pin_state;
+				v6response.gsm_umts_subscription_app_index = v5response->gsm_umts_subscription_app_index;
+				v6response.cdma_subscription_app_index = v5response->cdma_subscription_app_index;
+				v6response.ims_subscription_app_index = -1;
+				v6response.num_applications = v5response->num_applications;
 
-				rilEnv->OnRequestComplete(t, e, v6response, sizeof(RIL_CardStatus_v6));
+				int i;
+				for (i = 0; i < RIL_CARD_MAX_APPS; ++i)
+					memcpy(&v6response.applications[i], &v5response->applications[i], sizeof(RIL_AppStatus));
 
-				free(v6response);
+				rilEnv->OnRequestComplete(t, e, &v6response, sizeof(RIL_CardStatus_v6));
 				return;
 			}
 			/* If this was already a v6 reply, continue as usual. */
