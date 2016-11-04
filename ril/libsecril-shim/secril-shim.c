@@ -14,11 +14,7 @@ static void patchMem(void *libHandle)
 	/* MAX_TIMEOUT is used for a call to pthread_cond_timedwait_relative_np.
 	 * The issue is bionic has switched to using absolute timeouts instead of
 	 * relative timeouts, and a maximum time value can cause an overflow in
-	 * the function converting relative to absolute timespecs if unpatched.
-	 *
-	 * By patching this to 0x01FFFFFF from 0x7FFFFFFF, the timeout should
-	 * expire in about a year rather than 68 years, and the RIL should be good
-	 * up until the year 2036 or so. */
+	 * the function converting relative to absolute timespecs if unpatched. */
 	uint8_t *MAX_TIMEOUT;
 
 	MAX_TIMEOUT = dlsym(libHandle, "MAX_TIMEOUT");
@@ -33,7 +29,7 @@ static void patchMem(void *libHandle)
 	MAX_TIMEOUT += 3;
 	RLOGD("%s: MAX_TIMEOUT is currently 0x%" PRIX8 "FFFFFF", __func__, *MAX_TIMEOUT);
 	if (CC_LIKELY(*MAX_TIMEOUT == 0x7F)) {
-		*MAX_TIMEOUT = 0x01;
+		*MAX_TIMEOUT = 0x1F;
 		RLOGI("%s: MAX_TIMEOUT was changed to 0x%" PRIX8 "FFFFFF", __func__, *MAX_TIMEOUT);
 	} else {
 		RLOGW("%s: MAX_TIMEOUT was not 0x7F; leaving alone", __func__);
