@@ -115,6 +115,7 @@ PRODUCT_PACKAGES += \
 # Device-specific packages
 PRODUCT_PACKAGES += \
     DeviceSettings \
+    LegacyCamera \
     SamsungServiceMode
 
 # Filesystem management tools
