@@ -137,11 +137,6 @@ static void fixupSignalStrength(void *response, size_t responselen) {
 
 		gsmSignalStrength = p_cur->GW_SignalStrength.signalStrength & 0xFF;
 
-		if (gsmSignalStrength < 0 ||
-			(gsmSignalStrength > 31 && p_cur->GW_SignalStrength.signalStrength != 99)) {
-			gsmSignalStrength = p_cur->CDMA_SignalStrength.dbm;
-		}
-
 		/* Fix GSM signal strength */
 		p_cur->GW_SignalStrength.signalStrength = gsmSignalStrength;
 		p_cur->GW_SignalStrength.bitErrorRate = -1;
