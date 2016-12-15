@@ -151,6 +151,7 @@ PRODUCT_PACKAGES += \
     audio.usb.default \
     camera.aries \
     hwcomposer.s5pc110 \
+    libcorkscrew \
     libs3cjpeg \
     lights.aries \
     power.s5pc110 \
