@@ -1,0 +1,4 @@
+# LVM is run with the init context right now, so run it as permissive
+userdebug_or_eng(`permissive init;')
+# Avoid logspam
+dontaudit init *:* *;
