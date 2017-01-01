@@ -107,7 +107,7 @@ PRODUCT_PACKAGES += \
 # Device-specific packages
 PRODUCT_PACKAGES += \
     DeviceSettings \
-    LegacyCamera \
+    Snap \
     SamsungServiceMode
 
 # GPS Shims
