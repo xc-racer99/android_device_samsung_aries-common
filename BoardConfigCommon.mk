@@ -47,7 +47,7 @@ TARGET_USERIMAGES_USE_YAFFS := true
 BOARD_USES_LEGACY_MMAP := true
 MALLOC_SVELTE := true
 TARGET_ENABLE_NON_PIE_SUPPORT := true
-TARGET_NEEDS_PLATFORM_TEXTRELS := true
+TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -75,8 +75,7 @@ WPA_SUPPLICANT_VERSION      := VER_0_8_X
 
 # Dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
-    WITH_DEXPREOPT := true
-    WITH_DEXPREOPT_BOOT_IMG_ONLY := true
+    WITH_DEXPREOPT := false
 endif
 
 # Kernel source
@@ -93,6 +92,7 @@ BOARD_CANT_REALLOCATE_OMX_BUFFERS := true
 BOARD_SCREENRECORD_LANDSCAPE_ONLY := true
 
 # Releasetools
+BLOCK_BASED_OTA := false
 TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/aries-common
 
 # RIL
