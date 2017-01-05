@@ -233,6 +233,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.strictmode.disable=1 \
     persist.sys.strictmode.visual=0
 
+# System server
+PRODUCT_PROPERTY_OVERRIDES += \
+    config.disable_atlas=true \
+    config.disable_samplingprof=true
+
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
