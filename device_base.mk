@@ -125,9 +125,10 @@ PRODUCT_PACKAGES += \
     utility_erase_image \
     utility_flash_image
 
-# GPS Shim
+# GPS Shims
 PRODUCT_PACKAGES += \
-    libdmitry
+    libdmitry \
+    libstegps
 
 # Libs
 PRODUCT_PACKAGES += \
@@ -159,8 +160,8 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
-    libsamsung_symbols \
     libsecril-client \
+    libsecril-compat \
     libsecril-shim
 
 # Wi-Fi

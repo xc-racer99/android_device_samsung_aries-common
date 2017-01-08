@@ -17,18 +17,15 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-    samsung_ril.cpp \
-    ste_gps.c \
-    md5.c    
+    ste_gps.c
 
-LOCAL_SHARED_LIBRARIES := libbinder \
-			  libcrypto \
-			  libhardware_legacy
+LOCAL_SHARED_LIBRARIES := \
+    libcrypto
 
 LOCAL_C_INCLUDES := \
     external/boringssl/src/include
 
-LOCAL_MODULE := libsamsung_symbols
+LOCAL_MODULE := libstegps
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 
