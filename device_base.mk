@@ -175,7 +175,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.gprsclass=10 \
     ro.config.low_ram=true \
     ro.sys.fw.bg_apps_limit=16 \
-    ro.config.max_starting_bg=10 \
     ro.ksm.default=1 \
     wifi.interface=wlan0
 
