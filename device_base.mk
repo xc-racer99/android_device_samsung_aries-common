@@ -91,14 +91,6 @@ PRODUCT_COPY_FILES += \
     device/samsung/aries-common/config/s3c-keypad.kcm:system/usr/keychars/s3c-keypad.kcm \
     device/samsung/aries-common/config/s3c-keypad.kl:system/usr/keylayout/s3c-keypad.kl
 
-# Prebuilt static utilities (for updater.sh)
-PRODUCT_COPY_FILES += \
-    device/samsung/aries-common/utilities/bml_over_mtd:utilities/bml_over_mtd \
-    device/samsung/aries-common/utilities/busybox:utilities/busybox \
-    device/samsung/aries-common/utilities/erase_image:utilities/erase_image \
-    device/samsung/aries-common/utilities/erase_image:utilities/flash_image \
-    device/samsung/aries-common/utilities/make_ext4fs:utilities/make_ext4fs
-
 # Shell scripts
 PRODUCT_COPY_FILES += \
     device/samsung/aries-common/bml_over_mtd.sh:bml_over_mtd.sh \
@@ -118,13 +110,6 @@ PRODUCT_PACKAGES += \
     LegacyCamera \
     SamsungServiceMode
 
-# Filesystem management tools
-PRODUCT_PACKAGES += \
-    bml_over_mtd \
-    setup_fs \
-    utility_erase_image \
-    utility_flash_image
-
 # GPS Shims
 PRODUCT_PACKAGES += \
     libdmitry \
@@ -133,6 +118,15 @@ PRODUCT_PACKAGES += \
 # Libs
 PRODUCT_PACKAGES += \
     libstagefrighthw
+
+# Static executables for updater.sh
+PRODUCT_PACKAGES += \
+    bml_over_mtd \
+    setup_fs \
+    static_busybox \
+    utility_erase_image \
+    utility_flash_image \
+    utility_make_ext4fs
 
 # Misc other modules
 PRODUCT_PACKAGES += \
