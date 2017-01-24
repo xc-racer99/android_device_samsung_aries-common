@@ -150,6 +150,7 @@ PRODUCT_PACKAGES += \
 
 # PVR
 PRODUCT_PACKAGES += \
+    libEGL_POWERVR \
     pvrsrvinit
 
 # RIL
