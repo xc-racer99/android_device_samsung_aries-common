@@ -1704,7 +1704,7 @@ status_t AudioHardware::AudioStreamOutALSA::getRenderPosition(uint32_t *dspFrame
     return INVALID_OPERATION;
 }
 
-status_t AudioStreamOut::getPresentationPosition(uint64_t *frames,
+status_t AudioHardware::AudioStreamOutALSA::getPresentationPosition(uint64_t *frames,
     struct timespec *timestamp)
 {
     //TODO

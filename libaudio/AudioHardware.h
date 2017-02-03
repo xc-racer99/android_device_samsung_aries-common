@@ -280,6 +280,8 @@ private:
         uint32_t device() { return mDevices; }
         virtual status_t getRenderPosition(uint32_t *dspFrames);
 
+        virtual status_t getPresentationPosition(uint64_t *frames, struct timespec *timestamp);
+
                 void doStandby_l();
                 void close_l();
                 status_t open_l();
