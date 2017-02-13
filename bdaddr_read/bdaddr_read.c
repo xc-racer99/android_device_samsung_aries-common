@@ -25,14 +25,14 @@ int main() {
      */
 
     if ( stat("/data/bdaddr", &st) == 0 ) {
-        fprintf(stderr, "bdaddr has already been written, exiting\n");
+        property_set("ro.bt.bdaddr_path", BDADDR_PATH);
+
         ALOGV("bdaddr has already been written, exiting\n");
         return 0;
     }
 
     property_get(SAMSUNG_BDADDR_PATH, tmpbdaddr, "");
     if (tmpbdaddr[0] == 0) {
-        fprintf(stderr, "read(%s) failed\n", SAMSUNG_BDADDR_PATH);
         ALOGE("Can't read %s\n", SAMSUNG_BDADDR_PATH);
         return -1;
     }
@@ -42,7 +42,6 @@ int main() {
 
     fd = open(BDADDR_PATH, O_WRONLY|O_CREAT|O_TRUNC, 00600|00060|00006);
     if (fd < 0) {
-        fprintf(stderr, "open(%s) failed\n", BDADDR_PATH);
         ALOGE("Can't open %s\n", BDADDR_PATH);
         return -2;
     }
