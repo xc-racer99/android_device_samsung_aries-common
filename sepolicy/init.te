@@ -12,3 +12,5 @@ allow init app_data_file:lnk_file { relabelfrom getattr };
 allow init shell_data_file:dir relabelfrom;
 
 allow init rild:process noatsecure;
+
+allow init debugfs:file { write };

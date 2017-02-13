@@ -1,1 +1,5 @@
+allow audioserver fwmarkd_socket:sock_file { write };
+allow audioserver netd:unix_stream_socket connectto;
+allow audioserver port:tcp_socket name_connect;
+allow audioserver self:tcp_socket { create connect read write };
 allow audioserver system_file:file execmod;

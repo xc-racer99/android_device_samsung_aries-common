@@ -1,4 +1,6 @@
 ###########################
 # OmniROM Aries sepolicy
 #
+allow netd audioserver:fd use;
+allow netd audioserver:tcp_socket { getopt read setopt write };
 allow netd self:capability sys_module;
