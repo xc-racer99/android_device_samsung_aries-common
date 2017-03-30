@@ -188,6 +188,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
 
+# OMX is non-Treble
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.media.treble_omx=false
+
 # OpenGL
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.hwui.render_dirty_regions=false \
