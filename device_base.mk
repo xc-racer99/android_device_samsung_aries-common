@@ -196,6 +196,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.locationfeatures=1 \
     ro.com.google.networklocation=1
 
+# OMX is non-Treble
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.media.treble_omx=false
+
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.hwui.render_dirty_regions=false \
