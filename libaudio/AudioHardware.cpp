@@ -1704,14 +1704,14 @@ String8 AudioHardware::AudioStreamOutALSA::getParameters(const String8& keys)
 status_t AudioHardware::AudioStreamOutALSA::getRenderPosition(uint32_t *dspFrames)
 {
     //TODO
-    return INVALID_OPERATION;
+    return -ENODATA;
 }
 
 status_t AudioStreamOut::getPresentationPosition(uint64_t *frames,
     struct timespec *timestamp)
 {
     //TODO
-    return INVALID_OPERATION;
+    return -ENODATA;
 }
 
 status_t AudioHardware::setMasterMute(bool muted) {
