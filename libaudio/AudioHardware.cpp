@@ -1243,7 +1243,10 @@ uint32_t AudioHardware::getInputSampleRate(uint32_t sampleRate)
     size_t size = sizeof(inputConfigTable)/sizeof(uint32_t)/INPUT_CONFIG_CNT;
 
     for (i = 0, prevDelta = 0xFFFFFFFF; i < size; i++, prevDelta = delta) {
-        delta = abs(sampleRate - inputConfigTable[i][INPUT_CONFIG_SAMPLE_RATE]);
+		if(sampleRate > inputConfigTable[i][INPUT_CONFIG_SAMPLE_RATE])
+			delta = sampleRate - inputConfigTable[i][INPUT_CONFIG_SAMPLE_RATE];
+		else
+        	delta = inputConfigTable[i][INPUT_CONFIG_SAMPLE_RATE] - sampleRate;
         if (delta > prevDelta) break;
     }
     // i is always > 0 here
