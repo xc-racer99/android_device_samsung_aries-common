@@ -357,9 +357,10 @@ static int fimc_v4l2_querybuf(int fp, struct fimc_buffer *buffer, enum v4l2_buf_
     }
 
     buffer->length = v4l2_buf.length;
-    if ((buffer->start = (char *)mmap(0, v4l2_buf.length,
+    buffer->start = (char *)mmap(0, v4l2_buf.length,
                                          PROT_READ | PROT_WRITE, MAP_SHARED,
-                                         fp, v4l2_buf.m.offset)) < 0) {
+                                         fp, v4l2_buf.m.offset);
+	if(buffer->start == NULL) {
          ALOGE("%s %d] mmap() failed\n",__func__, __LINE__);
          return -1;
     }

@@ -11,6 +11,9 @@ LOCAL_C_INCLUDES += hardware/samsung/exynos3/s5pc110/include
 LOCAL_C_INCLUDES += hardware/samsung/exynos3/s5pc110/libs3cjpeg
 LOCAL_C_INCLUDES += frameworks/native/include/media/hardware
 LOCAL_C_INCLUDES += system/media/camera/include
+LOCAL_C_INCLUDES += frameworks/native/libs/arect/include
+LOCAL_C_INCLUDES += system/libhidl/transport/token/1.0/utils/include
+LOCAL_C_INCLUDES += system/libhidl/base/include
 
 LOCAL_CFLAGS := \
 	-Wno-missing-field-initializers \
@@ -23,6 +26,7 @@ LOCAL_SRC_FILES:= \
 	SecCameraUtils.cpp \
 
 LOCAL_SHARED_LIBRARIES:= libutils libcutils libbinder liblog libcamera_client libhardware
+LOCAL_SHARED_LIBRARIES+= android.hardware.graphics.bufferqueue@1.0
 LOCAL_SHARED_LIBRARIES+= libs3cjpeg
 
 LOCAL_MODULE := camera.aries
