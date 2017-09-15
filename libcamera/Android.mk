@@ -11,6 +11,9 @@ LOCAL_C_INCLUDES += hardware/samsung/exynos3/s5pc110/include
 LOCAL_C_INCLUDES += hardware/samsung/exynos3/s5pc110/libs3cjpeg
 LOCAL_C_INCLUDES += frameworks/native/include/media/hardware
 LOCAL_C_INCLUDES += system/media/camera/include
+LOCAL_C_INCLUDES += frameworks/native/libs/arect/include
+LOCAL_C_INCLUDES += system/libhidl/transport/token/1.0/utils/include
+LOCAL_C_INCLUDES += system/libhidl/base/include
 
 LOCAL_CFLAGS := \
 	-Wno-missing-field-initializers \
