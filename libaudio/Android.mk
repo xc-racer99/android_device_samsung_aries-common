@@ -28,6 +28,7 @@ LOCAL_SHARED_LIBRARIES += libdl
 LOCAL_C_INCLUDES += \
 	device/samsung/aries-common/ril/libsecril-client \
 	external/tinyalsa/include \
+	system/core/base/include \
 	$(call include-path-for, audio-effects) \
 	$(call include-path-for, audio-utils)
 
