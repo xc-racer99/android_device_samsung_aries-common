@@ -20,7 +20,9 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_SRC_FILES := bdaddr_read.c
 
-LOCAL_SHARED_LIBRARIES := libcutils
+LOCAL_SHARED_LIBRARIES := \
+	libcutils \
+	liblog
 
 LOCAL_MODULE := bdaddr_read
 
