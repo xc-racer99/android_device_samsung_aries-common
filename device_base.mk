@@ -104,6 +104,14 @@ PRODUCT_COPY_FILES += \
     device/samsung/aries-common/bml_over_mtd.sh:bml_over_mtd.sh \
     device/samsung/aries-common/updater.sh:updater.sh
 
+# Audio
+PRODUCT_PACKAGES += \
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio.effect@2.0-impl \
+    audio.primary.aries \
+    audio.a2dp.default \
+    audio.usb.default
+
 # Bluetooth MAC Address
 PRODUCT_PACKAGES += \
     bdaddr_read
@@ -135,6 +143,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libstagefrighthw
 
+# Lights
+PRODUCT_PACKAGES += \
+	android.hardware.light@2.0-impl \
+    lights.aries
+
 # Static executables for updater.sh
 PRODUCT_PACKAGES += \
     bml_over_mtd \
@@ -146,14 +159,10 @@ PRODUCT_PACKAGES += \
 
 # Misc other modules
 PRODUCT_PACKAGES += \
-    audio.primary.aries \
-    audio.a2dp.default \
-    audio.usb.default \
     camera.aries \
     hwcomposer.s5pc110 \
     libcorkscrew \
     libs3cjpeg \
-    lights.aries \
     power.s5pc110 \
     sensors.aries
 
