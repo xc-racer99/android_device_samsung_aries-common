@@ -79,6 +79,9 @@ ifeq ($(HOST_OS),linux)
     WITH_DEXPREOPT_BOOT_IMG_ONLY := true
 endif
 
+# HIDL
+DEVICE_MANIFEST_FILE += device/samsung/aries-common/manifest.xml
+
 # Kernel source
 TARGET_KERNEL_SOURCE := kernel/samsung/aries
 
