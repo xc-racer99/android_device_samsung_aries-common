@@ -26,6 +26,7 @@ LOCAL_SRC_FILES:= \
 	SecCameraUtils.cpp \
 
 LOCAL_SHARED_LIBRARIES:= libutils libcutils libbinder liblog libcamera_client libhardware
+LOCAL_SHARED_LIBRARIES+= android.hardware.graphics.bufferqueue@1.0
 LOCAL_SHARED_LIBRARIES+= libs3cjpeg
 
 LOCAL_MODULE := camera.aries
