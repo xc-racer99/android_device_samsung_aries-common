@@ -112,8 +112,8 @@ PRODUCT_PACKAGES += \
 
 # GPS Shims
 PRODUCT_PACKAGES += \
-    libdmitry \
     libstegps
+#    libdmitry \
 
 # HIDL
 PRODUCT_PACKAGES += \
