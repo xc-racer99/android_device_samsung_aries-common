@@ -338,7 +338,8 @@ int Connect_RILD(HRilClient client) {
     client_prv = (RilClientPrv *)(client->prv);
 
     // Open client socket and connect to server.
-    client_prv->sock = socket_loopback_client(RILD_PORT, SOCK_STREAM);
+    //client_prv->sock = socket_loopback_client(RILD_PORT, SOCK_STREAM);
+    client_prv->sock = socket_network_client("localhost", RILD_PORT, SOCK_STREAM);
     //client_prv->sock = socket_local_client(MULTI_CLIENT_SOCKET_NAME, ANDROID_SOCKET_NAMESPACE_ABSTRACT, SOCK_STREAM );
 
     if (client_prv->sock < 0) {
