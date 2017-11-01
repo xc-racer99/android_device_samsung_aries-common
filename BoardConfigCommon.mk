@@ -112,10 +112,10 @@ TARGET_USERIMAGES_USE_F2FS := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/lun%d/file"
 
 # SELinux
-BOARD_SEPOLICY_DIRS += device/samsung/aries-common/sepolicy
-ifneq (galaxys4gmtd, $(TARGET_DEVICE))
-    BOARD_SEPOLICY_DIRS += device/samsung/aries-common/sepolicy-lvm
-endif
+#BOARD_SEPOLICY_DIRS += device/samsung/aries-common/sepolicy
+#ifneq (galaxys4gmtd, $(TARGET_DEVICE))
+#    BOARD_SEPOLICY_DIRS += device/samsung/aries-common/sepolicy-lvm
+#endif
 
 # Include aries specific stuff
 -include device/samsung/aries-common/Android.mk
