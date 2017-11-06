@@ -27,6 +27,21 @@ enum variant_type {
 
 extern const char * requestToString(int request);
 
+typedef struct {
+	char *          cid;
+    char *          ifname;
+    char *          address;
+} RIL_Data_Call_Response_v3;
+
+typedef struct {
+    int             cid;        /* Context ID, uniquely identifies this call */
+    int             active;     /* 0=inactive, 1=active/physical link down, 2=active/physical link up */
+    char *          type;       /* One of the PDP_type values in TS 27.007 section 10.1.1.
+                                   For example, "IP", "IPV6", "IPV4V6", or "PPP". */
+    char *          apn;        /* ignored */
+    char *          address;    /* An address, e.g., "192.0.1.3" or "2001:db8::1". */
+} RIL_Data_CallResponse_v4;
+
 /* TODO: Do we really need to redefine these? They aren't in a header... */
 typedef struct {
     int requestNumber;
