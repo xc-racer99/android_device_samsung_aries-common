@@ -35,28 +35,28 @@ def FullOTA_Assertions(info):
 
   info.script.AppendExtra(
         ('package_extract_file("modem.bin", "/tmp/modem.bin");\n'
-         'set_metadata("/tmp/modem.bin", "uid", 0, "gid", 0, "mode", 0777);'))
+         'run_program("/sbin/chmod", "777", "/tmp/modem.bin");'))
   info.script.AppendExtra(
         ('package_extract_file("updater.sh", "/tmp/updater.sh");\n'
-         'set_metadata("/tmp/updater.sh", "uid", 0, "gid", 0, "mode", 0777);'))
+         'run_program("/sbin/chmod", "777", "/tmp/updater.sh");'))
   info.script.AppendExtra(
        ('package_extract_file("make_ext4fs", "/tmp/make_ext4fs");\n'
-        'set_metadata("/tmp/make_ext4fs", "uid", 0, "gid", 0, "mode", 0777);'))
+        'run_program("/sbin/chmod", "777", "/tmp/make_ext4fs");'))
   info.script.AppendExtra(
         ('package_extract_file("busybox", "/tmp/busybox");\n'
-         'set_metadata("/tmp/busybox", "uid", 0, "gid", 0, "mode", 0777);'))
+         'run_program("/sbin/chmod", "777", "/tmp/busybox");'))
   info.script.AppendExtra(
         ('package_extract_file("flash_image", "/tmp/flash_image");\n'
-         'set_metadata("/tmp/flash_image", "uid", 0, "gid", 0, "mode", 0777);'))
+         'run_program("/sbin/chmod", "777", "/tmp/flash_image");'))
   info.script.AppendExtra(
         ('package_extract_file("erase_image", "/tmp/erase_image");\n'
-         'set_metadata("/tmp/erase_image", "uid", 0, "gid", 0, "mode", 0777);'))
+         'run_program("/sbin/chmod", "777", "/tmp/erase_image");'))
   info.script.AppendExtra(
         ('package_extract_file("bml_over_mtd", "/tmp/bml_over_mtd");\n'
-         'set_metadata("/tmp/bml_over_mtd", "uid", 0, "gid", 0, "mode", 0777);'))
+         'run_program("/sbin/chmod", "777", "/tmp/bml_over_mtd");'))
   info.script.AppendExtra(
         ('package_extract_file("bml_over_mtd.sh", "/tmp/bml_over_mtd.sh");\n'
-         'set_metadata("/tmp/bml_over_mtd.sh", "uid", 0, "gid", 0, "mode", 0777);'))
+         'run_program("/sbin/chmod", "777", "/tmp/bml_over_mtd.sh");'))
 
   info.script.AppendExtra('package_extract_file("boot.img", "/tmp/boot.img");')
   info.script.AppendExtra('package_extract_file("ramdisk.img", "/tmp/ramdisk.img");')
