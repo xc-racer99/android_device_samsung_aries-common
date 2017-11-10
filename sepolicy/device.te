@@ -2,3 +2,4 @@
 # OmniROM Aries sepolicy
 #
 type mfc_device, dev_type;
+type gps_device, dev_type;

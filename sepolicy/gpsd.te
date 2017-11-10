@@ -1,3 +1,11 @@
+type gpsd, domain;
+type gpsd_exec, exec_type, file_type;
+
+init_daemon_domain(gpsd)
+net_domain(gpsd)
+
+type_transition gpsd gps_data_file:sock_file gps_socket;
+
 allow gpsd self:process { execmem };
 allow gpsd properties_device:file { execute };
 allow gpsd properties_serial:file { execute };
