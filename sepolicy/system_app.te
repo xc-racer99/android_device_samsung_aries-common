@@ -2,5 +2,5 @@
 # OmniROM Aries sepolicy
 #
 allow system_app sysfs_dspmanager:dir { search };
-allow system_app sysfs:file { write getattr open };
+allow system_app sysfs_writable:file { write getattr open };
 #allow system_app system_app_data_file:file { execute execute_no_trans };

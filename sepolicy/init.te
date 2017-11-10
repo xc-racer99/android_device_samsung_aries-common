@@ -3,7 +3,7 @@
 #
 
 allow init sysfs_dspmanager:file getattr;
-allow init sysfs:file getattr;
+allow init sysfs_writable:file getattr;
 allow init tmpfs:lnk_file create;
 
 allow init app_data_file:dir { relabelfrom read open };

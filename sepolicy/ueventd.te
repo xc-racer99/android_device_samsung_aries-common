@@ -1,4 +1,4 @@
 ###########################
 # OmniROM Aries sepolicy
 #
-allow ueventd sysfs:file { open write };
+allow ueventd sysfs_writable:file { open write };
