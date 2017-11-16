@@ -55,7 +55,7 @@
 	        android:summary="@string/bigmem_summary_head"
 	        android:entries="@array/bigmem_entries"
 			android:entryValues="@array/bigmem_entries_values"
-			android:defaultValue="0" />
+			android:defaultValue="3" />
 	</PreferenceCategory>
 
 	<PreferenceCategory

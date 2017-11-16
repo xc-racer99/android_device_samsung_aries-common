@@ -34,9 +34,9 @@
     <string name="backlight_timeout_title_head">Backlight Timeout</string>
     <string name="backlight_timeout_summary_head">Adjust the delay before the touch key backlight automatically turns off</string>
 
-    <string name="category_bigmem_title">Bigmem</string>
-    <string name="bigmem_title_head">Bigmem</string>
-    <string name="bigmem_summary_head">Increases available RAM but may break things (requires reboot)</string>
+    <string name="category_bigmem_title">UA CMA</string>
+    <string name="bigmem_title_head">UA CMA</string>
+    <string name="bigmem_summary_head">Conditionally allocate CMA memory for camera (FIMC) or hardware encoder/decoder (MFC)</string>
 
     <string name="category_radio_title">Radio</string>
     <string name="hspa_title_head">HSPA</string>
@@ -78,4 +78,7 @@
     <string name="imei_not_sane_title">Warning!</string>
     <string name="imei_not_sane_message">A problem was detected with your device. Your device IMEI number is invalid. An invalid IMEI number could cause network issues including the inability to call emergency numbers.</string>
     <string name="imei_not_sane_ok">OK</string>
+
+    <!-- Error change UA CMA -->
+    <string name="ua_cma_failed">Failed to change UA CMA state!</string>
 </resources>

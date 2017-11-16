@@ -111,6 +111,9 @@ on fs
     chmod 660 /sys/class/misc/dockaudio/cardock_enable
     chmod 660 /sys/class/misc/dockaudio/deskdock_enable
 
+    chown system system /sys/kernel/uacma/enable
+    chmod 660 /sys/kernel/uacma/enable
+
     chown system system /sys/devices/virtual/misc/color_tuning/blue_multiplier
     chown system system /sys/devices/virtual/misc/color_tuning/blue_v1_offset
     chown system system /sys/devices/virtual/misc/color_tuning/green_multiplier

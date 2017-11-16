@@ -57,10 +57,10 @@
     </string-array>
 
     <string-array name="bigmem_entries">
-        <item>Disabled (Default)</item>
-        <item>XLMem</item>
-        <item>Bigmem (breaks 720p)</item>
-        <item>Max Ram (breaks camera)</item>
+        <item>None</item>
+        <item>MFC Only</item>
+        <item>FIMC Only</item>
+        <item>MFC and FIMC</item>
     </string-array>
 
     <string-array name="bigmem_entries_values" translatable="false">

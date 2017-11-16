@@ -19,13 +19,15 @@ package org.omnirom.device;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 public class Bigmem implements OnPreferenceChangeListener {
 
-    private static final String FILE = "/sys/kernel/bigmem/enable";
+    private static final String FILE = "/sys/kernel/uacma/enable";
 
     public static boolean isSupported() {
         return Utils.fileExists(FILE);
@@ -41,13 +43,24 @@ public class Bigmem implements OnPreferenceChangeListener {
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE, sharedPrefs.getString(DeviceSettings.KEY_BIGMEM, "0"));
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putString(DeviceSettings.KEY_BIGMEM, Utils.readValue(FILE));
+        editor.commit();
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         Utils.writeValue(FILE, (String) newValue);
+
+        SharedPreferences.Editor editor = preference.getEditor();
+        String actualVal = Utils.readValue(FILE);
+        if(actualVal.compareTo((String) newValue) != 0) {
+            // We failed, create a toast message saying that and restore correct value
+            Toast.makeText(preference.getContext(), R.string.ua_cma_failed, Toast.LENGTH_SHORT).show();
+            editor.putString(DeviceSettings.KEY_BIGMEM, Utils.readValue(FILE));
+            editor.commit();
+            return false;
+        }        
         return true;
     }
-
 }

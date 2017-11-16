@@ -18,11 +18,34 @@
 package org.omnirom.device;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Utils {
+
+    /**
+     * Write a string value to the specified file.
+     * @param filename      The filename
+     * @return              The value of the file
+     */
+    public static String readValue(String filename) {
+        try {
+            FileInputStream fis = new FileInputStream(new File(filename));
+            byte[] buffer = new byte[10];
+            fis.read(buffer, 0, 10);
+            fis.close();
+            String ret = new String(buffer);
+            ret = ret.trim();
+            return ret;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
     /**
      * Write a string value to the specified file.
