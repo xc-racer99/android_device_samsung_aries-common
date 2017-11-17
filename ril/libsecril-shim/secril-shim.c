@@ -453,16 +453,24 @@ static void onUnsolicitedResponseShim(int unsolResponse, const void *data, size_
 			 * data is const char * in form "yy/mm/dd,hh:mm:ss(+/-)tz,dt"
 			 * but Samsung adds ",mncmcc" to it
 			 */
+			int index;
+			char *newNitz;
+			char *comma;
 			char *nitz = (char*)data;
+			comma = strrchr(nitz, ',');
+			if(comma != NULL) {
+				RLOGD("%s: got unsol response %s: contents is: %s\n", __func__, requestToString(unsolResponse), nitz);
+				index = (int)(comma - nitz);
+				newNitz = strndup(nitz, index);
+				RLOGD("%s: got unsol response %s: new contents is: %s\n", __func__, requestToString(unsolResponse), newNitz);
 
-			RLOGD("%s: got unsol response %s: contents is: %s\n", __func__, requestToString(unsolResponse), nitz);
-
-			if (strlen(nitz) > 23 && nitz[23] == ',') {
-				nitz[23] = '\0';
+				/* Although libril doesn't currently use datalen for NITZ replies, calculate it anyways */
+				rilEnv->OnUnsolicitedResponse(unsolResponse, newNitz, sizeof(char) * strlen(newNitz));
+				free(newNitz);
+			} else {
+				RLOGE("%s: failed to find comma in %s string %s, sending as-is", __func__, requestToString(unsolResponse), nitz);
+				rilEnv->OnUnsolicitedResponse(unsolResponse, data, datalen);
 			}
-
-			/* Although libril doesn't currently use datalen for NITZ replies, calculate it anyways */
-			rilEnv->OnUnsolicitedResponse(unsolResponse, nitz, sizeof(char)*strlen(nitz));
 			return;
 		}
 		case RIL_UNSOL_SIGNAL_STRENGTH:
