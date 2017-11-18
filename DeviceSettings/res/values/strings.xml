@@ -80,5 +80,6 @@
     <string name="imei_not_sane_ok">OK</string>
 
     <!-- Error change UA CMA -->
-    <string name="ua_cma_failed">Failed to change UA CMA state!</string>
+    <string name="ua_cma_failed_title">Failed to change UA CMA state</string>
+    <string name="ua_cma_failed">Error allocating memory! Perhaps you have too many apps open?  Retry?</string>
 </resources>

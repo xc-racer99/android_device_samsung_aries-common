@@ -17,7 +17,9 @@
 
 package org.omnirom.device;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.Preference;
@@ -52,11 +54,21 @@ public class Bigmem implements OnPreferenceChangeListener {
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         Utils.writeValue(FILE, (String) newValue);
 
-        SharedPreferences.Editor editor = preference.getEditor();
         String actualVal = Utils.readValue(FILE);
         if(actualVal.compareTo((String) newValue) != 0) {
-            // We failed, create a toast message saying that and restore correct value
-            Toast.makeText(preference.getContext(), R.string.ua_cma_failed, Toast.LENGTH_SHORT).show();
+            // We failed, create a dialog saying that and restore correct value
+            AlertDialog.Builder builder = new AlertDialog.Builder(preference.getContext());
+            builder.setTitle(R.string.ua_cma_failed_title)
+                .setMessage(R.string.ua_cma_failed)
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) { 
+                        // Retry
+                        onPreferenceChange(preference, newValue);
+                    }
+                })
+                .show();
+            SharedPreferences.Editor editor = preference.getEditor();
             editor.putString(DeviceSettings.KEY_BIGMEM, Utils.readValue(FILE));
             editor.commit();
             return false;
