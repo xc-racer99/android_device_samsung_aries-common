@@ -222,12 +222,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # OpenGL
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.hwui.render_dirty_regions=false \
-    ro.hwui.r_buffer_cache_size=1 \
-    ro.hwui.layer_cache_size=8 \
-    ro.hwui.path_cache_size=2 \
-    ro.hwui.drop_shadow_cache_size=1 \
-    ro.hwui.shape_cache_size=0.5 \
-    ro.hwui.texture_cache_size=12 \
     ro.opengles.version=131072 \
     ro.zygote.disable_gl_preload=true
 
@@ -258,11 +252,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.strictmode.disable=1 \
     persist.sys.strictmode.visual=0
-
-# System server
-PRODUCT_PROPERTY_OVERRIDES += \
-    config.disable_atlas=true \
-    config.disable_samplingprof=true
 
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 
