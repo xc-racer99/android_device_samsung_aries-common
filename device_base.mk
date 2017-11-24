@@ -192,6 +192,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # OpenGL
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.hwui.render_dirty_regions=false \
+    ro.egl.destroy_after_detach=true \
     ro.hwui.r_buffer_cache_size=1 \
     ro.hwui.layer_cache_size=8 \
     ro.hwui.path_cache_size=2 \
