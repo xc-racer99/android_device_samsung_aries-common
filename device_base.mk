@@ -254,5 +254,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.strictmode.visual=0
 
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
-
+$(call inherit-product-if-exists, device/common/gps/gps_us_supl.mk)
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
