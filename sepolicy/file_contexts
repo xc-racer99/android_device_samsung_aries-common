@@ -26,7 +26,7 @@
 /dev/s3c2410_serial0                                                    u:object_r:hci_attach_dev:s0
 
 # GFX
-/system/bin/pvrsrvinit                                                  u:object_r:pvrsrvinit_exec:s0
+/system/vendor/bin/pvrsrvinit                                           u:object_r:pvrsrvinit_exec:s0
 
 # Sensors
 /system/vendor/bin/geomagneticd                                         u:object_r:geomagneticd_exec:s0
@@ -37,7 +37,7 @@
 /dev/s3c2410_serial1                                                    u:object_r:gps_device:s0
 
 # Bdaddr
-/system/bin/bdaddr_read                                                 u:object_r:bdaddr_read_exec:s0
+/system/vendor/bin/bdaddr_read                                          u:object_r:bdaddr_read_exec:s0
 /data/bdaddr                                                            u:object_r:bdaddr_read_data_file:s0
 
 # Advanced settings

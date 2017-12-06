@@ -139,7 +139,7 @@ service ril-daemon /system/bin/rild
     group radio cache inet misc audio log readproc wakelock
 
 # 3D init
-service pvrsrvinit /system/bin/pvrsrvinit
+service pvrsrvinit /system/vendor/bin/pvrsrvinit
     class core
     user root
     group root readproc wakelock
@@ -160,7 +160,7 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
-service bdaddr /system/bin/bdaddr_read
+service bdaddr /system/vendor/bin/bdaddr_read
     class main
     user root
     group system bluetooth

@@ -516,11 +516,18 @@ const RIL_RadioFunctions* RIL_Init(const struct RIL_Env *env, int argc, char **a
 	shimmedEnv.OnUnsolicitedResponse = onUnsolicitedResponseShim;
 
 	/* Open and Init the original RIL. */
-
-	origRil = dlopen(RIL_LIB_PATH, RTLD_LOCAL);
-	if (CC_UNLIKELY(!origRil)) {
-		RLOGE("%s: failed to load '" RIL_LIB_PATH  "': %s\n", __func__, dlerror());
-		return NULL;
+	if (ariesVariant == VARIANT_GALAXYS4G) {
+		origRil = dlopen(GALAXYS4G_RIL_LIB_PATH, RTLD_LOCAL);
+		if (CC_UNLIKELY(!origRil)) {
+			RLOGE("%s: failed to load '" GALAXYS4G_RIL_LIB_PATH  "': %s\n", __func__, dlerror());
+			return NULL;
+		}
+	} else {
+		origRil = dlopen(RIL_LIB_PATH, RTLD_LOCAL);
+		if (CC_UNLIKELY(!origRil)) {
+			RLOGE("%s: failed to load '" RIL_LIB_PATH  "': %s\n", __func__, dlerror());
+			return NULL;
+		}
 	}
 
 	/* Remove "-c" command line as Samsung's RIL does not understand it - it just barfs instead */
