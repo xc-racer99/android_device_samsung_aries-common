@@ -110,6 +110,10 @@ PRODUCT_PACKAGES += \
     LegacyCamera \
     SamsungServiceMode
 
+# Fdroid privileged extension
+PRODUCT_PACKAGES += \
+    FDroidPrivilegedExtension
+
 # GPS Shims
 PRODUCT_PACKAGES += \
     libdmitry \
