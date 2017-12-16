@@ -110,10 +110,6 @@ PRODUCT_PACKAGES += \
     LegacyCamera \
     SamsungServiceMode
 
-# Fdroid privileged extension
-PRODUCT_PACKAGES += \
-    FDroidPrivilegedExtension
-
 # GPS Shims
 PRODUCT_PACKAGES += \
     libdmitry \
@@ -242,3 +238,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 $(call inherit-product-if-exists, device/common/gps/gps_us_supl.mk)
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
+$(call inherit-product-if-exists, vendor/foss/foss.mk)
