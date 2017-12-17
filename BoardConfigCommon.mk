@@ -43,6 +43,15 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 1379926016
 BOARD_FLASH_BLOCK_SIZE := 4096
 TARGET_USERIMAGES_USE_YAFFS := true
 
+# Art
+ifeq ($(HOST_OS),linux)
+  ifneq ($(TARGET_BUILD_VARIANT),eng)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+    endif
+  endif
+endif
+
 # Bionic stuff
 BOARD_USES_LEGACY_MMAP := true
 MALLOC_SVELTE := true
