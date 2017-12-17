@@ -96,9 +96,20 @@ PRODUCT_COPY_FILES += \
     device/samsung/aries-common/bml_over_mtd.sh:bml_over_mtd.sh \
     device/samsung/aries-common/updater.sh:updater.sh
 
-# Bluetooth MAC Address
+# Audio
+PRODUCT_PACKAGES += \
+    audio.primary.aries \
+    audio.a2dp.default \
+    audio.usb.default
+
+# Bluetooth
 PRODUCT_PACKAGES += \
     bdaddr_read
+
+# Camera
+PRODUCT_PACKAGES += \
+    camera.aries \
+    libs3cjpeg
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -115,28 +126,14 @@ PRODUCT_PACKAGES += \
     libdmitry \
     libstegps
 
-# Libs
+# Graphics
 PRODUCT_PACKAGES += \
-    libstagefrighthw
-
-# Static executables for updater.sh
-PRODUCT_PACKAGES += \
-    bml_over_mtd \
-    setup_fs \
-    static_busybox \
-    utility_erase_image \
-    utility_flash_image \
-    utility_make_ext4fs
+    hwcomposer.s5pc110 \
+    libEGL_POWERVR \
+    pvrsrvinit
 
 # Misc other modules
 PRODUCT_PACKAGES += \
-    audio.primary.aries \
-    audio.a2dp.default \
-    audio.usb.default \
-    camera.aries \
-    hwcomposer.s5pc110 \
-    libcorkscrew \
-    libs3cjpeg \
     lights.aries \
     power.s5pc110 \
     sensors.aries
@@ -147,18 +144,27 @@ PRODUCT_PACKAGES += \
     libOMX.SEC.AVC.Decoder \
     libOMX.SEC.AVC.Encoder \
     libOMX.SEC.M4V.Decoder \
-    libOMX.SEC.M4V.Encoder
-
-# PVR
-PRODUCT_PACKAGES += \
-    libEGL_POWERVR \
-    pvrsrvinit
+    libOMX.SEC.M4V.Encoder  \
+    libstagefrighthw
 
 # RIL
 PRODUCT_PACKAGES += \
     libsecril-client \
     libsecril-compat \
     libsecril-shim
+
+# Static executables for updater.sh
+PRODUCT_PACKAGES += \
+    bml_over_mtd \
+    setup_fs \
+    static_busybox \
+    utility_erase_image \
+    utility_flash_image \
+    utility_make_ext4fs
+
+# Sensors
+PRODUCT_PACKAGES += \
+    sensors.aries
 
 # Wi-Fi
 PRODUCT_PACKAGES += \
@@ -167,18 +173,6 @@ PRODUCT_PACKAGES += \
     libwpa_client \
     wpa_supplicant \
     wpa_supplicant.conf
-
-# These are the hardware-specific settings that are stored in system properties.
-# Note that the only such settings should be the ones that are too low-level to
-# be reachable from resources or other mechanisms.
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.bq.gpu_to_cpu_unsupported=1 \
-    ro.ril.hsxpa=1 \
-    ro.ril.gprsclass=10 \
-    ro.config.low_ram=true \
-    ro.sys.fw.bg_apps_limit=8 \
-    ro.ksm.default=1 \
-    wifi.interface=wlan0
 
 # ART
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -189,20 +183,21 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
 
-# OpenGL
+# Google-specific
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.com.google.locationfeatures=1 \
+    ro.com.google.networklocation=1
+
+# Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.hwui.render_dirty_regions=false \
+    ro.bq.gpu_to_cpu_unsupported=1 \
     ro.egl.destroy_after_detach=true \
-    ro.hwui.r_buffer_cache_size=1 \
-    ro.hwui.layer_cache_size=8 \
-    ro.hwui.path_cache_size=2 \
-    ro.hwui.drop_shadow_cache_size=1 \
-    ro.hwui.shape_cache_size=0.5 \
-    ro.hwui.texture_cache_size=12 \
+    ro.hwui.disable_scissor_opt=true
     ro.opengles.version=131072 \
     ro.zygote.disable_gl_preload=true
 
-# Extended JNI checks
+# JNI checks
 # The extended JNI checks will cause the system to run more slowly,
 # but they can spot a variety of nasty bugs
 # before they have a chance to cause problems.
@@ -211,29 +206,23 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.checkjni=false \
     ro.kernel.android.checkjni=0
 
-# SGX540 is slower with the scissor optimization enabled
+# Memory management
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hwui.disable_scissor_opt=true
+    ro.config.low_ram=true \
+    ro.sys.fw.bg_apps_limit=8
 
-# Google-specific location features,
-# like NetworkLocationProvider and LocationCollector
+# RIL
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.com.google.locationfeatures=1 \
-    ro.com.google.networklocation=1
+    ro.ril.hsxpa=1 \
+    ro.ril.gprsclass=10
 
-# SELinux status in Settings
+# SELinux status
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=1
 
-# Strict mode disabled
+# Wifi
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.strictmode.disable=1 \
-    persist.sys.strictmode.visual=0
-
-# System server
-PRODUCT_PROPERTY_OVERRIDES += \
-    config.disable_atlas=true \
-    config.disable_samplingprof=true
+    wifi.interface=wlan0
 
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 $(call inherit-product-if-exists, device/common/gps/gps_us_supl.mk)
