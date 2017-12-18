@@ -7,7 +7,7 @@ ramdisk                     /ramdisk            yaffs2      defaults            
 ramdisk-recovery            /ramdisk-recovery   yaffs2      defaults                                            recoveryonly
 boot                        /boot               mtd         defaults                                            recoveryonly
 radio                       /radio              mtd         defaults                                            recoveryonly
-cache                       /cache              yaffs2      defaults                                            recoveryonly
+cache                       /cache              ext4        defaults                                            recoveryonly
 
 # LVM Volumes
 /dev/lvpool/system         /system              ext4        ro,discard   wait
