@@ -501,7 +501,7 @@ const RIL_RadioFunctions* RIL_Init(const struct RIL_Env *env, int argc, char **a
 
 	if (CC_LIKELY(ariesVariant == VARIANT_INIT)) {
 		property_get("ro.product.device", propBuf, "unknown");
-		if (!strcmp(propBuf, "galaxys4gmtd")) {
+		if (!strcmp(propBuf, "galaxys4gmtd") || !strcmp(propBuf, "galaxys4gubi") || !strcmp(propBuf, "fascinate4gubi")) {
 			ariesVariant = VARIANT_GALAXYS4G;
 		} else {
 			ariesVariant = VARIANT_ARIES;
