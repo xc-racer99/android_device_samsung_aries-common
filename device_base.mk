@@ -40,6 +40,12 @@
 # application settings that are stored in resourced.
 DEVICE_PACKAGE_OVERLAYS += device/samsung/aries-common/overlay
 
+# This device is hdpi
+PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_PREF_CONFIG := hdpi
+# A list of dpis to select prebuilt apk, in precedence order.
+PRODUCT_AAPT_PREBUILT_DPI := hdpi mdpi xhdpi xxhdpi
+
 # Audio
 PRODUCT_COPY_FILES += \
     device/samsung/aries-common/config/audio_policy.conf:system/etc/audio_policy.conf
@@ -160,7 +166,9 @@ PRODUCT_PACKAGES += \
     static_busybox \
     utility_erase_image \
     utility_flash_image \
-    utility_make_ext4fs
+    utility_make_ext4fs \
+    utility_mksquashfs \
+    utility_ubiupdatevol
 
 # Sensors
 PRODUCT_PACKAGES += \

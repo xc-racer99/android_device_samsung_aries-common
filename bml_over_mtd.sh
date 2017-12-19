@@ -28,11 +28,11 @@ RESERVOIR_START_BLOCK=$4
 IMAGE=$5
 
 # remove old log
-rm -rf /tmp/omni/bml_over_mtd.log
+rm -rf /sdcard/bml_over_mtd.log
 
 # everything is logged into /tmp/omni/bml_over_mtd.log
-mkdir -p /tmp/omni
-exec >> /tmp/omni/bml_over_mtd.log 2>&1
+mkdir -p /sdcard
+exec >> /sdcard/bml_over_mtd.log 2>&1
 
 set -x
 export PATH=/:/sbin:/system/xbin:/system/bin:$PATH

@@ -12,7 +12,7 @@ on fs
     start lvm_vgscan
     start lvm_vgchange
 
-    restorecon /dev/mapper/lvpool-system
+    restorecon /dev/mapper/lvpool-cache
     restorecon /dev/mapper/lvpool-userdata
 
 on boot

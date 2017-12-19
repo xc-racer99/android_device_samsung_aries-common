@@ -7,10 +7,6 @@
 /dev/modem_ctl                                                          u:object_r:radio_device:s0
 /dev/modem_fmt                                                          u:object_r:radio_device:s0
 /dev/modem_rfs                                                          u:object_r:radio_device:s0
-/dev/mtd/mtd5                                                           u:object_r:radio_device:s0
-/dev/mtd/mtd5ro                                                         u:object_r:radio_device:s0
-/dev/block/mtdblock5                                                    u:object_r:radio_device:s0
-/radio(/.*)?                                                            u:object_r:rild_file:s0
 /data/.nvmac.info                                                       u:object_r:rild_file:s0
 
 # camera

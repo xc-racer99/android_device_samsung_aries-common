@@ -11,14 +11,13 @@
 /dev/modem_fmt            0660   radio      radio
 /dev/modem_rfs            0660   radio      radio
 /dev/s3c2410_serial3      0660   radio      radio
-/dev/block/mtdblock5      0660   radio      radio
-/dev/mtd/mtd5ro           0660   radio      radio
 /dev/dpram0               0660   radio      radio
 /dev/dpram1               0660   radio      radio
 /dev/dpramerr             0660   radio      radio
 /dev/multipdp             0660   radio      radio
 /dev/ttyCDMA0             0660   radio      radio
 /dev/ttyCSD0              0660   radio      radio
+/dev/onedram              0660   radio      radio
 
 # TV Out
 /dev/video14              0660   system     graphics
