@@ -21,6 +21,9 @@ import subprocess
 
 TARGET_DIR = os.getenv('OUT')
 UTILITIES_DIR = os.path.join(TARGET_DIR, 'utilities')
+TARGET_DEVICE = os.getenv('TARGET_PRODUCT')
+USER_NAME = os.getenv('USER')
+SYSTEM_IMAGE_PATH = "obj/PACKAGING/target_files_intermediates/" + TARGET_DEVICE +"-target_files-eng." + USER_NAME + "/IMAGES/system.img"
 
 def RunCommand(cmd):
   """Echo and run the given command.
@@ -45,7 +48,7 @@ def FullOTA_Assertions(info):
   p.communicate()
 
   # create non-sparse images
-  RunCommand(["simg2img", os.path.join(TARGET_DIR, "obj/PACKAGING/target_files_intermediates/aosp_galaxys4gmtd-target_files-eng.jon/IMAGES/system.img"), os.path.join(TARGET_DIR, "system.img")])
+  RunCommand(["simg2img", os.path.join(TARGET_DIR, SYSTEM_IMAGE_PATH), os.path.join(TARGET_DIR, "system.img")])
   info.output_zip.write(os.path.join(TARGET_DIR, "ramdisk.cpio"), "ramdisk.cpio")
   info.output_zip.write(os.path.join(TARGET_DIR, "system.img"), "system.img")
   info.output_zip.write(os.path.join(TARGET_DIR, "updater.sh"), "updater.sh")
