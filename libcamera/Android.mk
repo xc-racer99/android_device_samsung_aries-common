@@ -14,6 +14,7 @@ LOCAL_C_INCLUDES += system/media/camera/include
 LOCAL_C_INCLUDES += frameworks/native/libs/arect/include
 LOCAL_C_INCLUDES += system/libhidl/transport/token/1.0/utils/include
 LOCAL_C_INCLUDES += system/libhidl/base/include
+LOCAL_C_INCLUDES += frameworks/native/libs/nativebase/include
 
 LOCAL_CFLAGS := \
 	-Wno-missing-field-initializers \
