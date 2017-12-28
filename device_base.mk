@@ -81,7 +81,8 @@ PRODUCT_COPY_FILES += \
     device/samsung/aries-common/utilities/busybox:utilities/busybox \
     device/samsung/aries-common/utilities/erase_image:utilities/erase_image \
     device/samsung/aries-common/utilities/flash_image:utilities/flash_image \
-    device/samsung/aries-common/utilities/make_ext4fs:utilities/make_ext4fs
+    device/samsung/aries-common/utilities/make_ext4fs:utilities/make_ext4fs \
+    device/samsung/aries-common/utilities/mksquashfs:utilities/mksquashfs
 
 # Input device calibration files
 PRODUCT_COPY_FILES += \
