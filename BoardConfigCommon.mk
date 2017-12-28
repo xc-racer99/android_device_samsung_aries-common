@@ -87,6 +87,8 @@ ifeq ($(HOST_OS),linux)
     WITH_DEXPREOPT_BOOT_IMG_ONLY := true
 endif
 
+SF_START_GRAPHICS_ALLOCATOR_SERVICE := true
+
 # HIDL
 DEVICE_MANIFEST_FILE += device/samsung/aries-common/manifest.xml
 
