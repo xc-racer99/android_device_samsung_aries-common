@@ -19,6 +19,7 @@
 /dev/multipdp             0660   radio      radio
 /dev/ttyCDMA0             0660   radio      radio
 /dev/ttyCSD0              0660   radio      radio
+/dev/onedram              0660   radio      radio
 
 # TV Out
 /dev/video14              0660   system     graphics
