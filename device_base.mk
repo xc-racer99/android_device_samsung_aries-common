@@ -103,7 +103,6 @@ PRODUCT_PACKAGES += \
 # Misc other modules
 PRODUCT_PACKAGES += \
 	lights.aries \
-	sensors.aries \
 	power.s5pc110 \
 	hwcomposer.s5pc110 \
 	camera.aries \
@@ -115,6 +114,12 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
 	device/samsung/aries-common/libaudio/audio_policy.conf:system/etc/audio_policy.conf
+
+# Sensors
+PRODUCT_PACKAGES += \
+	sensors.aries \
+	orientationd \
+	geomagneticd
 
 # Libs
 PRODUCT_PACKAGES += \
