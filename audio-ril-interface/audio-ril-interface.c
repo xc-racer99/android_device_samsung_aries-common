@@ -20,6 +20,8 @@
 #define LOG_TAG "Audio-RIL-Interface"
 #include <cutils/log.h>
 
+#include <telephony/ril.h>
+
 #include <secril-client.h>
 
 #include <samsung-ril-socket.h>
@@ -124,6 +126,78 @@ int isConnected_RILD(HRilClient data)
 	}
 
 	return 1;
+}
+
+/**
+ * @fn  int InvokeOemRequestHookRaw(HRilClient client, char *data, size_t len)
+ *
+ * @params  client: Client handle.
+ *          data: Request data.
+ *          len: Request data length.
+ *
+ * @return  0 for success or error code. On receiving RIL_CLIENT_ERR_AGAIN,
+ *          caller should retry.
+ */
+int InvokeOemRequestHookRaw(HRilClient client, char *data, size_t len)
+{
+	ALOGD("%s: called", __func__);
+
+	struct srs_client *srs_client;
+	int rc;
+
+	srs_client = (struct srs_client *) client;
+
+	rc = srs_client_send(srs_client, RIL_REQUEST_OEM_HOOK_RAW, data, len);
+
+	if (rc < 0)
+		return RIL_CLIENT_ERR_UNKNOWN;
+
+	return RIL_CLIENT_ERR_SUCCESS;
+}
+
+/**
+ * @fn  int RegisterRequestCompleteHandler(HRilClient client, uint32_t id, RilOnComplete handler)
+ *
+ * @params  client: Client handle.
+ *          id: Request ID to which handler is registered.
+ *          handler: Request complete handler. NULL for deregistration.
+ *
+ * @return  0 on success or error code.
+ */
+int RegisterRequestCompleteHandler(HRilClient client, uint32_t id, RilOnComplete handler)
+{
+	ALOGE("%s: called", __func__);
+	return RIL_CLIENT_ERR_SUCCESS;
+}
+
+/**
+ * @fn  int RegisterUnsolicitedHandler(HRilClient client, uint32_t id, RilOnUnsolicited handler)
+ *
+ * @params  client: Client handle.
+ *          id: Unsolicited response ID to which handler is registered.
+ *          handler: Unsolicited handler. NULL for deregistration.
+ *
+ * @return  0 on success or error code.
+ */
+int RegisterUnsolicitedHandler(HRilClient client, uint32_t id, RilOnUnsolicited handler)
+{
+	ALOGE("%s: called", __func__);
+	return RIL_CLIENT_ERR_SUCCESS;
+}
+
+/**
+ * @fn  int RegisterErrorCallback(HRilClient client, RilOnError cb, void *data)
+ *
+ * @params  client: Client handle.
+ *          cb: Error callback. NULL for unregistration.
+ *          data: Callback data.
+ *
+ * @return  0 for success or error code.
+ */
+int RegisterErrorCallback(HRilClient client, RilOnError cb, void *data)
+{
+	ALOGE("%s: called", __func__);
+    return RIL_CLIENT_ERR_SUCCESS;
 }
 
 int SetCallVolume(HRilClient data, SoundType type, int level)

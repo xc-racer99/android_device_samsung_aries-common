@@ -176,10 +176,10 @@ status_t AudioHardware::initCheck()
 
 void AudioHardware::loadRILD(void)
 {
-    mSecRilLibHandle = dlopen("libaudio-ril-interface.so", RTLD_NOW);
+    mSecRilLibHandle = dlopen("libsecril-client.so", RTLD_NOW);
 
     if (mSecRilLibHandle) {
-        ALOGV("libaudio-ril-interface.so is loaded");
+        ALOGV("libsecril-client.so is loaded");
 
         openClientRILD   = (HRilClient (*)(void))
                               dlsym(mSecRilLibHandle, "OpenClient_RILD");
@@ -207,7 +207,7 @@ void AudioHardware::loadRILD(void)
         if (!openClientRILD  || !disconnectRILD   || !closeClientRILD ||
             !isConnectedRILD || !connectRILD      ||
             !rilFunctionsLoaded) {
-            ALOGE("Can't load all functions from libaudio-ril-interface.so");
+            ALOGE("Can't load all functions from libsecril-client.so");
 
             dlclose(mSecRilLibHandle);
             mSecRilLibHandle = NULL;
@@ -221,7 +221,7 @@ void AudioHardware::loadRILD(void)
             }
         }
     } else {
-        ALOGE("Can't load libaudio-ril-interface.so");
+        ALOGE("Can't load libsecril-client.so");
     }
 }
 

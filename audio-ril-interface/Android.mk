@@ -29,7 +29,7 @@ LOCAL_C_INCLUDES := \
 LOCAL_SHARED_LIBRARIES := liblog libcutils libsrs-client
 LOCAL_PRELINK_MODULE := false
 
-LOCAL_MODULE := libaudio-ril-interface
+LOCAL_MODULE := libsecril-client
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)

@@ -109,7 +109,6 @@ PRODUCT_PACKAGES += \
 	audio.primary.aries \
 	audio.a2dp.default \
 	audio.usb.default \
-	libaudio-ril-interface \
 	libs3cjpeg
 
 PRODUCT_COPY_FILES += \
@@ -142,7 +141,8 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
-	libsamsung-ril
+	libsamsung-ril \
+	libsecril-client
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
