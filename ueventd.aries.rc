@@ -21,6 +21,11 @@
 /dev/ttyCSD0              0660   radio      radio
 /dev/onedram              0660   radio      radio
 
+/sys/devices/virtual/net/svnet0/pdp   activate     0660    radio    radio
+/sys/devices/virtual/net/svnet0/pdp   deactivate   0660    radio    radio
+/sys/devices/virtual/net/svnet0/pdp   resume       0660    radio    radio
+/sys/devices/virtual/net/svnet0/pdp   suspend      0660    radio    radio
+
 # TV Out
 /dev/video14              0660   system     graphics
 /dev/video21              0660   system     graphics
@@ -40,7 +45,15 @@
 /sys/devices/virtual/input/input3   offsets        0660  root   input
 
 # for GPS
-/dev/s3c2410_serial1      0600   gps        gps
+/dev/s3c2410_serial1      0660   system     system
+/dev/cg2900_audio         0660   system     system
+/dev/cg2900_bt_audio      0660   system     system
+/dev/cg2900_core          0660   system     system
+/dev/cg2900_driver0       0660   system     system
+/dev/cg2900_fm_audio      0660   system     system
+/dev/cg2900_gnss          0660   gps        system
+/dev/cg2900_hci_logger    0660   system     system
+/dev/cg2900_us_ctrl       0660   system     system
 
 # for FM Radio
 /dev/radio0               0666   system     audio
