@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+     Copyright (C) The CyanogenMod Project
+     Copyright (C) The OmiROM Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Geavanceerde instellingen</string>
+    <string name="category_screen_title">Scherm</string>
+    <string name="color_tuning_title_head">Kleuren regelen</string>
+    <string name="color_tuning_summary_head">Schermkleur kalibreren</string>
+    <string name="color_red_title">Rood</string>
+    <string name="color_green_title">Groen</string>
+    <string name="color_blue_title">Blauw</string>
+    <string name="color_red_gamma_title">Rood gamma</string>
+    <string name="color_green_gamma_title">Groen gamma</string>
+    <string name="color_blue_gamma_title">Blauw gamma</string>
+    <string name="mdnie_title_head">mDNIe-modus</string>
+    <string name="mdnie_summary_head">mDNIe-schermnabewerking aanpassen</string>
+    <string name="category_touchkey_title">Aanraakknoppen</string>
+    <string name="backlight_timeout_title_head">Time-out verlichting</string>
+    <string name="backlight_timeout_summary_head">Vertraging van uitschakelen verlichting aanraakknoppen</string>
+    <string name="category_radio_title">Radio</string>
+    <string name="hspa_title_head">HSPA</string>
+    <string name="hspa_summary_head">HSDPA/HSUPA inschakelen</string>
+    <string name="category_volume_boost_title">Volume-instellingen</string>
+    <string name="volume_boost_title_head">Volume-instellingen tijdens gesprek</string>
+    <string name="volume_boost_summary_head">Instellingen voor volumeverhoging tijdens gesprek</string>
+    <string name="boost_rcv_title">Volume oortelefoon</string>
+    <string name="boost_bt_title">Volume via bluetooth</string>
+    <string name="boost_spk_title">Volume luidspreker</string>
+    <string name="boost_hp_title">Volume headset</string>
+    <string name="mic_rcv_title">Microfoon van oortelefoon</string>
+    <string name="mic_spk_title">Microfoon van luidspreker</string>
+    <string name="mic_hp_title">Microfoon van headset</string>
+    <string name="mic_hp_no_mic_title">Microfoon bij koptelefoon (zonder microfoon)</string>
+    <string name="category_dock_audio_title">Dock-geluid</string>
+    <string name="cardock_audio_title_head">Auto-dock</string>
+    <string name="cardock_audio_summary_on">Auto-dock-geluid ingeschakeld</string>
+    <string name="cardock_audio_summary_off">Auto-dock-geluid uitgeschakeld</string>
+    <string name="deskdock_audio_title_head">Bureau-dock</string>
+    <string name="deskdock_audio_summary_on">Bureau-dock-geluid ingeschakeld</string>
+    <string name="deskdock_audio_summary_off">Bureau-dock-geluid uitgeschakeld</string>
+    <string name="category_vibration_title">Trillen</string>
+    <string name="vibration_title_head">Trillen</string>
+    <string name="vibration_summary_head">Trilintensiteit instellen</string>
+    <string name="vibration_title">Trilintensiteit</string>
+    <string name="vibration_test_title">Testen</string>
+    <string name="button_reset_title">Herstellen</string>
+    <string name="generic_warning_title">Let op</string>
+    <string name="imei_not_sane_title">Let op</string>
+    <string name="imei_not_sane_message">Er is een probleem gevonden met uw telefoon. Het IMEI-nummer van uw telefoon is ongeldig. Hierdoor kunnen problemen optreden met uw mobiele netwerkverbinding, inclusief het niet kunnen bellen van het alarmnummer.</string>
+    <string name="imei_not_sane_ok">OK</string>
+</resources>

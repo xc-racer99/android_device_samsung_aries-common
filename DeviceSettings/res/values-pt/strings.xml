@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+     Copyright (C) The CyanogenMod Project
+     Copyright (C) The OmiROM Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Configurações avançadas</string>
+
+    <string name="category_screen_title">Tela</string>
+    <string name="color_tuning_title_head">Ajuste de Cor</string>
+    <string name="color_tuning_summary_head">Calibrar as cores da tela</string>
+    <string name="color_red_title">Vermelho</string>
+    <string name="color_green_title">Verde</string>
+    <string name="color_blue_title">Azul</string>
+    <string name="color_red_gamma_title">Gama Vermelha</string>
+    <string name="color_green_gamma_title">Gama Verde</string>
+    <string name="color_blue_gamma_title">Gama Azul</string>
+
+    <string name="category_touchkey_title">Botões Touch</string>
+    <string name="backlight_timeout_title_head">Tempo Limite da Iluminação</string>
+    <string name="backlight_timeout_summary_head">Ajuste o tempo para desligar a iluminação dos Botões Touch</string>
+
+    <string name="category_radio_title">Radio</string>
+    <string name="hspa_title_head">HSPA</string>
+    <string name="hspa_summary_head">Ativar HSDPA/HSUPA</string>
+
+    <string name="mdnie_title_head">Modo mDNIe</string>
+    <string name="mdnie_summary_head">Ajustar pós-processamento do display mDNIe</string>
+    <string name="category_volume_boost_title">Controles de Volume</string>
+    <string name="volume_boost_title_head">Controles de Volume em Ligação</string>
+    <string name="volume_boost_summary_head">Aumentar configurações de volume em ligações</string>
+    <string name="boost_rcv_title">Volume do Alto Falante</string>
+    <string name="boost_bt_title">Volume Bluetooth</string>
+    <string name="boost_spk_title">Volume do Viva Voz</string>
+    <string name="boost_hp_title">Volume do Fone de Ouvido</string>
+    <string name="mic_rcv_title">Microfone</string>
+    <string name="mic_spk_title">Microfone do Viva Voz</string>
+    <string name="mic_hp_title">Microfone do Fone de Ouvido</string>
+    <string name="mic_hp_no_mic_title">Microfone do Fone de Ouvido (que não tem microfone)</string>
+    <string name="category_dock_audio_title">Dock de Áudio</string>
+    <string name="cardock_audio_title_head">Dock de Carro</string>
+    <string name="cardock_audio_summary_on">Aúdio do dock de carro ativado</string>
+    <string name="cardock_audio_summary_off">Aúdio do dock de carro desativado</string>
+    <string name="deskdock_audio_title_head">Dock de Mesa</string>
+    <string name="deskdock_audio_summary_on">Aúdio do dock de mesa ativado</string>
+    <string name="deskdock_audio_summary_off">Aúdio do dock de mesa desativado</string>
+
+    <string name="category_vibration_title">Vibração</string>
+    <string name="vibration_title_head">Vibração</string>
+    <string name="vibration_summary_head">Controlar Intensidade de Vibração</string>
+    <string name="vibration_title">Intensidade da Vibraçao</string>
+    <string name="vibration_test_title">Testar</string>
+    <string name="button_reset_title">Resetar</string>
+
+    <string name="generic_warning_title">Aviso</string>
+    <string name="imei_not_sane_title">Aviso!</string>
+    <string name="imei_not_sane_message">Um problema foi detectado no seu dispositivo. O número IMEI do seu dispositivo é inválido. Um número de IMEI inválido pode causar problemas de rede incluindo a impossibilidade de realizar chamadas a números de emergências.</string>
+    <string name="imei_not_sane_ok">OK</string>
+</resources>
