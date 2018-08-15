@@ -141,12 +141,14 @@ struct qss_mixer_cfg out_mixer_cfgs[] = {
 
     /* AIF2DAC - Modem */
     {
+#if 0
         .name    = "AIF2DAC Mono Switch",
         .intval  = 1,
         .mode    = AUDIO_FLAG_MODE_IN_CALL,
         .devices = AUDIO_DEVICE_OUT_ALL,
         .onetime = true,
     }, {
+#endif
         .name    = "AIF2DAC Volume",
         .intval  = 90,
         .mode    = AUDIO_FLAG_MODE_IN_CALL,
@@ -511,7 +513,7 @@ static void snd_mixer_apply(struct mixer *mixer, struct qss_mixer_cfg *cfgs,
                         bool on, bool enforce, bool reset, int reset_state)
 {
     struct qss_mixer_cfg *cfg;
-    char tmp[100];
+    const char *string;
     int i = 0, j, n, state = reset_state;
     int keep, mode_flag = (1 << mode);
     struct qss_mixer_cfg *pnext = NULL;
@@ -553,8 +555,8 @@ static void snd_mixer_apply(struct mixer *mixer, struct qss_mixer_cfg *cfgs,
             }
             n = mixer_ctl_get_num_enums(cfg->ctl);
             for (j = 0; j < n; j++) {
-                if (!mixer_ctl_get_enum_string(cfg->ctl, j, tmp, 100) &&
-                    !strcmp(tmp, cfg->strval)) {
+                string = mixer_ctl_get_enum_string(cfg->ctl, j);
+                if (!strcmp(string, cfg->strval)) {
                     cfg->intval = j;
                     cfg->strval = 0;
                     break;
@@ -656,12 +658,12 @@ static uint32_t out_get_channels(const struct audio_stream *stream)
     return AUDIO_CHANNEL_OUT_STEREO;
 }
 
-static int out_get_format(const struct audio_stream *stream)
+static audio_format_t out_get_format(const struct audio_stream *stream)
 {
     return AUDIO_FORMAT_PCM_16_BIT;
 }
 
-static int out_set_format(struct audio_stream *stream, int format)
+static int out_set_format(struct audio_stream *stream, audio_format_t format)
 {
     return 0;
 }
@@ -946,12 +948,12 @@ static uint32_t in_get_channels(const struct audio_stream *stream)
     }
 }
 
-static int in_get_format(const struct audio_stream *stream)
+static audio_format_t in_get_format(const struct audio_stream *stream)
 {
     return AUDIO_FORMAT_PCM_16_BIT;
 }
 
-static int in_set_format(struct audio_stream *stream, int format)
+static int in_set_format(struct audio_stream *stream, audio_format_t format)
 {
     return 0;
 }
@@ -1256,8 +1258,10 @@ static void set_all_route(struct qss_audio_device *adev)
 }
 
 static int adev_open_output_stream(struct audio_hw_device *dev,
-                                   uint32_t devices, int *format,
-                                   uint32_t *channels, uint32_t *sample_rate,
+                                   audio_io_handle_t handle,
+                                   audio_devices_t devices,
+                                   audio_output_flags_t flags,
+                                   struct audio_config *config,
                                    struct audio_stream_out **stream_out)
 {
     struct qss_audio_device *adev = (struct qss_audio_device *)dev;
@@ -1308,9 +1312,9 @@ static int adev_open_output_stream(struct audio_hw_device *dev,
         goto err_free;
     }
 
-    *format = out_get_format(&out->stream.common);
-    *channels = out_get_channels(&out->stream.common);
-    *sample_rate = out_get_sample_rate(&out->stream.common);
+    config->format = out->stream.common.get_format(&out->stream.common);
+    config->channel_mask = out->stream.common.get_channels(&out->stream.common);
+    config->sample_rate = out->stream.common.get_sample_rate(&out->stream.common);
 
     *stream_out = &out->stream;
     
@@ -1535,28 +1539,34 @@ static int adev_get_mic_mute(const struct audio_hw_device *dev, bool *state)
 }
 
 static size_t adev_get_input_buffer_size(const struct audio_hw_device *dev,
-                                         uint32_t sample_rate, int format,
-                                         int channel_count)
+                                         const struct audio_config *config)
 {
-    return get_input_buffer_size(sample_rate, format, channel_count);
+    size_t size;
+    int channel_count = popcount(config->channel_mask);
+    if (check_input_parameters(config->sample_rate, config->format, channel_count) != 0)
+        return 0;
+
+    return get_input_buffer_size(config->sample_rate, config->format, channel_count);
 }
 
-static int adev_open_input_stream(struct audio_hw_device *dev, uint32_t devices,
-                                  int *format, uint32_t *channels,
-                                  uint32_t *sample_rate,
-                                  audio_in_acoustics_t acoustics,
+static int adev_open_input_stream(struct audio_hw_device *dev,
+                                  audio_io_handle_t handle,
+                                  audio_devices_t devices,
+                                  struct audio_config *config,
                                   struct audio_stream_in **stream_in)
 {
     struct qss_audio_device *adev = (struct qss_audio_device *)dev;
     struct qss_stream_in *in;
-    int channel_count = popcount(*channels);
+    int channel_count = popcount(config->channel_mask);
     int ret;
     
-    ALOGD("%s: channel_count=%d raw=%x", __func__, channel_count, *channels);
-    *channels = AUDIO_CHANNEL_IN_STEREO;
+    ALOGD("%s: channel_count=%d raw=%x", __func__, channel_count, config->channel_mask);
+#if 0
+    config->channel_mask = AUDIO_CHANNEL_IN_STEREO;
     channel_count = 2;
+#endif
 
-    if (check_input_parameters(*sample_rate, *format, channel_count) != 0)
+    if (check_input_parameters(config->sample_rate, config->format, channel_count) != 0)
         return -EINVAL;
 
     in = (struct qss_stream_in *)calloc(1, sizeof(struct qss_stream_in));
@@ -1586,7 +1596,7 @@ static int adev_open_input_stream(struct audio_hw_device *dev, uint32_t devices,
     in->standby = true;
 
     /* setup resampler if required */
-    in->requested_rate = *sample_rate;
+    in->requested_rate = config->sample_rate;
     if (in->requested_rate != in->config.rate) {
         in->buffer = malloc(in->config.period_size *
                         audio_stream_frame_size(&in->stream.common));
@@ -1699,7 +1709,7 @@ static int adev_open(const hw_module_t* module, const char* name,
         return -ENOMEM;
 
     adev->device.common.tag = HARDWARE_DEVICE_TAG;
-    adev->device.common.version = 0;
+    adev->device.common.version = AUDIO_DEVICE_API_VERSION_2_0;
     adev->device.common.module = (struct hw_module_t *) module;
     adev->device.common.close = adev_close;
 
@@ -1773,10 +1783,10 @@ static struct hw_module_methods_t hal_module_methods = {
 struct audio_module HAL_MODULE_INFO_SYM = {
     .common = {
         .tag = HARDWARE_MODULE_TAG,
-        .version_major = 1,
-        .version_minor = 0,
+        .module_api_version = AUDIO_MODULE_API_VERSION_0_1,
+        .hal_api_version = HARDWARE_HAL_API_VERSION,
         .id = AUDIO_HARDWARE_MODULE_ID,
-        .name = "QSS audio HW HAL",
+        .name = "Aries audio HW HAL",
         .author = "The Android Open Source Project",
         .methods = &hal_module_methods,
     },
