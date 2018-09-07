@@ -109,9 +109,14 @@ PRODUCT_PACKAGES += \
 	audio.primary.aries \
 	audio.a2dp.default \
 	audio.usb.default \
+	alsa_ucm \
+	alsa_amixer \
+	alsa_ctl \
+	alsa_aplay \
 	libs3cjpeg
 
 PRODUCT_COPY_FILES += \
+	device/samsung/aries-common/audio/alsa.conf:system/usr/share/alsa/alsa.conf \
 	device/samsung/aries-common/libaudio/audio_policy.conf:system/etc/audio_policy.conf
 
 # Sensors
