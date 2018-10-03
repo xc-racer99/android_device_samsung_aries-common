@@ -174,13 +174,10 @@ PRODUCT_PACKAGES += \
 # be reachable from resources or other mechanisms.
 PRODUCT_PROPERTY_OVERRIDES += \
        wifi.interface=wlan0 \
-       ro.telephony.ril_class=SamsungExynos3RIL \
-       ro.telephony.ril.v3=icccardstatus,datacall,signalstrength,facilitylock \
        mobiledata.interfaces=pdp0,eth0,gprs,ppp0 \
        ro.bq.gpu_to_cpu_unsupported=1 \
        ro.config.low_ram=true \
-       ro.ksm.default=1 \
-       ro.cwm.enable_key_repeat=true
+       ro.ksm.default=1
 
 # SGX540 is slower with the scissor optimization enabled
 PRODUCT_PROPERTY_OVERRIDES += \
