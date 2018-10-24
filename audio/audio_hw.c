@@ -105,14 +105,12 @@ struct pcm_config pcm_config_vx = {
 struct qss_mixer_cfg {
     char *name;
     audio_devices_t devices;
-    audio_devices_t and_devices;
     audio_devices_t and_devices_not;
     audio_flag_mode_t mode;
     audio_flag_mode_t keep; /* keep value when off */
     bool onetime;
     char *strval;
     int intval;
-    int offval; /* off value */
 
     struct mixer_ctl *ctl;
     int state;
@@ -505,21 +503,18 @@ inline void snd_mixer_apply_cfg(struct qss_mixer_cfg *cfg)
 {
     int j, n = mixer_ctl_get_num_values(cfg->ctl);
     for (j = 0; j < n; j++)
-        mixer_ctl_set_value(cfg->ctl, j, cfg->state ? cfg->intval : cfg->offval);
+        mixer_ctl_set_value(cfg->ctl, j, cfg->state ? cfg->intval : 0);
 }
 
 static void snd_mixer_apply(struct mixer *mixer, struct qss_mixer_cfg *cfgs,
                         int cfgs_nr, audio_mode_t mode, audio_devices_t devices,
-                        bool on, bool enforce, bool reset, int reset_state)
+                        bool on, bool reset)
 {
     struct qss_mixer_cfg *cfg;
     const char *string;
-    int i = 0, j, n, state = reset_state;
+    int i = 0, j, n, state = 0;
     int keep, mode_flag = (1 << mode);
     struct qss_mixer_cfg *pnext = NULL;
-
-    if (reset)
-        enforce = true;
 
     for (i = cfgs_nr - 1; i >= 0; i--) {
         cfg = &cfgs[i];
@@ -528,14 +523,13 @@ static void snd_mixer_apply(struct mixer *mixer, struct qss_mixer_cfg *cfgs,
         /* check state */
         if (!reset)
             state = ((on || keep || cfg->onetime) && (cfg->mode & mode_flag) &&
-                     (cfg->devices & devices) && (!cfg->and_devices ||
-                     (cfg->and_devices & devices)) && (!cfg->and_devices_not ||
+                     (cfg->devices & devices) && (!cfg->and_devices_not ||
                      (cfg->and_devices_not & devices) == 0));
 
         if (cfg->onetime && !state)
             continue;
 
-        if (!enforce && (cfg->state == state || (cfg->state && cfg->onetime)))
+        if (!reset && (cfg->state == state || (cfg->state && cfg->onetime)))
             continue;
 
         /* get ctl */
@@ -627,7 +621,7 @@ static void out_do_set_route(struct qss_audio_device *adev, bool on)
 {
     ALOGD("%s: BEGIN, on=%d, devices=%x\n", __func__, on, adev->devices);
     snd_mixer_apply(adev->mixer, adev->mixer_cfg.out, adev->mixer_cfg.out_nr, adev->mode,
-                    adev->devices, on, false, false, 0);
+                    adev->devices, on, false);
 }
 
 static void out_set_route(struct qss_stream_out *out)
@@ -908,7 +902,7 @@ static void in_do_set_route(struct qss_audio_device *adev, bool on)
 {
     ALOGD("%s: BEGIN, on=%d, devices=%x\n", __func__, on, adev->devices);
     snd_mixer_apply(adev->mixer, adev->mixer_cfg.in, adev->mixer_cfg.in_nr, adev->mode,
-                    adev->devices, on, false, false, 0);
+                    adev->devices, on, false);
 }
 
 static void in_set_route(struct qss_stream_in *in)
@@ -1752,9 +1746,9 @@ static int adev_open(const hw_module_t* module, const char* name,
     
     /* reset mixers */
     snd_mixer_apply(adev->mixer, adev->mixer_cfg.in, adev->mixer_cfg.in_nr,
-                    0, 0, false, true, true, 0);
+                    0, 0, false, true);
     snd_mixer_apply(adev->mixer, adev->mixer_cfg.out, adev->mixer_cfg.out_nr,
-                    0, 0, false, true, true, 0);
+                    0, 0, false, true);
 
     /* RIL */
     ret = ril_open(&adev->ril);
