@@ -240,7 +240,6 @@ struct qss_mixer_cfg out_mixer_cfgs[] = {
     },
 
     /* Speaker */
-#if 0
     {
         .name    = "SPKR DAC1 Switch",
         .intval  = 1,
@@ -278,43 +277,6 @@ struct qss_mixer_cfg out_mixer_cfgs[] = {
         .devices = AUDIO_DEVICE_OUT_SPEAKER,
         .keep    = AUDIO_FLAG_MODE_IN_CALL,
     },
-#else
-    {
-        .name    = "LINEOUT2N Mixer Right Output Switch",
-        .intval  = 1,
-        .mode    = AUDIO_FLAG_MODE_ALL,
-        .devices = AUDIO_DEVICE_OUT_SPEAKER,
-    }, {
-        .name    = "LINEOUT2N Mixer Left Output Switch",
-        .intval  = 1,
-        .mode    = AUDIO_FLAG_MODE_ALL,
-        .devices = AUDIO_DEVICE_OUT_SPEAKER,
-    }, {
-        .name    = "LINEOUT2P Mixer Right Output Switch",
-        .intval  = 1,
-        .mode    = AUDIO_FLAG_MODE_ALL,
-        .devices = AUDIO_DEVICE_OUT_SPEAKER,
-    }, {
-        .name    = "LINEOUT2N Switch",
-        .intval  = 1,
-        .mode    = AUDIO_FLAG_MODE_ALL,
-        .devices = AUDIO_DEVICE_OUT_SPEAKER,
-    }, {
-        .name    = "LINEOUT2P Switch",
-        .intval  = 1,
-        .mode    = AUDIO_FLAG_MODE_ALL,
-        .devices = AUDIO_DEVICE_OUT_SPEAKER,
-        .keep    = AUDIO_FLAG_MODE_IN_CALL,
-#if 0
-    }, {
-        .name    = "LINEOUT2 Switch",
-        .intval  = 1,
-        .mode    = AUDIO_FLAG_MODE_ALL,
-        .devices = AUDIO_DEVICE_OUT_SPEAKER,
-        .keep    = AUDIO_FLAG_MODE_IN_CALL,
-#endif
-    },
-#endif
 
     /* Earpiece */
     {
