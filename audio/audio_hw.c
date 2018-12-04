@@ -758,6 +758,8 @@ static int start_output_stream(struct qss_stream_out *out)
     out->pcm = pcm_open(CARD_QSS_DEFAULT, PORT_HIFI, PCM_OUT | PCM_MMAP | PCM_NOIRQ,
                         &out->config);
 
+    ALOGD("%s: Opened PCM\n", __func__);
+
     if (!pcm_is_ready(out->pcm)) {
         ALOGE("cannot open pcm_out driver: %s", pcm_get_error(out->pcm));
         pcm_close(out->pcm);
@@ -826,7 +828,11 @@ static ssize_t out_write(struct audio_stream_out *stream, const void* buffer,
         }
     } while (kernel_frames > out->write_threshold);
 
+ALOGE("About to run pcm_mmap_write");
+
     ret = pcm_mmap_write(out->pcm, (void *)buf, out_frames * frame_size);
+
+ALOGE("Ran pcm_mmap_write");
 
 exit:
     pthread_mutex_unlock(&out->lock);
