@@ -175,13 +175,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
        wifi.interface=wlan0 \
        mobiledata.interfaces=pdp0,eth0,gprs,ppp0 \
-       ro.bq.gpu_to_cpu_unsupported=1 \
        ro.config.low_ram=true \
        ro.ksm.default=1
-
-# SGX540 is slower with the scissor optimization enabled
-PRODUCT_PROPERTY_OVERRIDES += \
-       ro.hwui.disable_scissor_opt=true
 
 # enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector
@@ -215,3 +210,4 @@ include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
+$(call inherit-product, hardware/samsung/exynos3/s5pc110/pvr-km.mk)

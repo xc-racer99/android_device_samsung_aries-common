@@ -39,3 +39,5 @@
 
 # LVM
 /dev/mapper/lvpool-(.*)                             u:object_r:block_device:s0
+
+/dev/pvr_sync                u:object_r:powervr_device:s0

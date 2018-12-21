@@ -1,5 +1,8 @@
 
 /dev/pvrsrvkm             0666   system     system
+/dev/ion                  0666   system     system
+/dev/sw_sync              0666   system     system
+/dev/pvr_sync             0666   system     system
 /dev/video0               0660   system     camera
 /dev/video1               0660   system     camera
 /dev/video2               0660   system     camera

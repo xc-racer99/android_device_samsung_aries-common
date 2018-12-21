@@ -123,8 +123,6 @@ BOARD_EGL_CFG := device/samsung/aries-common/egl.cfg
 TARGET_DISABLE_TRIPLE_BUFFERING := false
 
 BOARD_ALLOW_EGL_HIBERNATION := true
-BOARD_EGL_WORKAROUND_BUG_10194508 := true
-TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 
 # hwcomposer: custom vsync ioctl
 BOARD_CUSTOM_VSYNC_IOCTL := true
