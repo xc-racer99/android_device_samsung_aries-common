@@ -17,12 +17,9 @@ on init
     symlink /storage/sdcard0 /mnt/sdcard
     symlink /storage/sdcard1 /emmc
     symlink /storage/sdcard1 /mnt/emmc
-    # FIXME: Remove emmc?
-    mkdir /datadata 0771 system system
 
-    # We will create our own ril-daemon service in class 'core' because the
-    # rild doesn't like being killed. (During device encryption.)
-    stop ril-daemon
+# prevent permission errors from telephony
+    chmod 666 /proc/cmdline
 
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
@@ -47,9 +44,8 @@ on fs
     restorecon /dev/mapper/lvpool-userdata
 
     mkdir /radio 0775 radio radio
-    mount yaffs2 mtd@radio /radio noatime nosuid nodev
-    mount yaffs2 mtd@datadata /datadata noatime nosuid nodev
-    mount yaffs2 mtd@cache /cache noatime nosuid nodev
+    mount ubifs mtd@radio /radio noatime nosuid nodev
+    mount ubifs mtd@cache /cache noatime nosuid nodev
     mount_all fstab.aries
     swapon_all fstab.aries
 
@@ -58,7 +54,7 @@ on fs
 
 # We chown/chmod /efs because mount is run as root + defaults
     mkdir /efs 0775 radio radio
-    mount yaffs2 mtd@efs /efs noatime nosuid nodev
+    mount ubifs mtd@efs /efs noatime nosuid nodev
     chown radio radio /efs
     chmod 770 /efs
     chmod 770 /efs/imei
@@ -82,6 +78,26 @@ on fs
 
 # load wifi module
     insmod /system/lib/modules/bcmdhd.ko
+
+#   Change permission for modem
+    chown radio radio /sys/devices/platform/modemctl/modemctl/xmm/control
+    chmod 660 /sys/devices/platform/modemctl/modemctl/xmm/control
+
+    chown radio radio /sys/devices/platform/modemctl/modemctl/xmm/sim
+    chmod 660 /sys/devices/platform/modemctl/modemctl/xmm/sim
+
+    chown radio radio /sys/class/net/svnet0/pdp/deactivate
+    chmod 660 /sys/class/net/svnet0/pdp/deactivate
+
+    chown radio radio /sys/class/net/svnet0/pdp/activate
+    chmod 660 /sys/class/net/svnet0/pdp/activate
+
+    chown radio radio /sys/class/net/svnet0/pdp/resume
+    chmod 660 /sys/class/net/svnet0/pdp/resume
+
+    chown radio radio /sys/class/net/svnet0/pdp/suspend
+    chmod 660 /sys/class/net/svnet0/pdp/suspend
+
 
 # permission for tuning knobs
     chown system system /sys/class/misc/notification/bl_timeout
@@ -147,10 +163,6 @@ on fs
     restorecon /sys/devices/virtual/misc/voodoo_sound/stereo_expansion_gain
 
 on post-fs
-    chown system system /datadata
-    chmod 0771 /datadata
-    restorecon /datadata
-
     #symlinks for samsung RIL
     symlink /radio/modem.bin /dev/block/bml12
 
@@ -172,9 +184,6 @@ on post-fs-data
     # for migrating download provider's cache out of the small /data/data
     mkdir /data/data2 0771 system system
 
-    # setup datadata
-    exec /sbin/setupdatadata.sh
-
     # wi-fi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
@@ -187,13 +196,6 @@ on post-fs-data
     chmod 0775 /data/log
 
     setprop vold.post_fs_data_done 1
-
-service aries-ril-daemon /system/bin/rild
-    class core
-    socket rild stream 660 root radio
-    socket rild-debug stream 660 radio system
-    user root
-    group root
 
 # 3D init
 service pvrsrvinit /system/vendor/bin/pvrsrvinit
@@ -261,21 +263,17 @@ service geomagneticd /system/bin/geomagneticd
     user compass
     group system input
 
-service tvout /system/bin/tvoutserver
-    class late_start
-    user system
-    group graphics
+#service tvout /system/bin/tvoutserver
+#    class late_start
+#    user system
+#    group graphics
 
-service tvouthack /system/bin/tvouthack
-    user system
-    group graphics
-    disabled
+#service tvouthack /system/bin/tvouthack
+#    user system
+#    group graphics
+#    disabled
 
 # fusewrapped external sdcard daemon running as media_rw (1023)
 service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard0 /storage/sdcard0
-    class late_start
-    disabled
-
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
     class late_start
     disabled
