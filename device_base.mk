@@ -49,7 +49,12 @@ PRODUCT_COPY_FILES += \
 	device/samsung/aries-common/fstab.aries:root/fstab.aries \
 	device/samsung/aries-common/lpm.rc:root/lpm.rc \
 	device/samsung/aries-common/ueventd.aries.rc:root/ueventd.aries.rc \
-	device/samsung/aries-common/setupdatadata.sh:root/sbin/setupdatadata.sh
+	device/samsung/aries-common/setupdatadata.sh:root/sbin/setupdatadata.sh \
+	device/samsung/aries-common/lvm-files/lvm:root/lvm/sbin/lvm \
+	device/samsung/aries-common/lvm-files/lvm:recovery/root/lvm/sbin/lvm \
+	device/samsung/aries-common/lvm-files/lvm.conf:root/lvm/etc/lvm.conf \
+	device/samsung/aries-common/lvm-files/lvm.conf:recovery/root/lvm/etc/lvm.conf
+
 
 # Prebuilt kl and kcm keymaps
 PRODUCT_COPY_FILES += \
