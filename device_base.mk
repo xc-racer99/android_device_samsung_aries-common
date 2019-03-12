@@ -60,13 +60,10 @@ PRODUCT_COPY_FILES += \
 	device/samsung/aries-common/s3c-keypad.kl:system/usr/keylayout/s3c-keypad.kl \
 	device/samsung/aries-common/s3c-keypad.kcm:system/usr/keychars/s3c-keypad.kcm
 
-# Prebuilt static utilities (for updater.sh)
+# Prebuilts for recovery
 PRODUCT_COPY_FILES += \
-    device/samsung/aries-common/utilities/bml_over_mtd:utilities/bml_over_mtd \
-    device/samsung/aries-common/utilities/busybox:utilities/busybox \
-    device/samsung/aries-common/utilities/erase_image:utilities/erase_image \
-    device/samsung/aries-common/utilities/flash_image:utilities/flash_image \
-    device/samsung/aries-common/utilities/make_ext4fs:utilities/make_ext4fs
+	device/samsung/aries-common/recovery/create_ubi_partitions.sh:root/sbin/create_ubi_partitions.sh \
+	device/samsung/aries-common/utilities/busybox:root/sbin/busybox
 
 # Input device calibration files
 PRODUCT_COPY_FILES += \
@@ -75,7 +72,10 @@ PRODUCT_COPY_FILES += \
 # Filesystem management tools
 PRODUCT_PACKAGES += \
 	setup_fs \
-	bml_over_mtd
+	bml_over_mtd \
+	recovery_ubiformat \
+	recovery_ubimkvol \
+	recovery_ubiattach
 
 # Usb accessory
 PRODUCT_PACKAGES += \
