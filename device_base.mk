@@ -146,6 +146,7 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
+	ipc-modem \
 	libsamsung-ril \
 	libsecril-client
 
