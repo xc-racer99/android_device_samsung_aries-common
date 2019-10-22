@@ -11,6 +11,7 @@
 /dev/modem_fmt            0660   radio      radio
 /dev/modem_rfs            0660   radio      radio
 /dev/s3c2410_serial3      0660   radio      radio
+/dev/ttySAC3              0660   radio      radio
 /dev/block/mtdblock5      0660   radio      radio
 /dev/mtd/mtd5ro           0660   radio      radio
 /dev/dpram0               0660   radio      radio
@@ -45,6 +46,7 @@
 /sys/devices/virtual/input/input3   offsets        0660  root   input
 
 # for GPS
+/dev/ttySAC1              0660   system     system
 /dev/s3c2410_serial1      0660   system     system
 /dev/cg2900_audio         0660   system     system
 /dev/cg2900_bt_audio      0660   system     system
